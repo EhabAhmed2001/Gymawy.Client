@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ClassService } from '../../Service/class.service';
 import { Class, ClassToSend, Coach } from '../../Interface/Class';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CurrencyPipe, CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ClassService } from '../../Services/class.service';
 
 @Component({
   selector: 'app-classes',
