@@ -88,8 +88,8 @@ export class AddGymComponent implements OnInit {
   }
 
   submitFormAddGym(){
-    console.log(this.selectedFeatures)
-    if(this.formAddGym.valid){
+
+    if(this.formAddGym.valid &&this.selectedFeatures.length>0){
       this.gym.Name = this.formAddGym.get('name')?.value
       this.gym.Phone = this.formAddGym.get('phone')?.value
       this.gym.Description = this.formAddGym.get('description')?.value
@@ -150,6 +150,7 @@ export class AddGymComponent implements OnInit {
       this.features.push(feature)
     }
     this.selectedFeatures.splice(index,1)
+
   }
   closeModal(){
     this.currentSelectedFeature=null

@@ -134,8 +134,12 @@
                             <div class="feature-cost">💰 ${{item.Cost}}</div>
                         </div>
                     </div>
+                    <div class="error-message" *ngIf="selectedFeatures.length==0">
+                        <small >Feature is required</small>
+                    </div>
                 </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                
+                <button type="submit" class="btn btn-primary">Submit</button>
 
             </form>
         </div>

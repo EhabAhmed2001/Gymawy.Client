@@ -120,7 +120,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   searchAddress(value:string): void {
     this.addressSearch = value
-    if (!this.addressSearch.trim()) {
+    if (!this.addressSearch.trim() || this.addressSearch=="" ) {
       //alert('Please enter an address to search.');
       return;
     }
