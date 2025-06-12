@@ -1,30 +1,23 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { TraineeService } from '../../../Services/trainee.service';
-import { RouterModule } from '@angular/router';
-import { DataSharedService } from '../../../Services/data-shared.service';
+import { NavbarComponent } from "../navbar/navbar.component";
+import { AllClassesComponent } from "../all-classes/all-classes.component";
+import { AllGymsComponent } from "../all-gyms/all-gyms.component";
 
 @Component({
   selector: 'app-trainee-landing-page',
-  imports: [CommonModule, RouterModule],
+  imports: [AllClassesComponent, AllGymsComponent, NavbarComponent],
   templateUrl: './trainee-landing-page.component.html',
   styleUrl: './trainee-landing-page.component.css'
 })
 export class TraineeLandingPageComponent {
 
+ selectedOption: 'gyms' | 'classes' | 'all' = 'all'; // Default to showing gyms
 
-  constructor(private _traineeService : TraineeService, public _dataShared : DataSharedService) { }
+  constructor() { }
 
-  
-  ngOnInit() {
-    this._traineeService.GetAllGyms().subscribe({
-      next: (response) => {
-        this._dataShared.gyms = response;
-      },
-      error: (error) => {
-        console.error('Error fetching gyms:', error);
-      }
-    });
+  onFilterChange(option: 'gyms' | 'classes' | 'all') {
+    this.selectedOption = option;
+    console.log(`Selected option: ${this.selectedOption}`);
   }
 
 }
