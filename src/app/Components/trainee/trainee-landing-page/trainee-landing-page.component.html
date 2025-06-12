@@ -1,51 +1,47 @@
-<!-- trainee-dashboard.component.html -->
-<div class="trainee-dashboard">
-  <div class="container py-4">
-    <!-- Header -->
-    <header class="mb-5">
-      <h1 class="display-5 fw-bold mb-0 text-primary">Find Your Gym</h1>
-      <p class="text-muted">Browse all available gym locations</p>
-    </header>
+<app-navbar></app-navbar>
 
-    <!-- Gym Cards Grid -->
-    <div *ngIf="_dataShared.gyms.length > 0; else noGyms" class="row g-4">
-      <div *ngFor="let gym of _dataShared.gyms" class="col-md-6 col-lg-4">
-        <div class="gym-card card h-100 shadow-sm">
-          <div class="card-img-top">
-            <img [src]="gym.logo" alt="{{gym.name}} logo" class="gym-logo">
-          </div>
-          <div class="card-body">
-            <h3 class="card-title fw-bold text-dark">{{gym.name}} - {{gym.gymType}} Gym</h3>
-            <div class="d-flex align-items-center text-secondary mb-2">
-              <i class="bi bi-geo-alt me-2"></i>
-              <span class="gym-address">{{gym.address.street}}, {{gym.address.city}}, {{gym.address.country}}</span>
-            </div>
-            <div class="d-flex align-items-center text-secondary mb-2">
-              <i class="bi bi-geo-alt me-2"></i>
-              <span class="gym-address">{{gym.description}}</span>
-            </div>
-            <div class="d-flex align-items-center text-secondary mb-2">
-              <i class="bi bi-geo-alt me-2"></i>
-              <span class="gym-address">{{gym.phone}}</span>
-            </div>
-          </div>
-          <div class="card-footer bg-transparent border-top-0">
-            <a class="btn btn-outline-primary w-100" routerLink="/gym/{{gym.id}}">
-              View Details <i class="bi bi-arrow-right ms-2"></i>
-            </a>
-          </div>
-        </div>
-      </div>
+<div class="filter-container">
+  <div class="btn-group" role="group" aria-label="Filter options">
+    <!-- All Option -->
+    <input type="radio" class="btn-check" name="filterOption" id="all" 
+           autocomplete="off" [checked]="selectedOption === 'all'"
+           (change)="onFilterChange('all')">
+    <label class="btn btn-outline-primary" for="all">
+      <i class="bi bi-grid me-2"></i>All
+    </label>
+
+    <!-- Gyms Option -->
+    <input type="radio" class="btn-check" name="filterOption" id="gyms" 
+           autocomplete="off" [checked]="selectedOption === 'gyms'"
+           (change)="onFilterChange('gyms')">
+    <label class="btn btn-outline-primary" for="gyms">
+      <i class="bi bi-building me-2"></i>Gyms
+    </label>
+
+    <!-- Classes Option -->
+    <input type="radio" class="btn-check" name="filterOption" id="classes" 
+           autocomplete="off" [checked]="selectedOption === 'classes'"
+           (change)="onFilterChange('classes')">
+    <label class="btn btn-outline-primary" for="classes">
+      <i class="bi bi-people me-2"></i>Classes
+    </label>
+  </div>
+
+  <div class="content-container">
+    <!-- Show both when 'all' is selected -->
+     @if(selectedOption === 'all') {
+    <div >
+      <app-all-gyms></app-all-gyms>
+      <div class="mt-4"></div> <!-- Add spacing between components -->
+      <app-all-classes></app-all-classes>
     </div>
+  }
 
-    <ng-template #noGyms>
-      <div class="text-center py-5">
-        <div class="empty-state-icon mb-3">
-          <i class="bi bi-building text-muted"></i>
-        </div>
-        <h3 class="text-dark">No Gyms Available</h3>
-        <p class="text-muted">Please check back later for available gyms</p>
-      </div>
-    </ng-template>
+     @if(selectedOption === 'gyms') {
+    <app-all-gyms ></app-all-gyms>
+     }
+    @if(selectedOption === 'classes') {
+    <app-all-classes></app-all-classes>
+    }
   </div>
 </div>

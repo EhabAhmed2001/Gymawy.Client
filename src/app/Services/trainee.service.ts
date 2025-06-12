@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { GymClasses, GymFeatures, GymMembership, GymDetails } from '../Interface/TraineeGym';
+import { GymClasses, GymFeatures, GymMembership, GymDetails, TraineeCoachDetails, TraineeSubscription } from '../Interface/TraineeGym';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class TraineeService {
 
-  private apiUrl = `${environment.apiUrl}/Trainee`;
+  private apiUrl = `${environment.apiUrl}/trainee`;
   constructor(private httpClient: HttpClient) { }
 
   GetAllGyms(): Observable<GymDetails[]> {
@@ -30,6 +30,14 @@ export class TraineeService {
 
   GetGymFeatures(gymId: number): Observable<GymFeatures[]> {
     return this.httpClient.get<GymFeatures[]>(`${this.apiUrl}/features/${gymId}`);
+  }
+
+  GetTraineeCoachDetails(/*coachId: number*/): Observable<TraineeCoachDetails> {
+    return this.httpClient.get<TraineeCoachDetails>(`${this.apiUrl}/coach`);
+  }
+
+  GetTraineeSubscriptions(): Observable<TraineeSubscription> {
+    return this.httpClient.get<TraineeSubscription>(`${this.apiUrl}/subscriptions`);
   }
 
 }
