@@ -1,3 +1,5 @@
+import { CoachDetails, GymDetails } from "./TraineeGym";
+
 export interface Class {
   id: number,
   name: string,
@@ -31,4 +33,15 @@ export interface Trainee {
   firstName: string,
   lastName: string,
   phoneNumber: string
+}
+
+export interface AllClasses{
+  id: number;
+  name: string;
+  description: string;
+  cost: number;
+  capacity: number;
+  currentCapacity: number;
+  coach: CoachDetails;
+  gym: GymDetails;
 }

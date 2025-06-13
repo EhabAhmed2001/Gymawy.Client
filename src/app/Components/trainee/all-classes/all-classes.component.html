@@ -1,0 +1,48 @@
+<div class="trainee-dashboard mt-5 pt-5">
+  <div class="container py-4">
+    <!-- Header -->
+    <header class="mb-5">
+      <h1 class="display-5 fw-bold mb-0 text-primary">Find Your Class</h1>
+      <p class="text-muted">Browse all available Class For All Gyms</p>
+    </header>
+
+    <!-- Gym Cards Grid -->
+    <div *ngIf="allClasses.length > 0; else noGyms" class="row g-4">
+      <div *ngFor="let class of allClasses" class="col-md-6 col-lg-4">
+        <div class="gym-card card h-100 shadow-sm">
+
+          <div class="card-body">
+            <h3 class="card-title fw-bold text-dark">{{class.name}} - {{class.gym.name}} Gym</h3>
+            <div class="d-flex align-items-center text-secondary mb-2">
+              <i class="bi bi-geo-alt me-2"></i>
+              <span class="gym-address">Coach: {{class.coach.firstName}}, {{class.coach.lastName}} </span>
+            </div>
+            <div class="d-flex align-items-center text-secondary mb-2">
+              <i class="bi bi-geo-alt me-2"></i>
+              <span class="gym-address">{{class.description}}</span>
+            </div>
+            <div class="d-flex align-items-center text-secondary mb-2">
+              <i class="bi bi-geo-alt me-2"></i>
+              <span class="gym-address">{{class.capacity}} / {{class.currentCapacity}} Trainee</span>
+            </div>
+          </div>
+          <div class="card-footer bg-transparent border-top-0">
+            <a class="btn btn-outline-primary w-100"  routerLink="/gym/{{class.gym.id}}">
+              View Details <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noGyms>
+      <div class="text-center py-5">
+        <div class="empty-state-icon mb-3">
+          <i class="bi bi-building text-muted"></i>
+        </div>
+        <h3 class="text-dark">No Classes Available</h3>
+        <p class="text-muted">Please check back later for available classes</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

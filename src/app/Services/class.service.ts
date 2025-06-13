@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Class, ClassToSend, Coach, Trainee } from '../Interface/Class';
+import { AllClasses, Class, ClassToSend, Coach, Trainee } from '../Interface/Class';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment';
 export class ClassService {
   private apiUrl = environment.apiUrl;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   getClassesByGym(gymId: number): Observable<Class[]> {
     return this.httpClient.get<Class[]>(`${this.apiUrl}/Class/Gym/${gymId}`);
@@ -20,8 +20,7 @@ export class ClassService {
     return this.httpClient.get<Class>(`${this.apiUrl}/Class/${classId}`);
   }
 
-  createClass(newClass: ClassToSend): Observable<Class>
-  {
+  createClass(newClass: ClassToSend): Observable<Class> {
     return this.httpClient.post<Class>(`${this.apiUrl}/Class`, newClass)
   }
 
@@ -33,8 +32,7 @@ export class ClassService {
     return this.httpClient.delete(`${this.apiUrl}/Class/${id}`, {responseType: 'text'});
   }
 
-  getCoachesByGym(gymId: number): Observable<Coach[]>
-  {
+  getCoachesByGym(gymId: number): Observable<Coach[]> {
     return this.httpClient.get<Coach[]>(`${this.apiUrl}/Coach/${gymId}`);
   }
 
@@ -58,5 +56,9 @@ export class ClassService {
   getClassNotJoinedTrainees(classId: number): Observable<Trainee[]>
   {
     return this.httpClient.get<Trainee[]>(`${this.apiUrl}/Class/${classId}/notJoinedTrainees`);
+  }
+
+   getAllClasses(): Observable<AllClasses[]> {
+    return this.httpClient.get<AllClasses[]>(`${this.apiUrl}/Trainee/classes`);
   }
 }
