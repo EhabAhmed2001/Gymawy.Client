@@ -1,0 +1,64 @@
+<div class="container-fluid login-section mt-5">
+  <div class="row w-100 h-100">
+    <div class="col-12 col-lg-5 d-flex align-items-center justify-content-center">
+      <div class="login-box w-100 rounded-2 custom-shadow">
+        <h2><i class="fas fa-film"></i> Gymawy</h2>
+        <form [formGroup]="loginForm" (ngSubmit)="Login(loginForm)">
+
+          <div class="mb-3">
+            <input #emailInput type="email" formControlName="email" class="form-control"
+              placeholder="Email ...." required
+              [ngClass]="{ 'is-invalid': loginForm.get('email')?.invalid && (loginForm.get('email')?.touched || emailInput.value.length > 0) }">
+            <div *ngIf="loginForm.get('email')?.getError('required')" class="invalid-feedback mt-2">
+              Email is required.
+            </div>
+            <div *ngIf="loginForm.get('email')?.getError('email')" class="invalid-feedback mt-2">
+              Please enter a valid email address.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <input #passwordInput type="password" formControlName="password" class="form-control" placeholder="Password"
+              required
+              [ngClass]="{ 'is-invalid': loginForm.get('password')?.invalid && (loginForm.get('password')?.touched || passwordInput.value.length > 0) }">
+
+            <div *ngIf="loginForm.get('password')?.hasError('required')" class="invalid-feedback mt-2">
+              Password is required.
+            </div>
+
+            <div *ngIf="loginForm.get('password')?.hasError('minlength')" class="invalid-feedback mt-2">
+              Password must be at least 6 characters.
+            </div>
+
+            <div *ngIf="loginForm.get('password')?.hasError('uppercase')" class="invalid-feedback mt-2">
+              Password must contain at least one uppercase letter.
+            </div>
+
+            <div *ngIf="loginForm.get('password')?.hasError('lowercase')" class="invalid-feedback mt-2">
+              Password must contain at least one lowercase letter.
+            </div>
+
+            <div *ngIf="loginForm.get('password')?.hasError('digit')" class="invalid-feedback mt-2">
+              Password must contain at least one digit.
+            </div>
+
+            <div *ngIf="loginForm.get('password')?.hasError('special')" class="invalid-feedback mt-2">
+              Password must contain at least one special character.
+            </div>
+          </div>
+
+          <button type="submit"><i class="fas fa-sign-in-alt me-2"></i>Sign In</button>
+
+          <div class="text-center mt-2">
+            <a  [routerLink]="['/register']" routerLinkActive="router-link-active"  class="text-secondary">Don't have an account? Register</a>
+          </div>
+
+          <div class="footer-text">
+            &copy; 2025 StreamViebs. All rights reserved.<br>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>

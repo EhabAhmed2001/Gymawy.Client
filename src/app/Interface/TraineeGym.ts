@@ -59,6 +59,7 @@ export interface TraineeCoachDetails {
   id: number;
   firstName: string;
   lastName: string;
+  userName: string;
   imageUrl: string;
   about: string;
   traineeCount: number;
