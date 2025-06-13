@@ -6,7 +6,8 @@ import { GymDetailsComponent } from './Components/trainee/gym-details/gym-detail
 import { TraineeComponent } from './Layout/trainee/trainee.component';
 import { TraineeCoachComponent } from './Components/trainee/trainee-coach/trainee-coach.component';
 import { TraineeSubscriptionsComponent } from './Components/trainee/trainee-subscriptions/trainee-subscriptions.component';
-import { ClassesComponent } from './Components/classes/classes.component';
+import { ClassTraineesComponent } from './Components/class-trainees/class-trainees.component';
+import { AddGymComponent } from './Components/add-gym/add-gym.component';
 
 export const routes: Routes = [
   {
@@ -21,6 +22,7 @@ export const routes: Routes = [
     ]
   },
   {path:'gym/:gymId/class', component: ClassesComponent, title: "Classes"},
-  {path:'gym/:gymId/class/:classId/trainees', component: ClassTraineesComponent, title: "Joined Trainees"}
+  {path:'gym/:gymId/class/:classId/trainees', component: ClassTraineesComponent, title: "Joined Trainees"},
+  {path:'gym', component:AddGymComponent}
 
 ];

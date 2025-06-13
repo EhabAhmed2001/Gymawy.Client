@@ -32,13 +32,13 @@ export class ClassTraineesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.classId = +this.router.snapshot.paramMap.get('classId')!;
     this.loadTrainees();
     this.loadNotJoinedTrainees();
   }
 
   loadTrainees() {
     this.loading = true;
-    this.classId = +this.router.snapshot.paramMap.get('classId')!;
     this.classService.getClassTrainees(this.classId).subscribe({
       next: (data) => {
         this.Trainees = data;
@@ -53,7 +53,6 @@ export class ClassTraineesComponent implements OnInit {
 
   loadNotJoinedTrainees() {
     this.loading = true;
-    this.classId = +this.router.snapshot.paramMap.get('classId')!;
     this.classService.getClassNotJoinedTrainees(this.classId).subscribe({
       next: (data) => {
         this.notJoinedTrainees = data;
@@ -70,19 +69,23 @@ export class ClassTraineesComponent implements OnInit {
   openAddTraineeModal() {
     this.showAddModal = true;
     this.selectedTraineeId = null;
+    document.body.classList.add('modal-open');
   }
 
   openRemoveModal(trainee: Trainee) {
     this.selectedTrainee = trainee;
     this.showRemoveModal = true;
+    document.body.classList.add('modal-open');
   }
 
   closeAddModal() {
     this.showAddModal = false;
+    document.body.classList.remove('modal-open');
   }
 
   closeRemoveModal() {
     this.showRemoveModal = false;
+    document.body.classList.remove('modal-open');
   }
 
   // Actions
@@ -94,7 +97,7 @@ export class ClassTraineesComponent implements OnInit {
           this.loadTrainees();
           this.loadNotJoinedTrainees();
           this.adding = false;
-          this.showAddModal = false;
+          this.closeAddModal();
         },
         error: (error) => {
           console.error('Error adding trainee:', error);
@@ -105,26 +108,21 @@ export class ClassTraineesComponent implements OnInit {
   }
 
   removeTrainee() {
-  if (this.selectedTrainee) {
-    this.removing = true;
-    this.classService.removeTraineeFromClass(this.classId, this.selectedTrainee.id)
-      .subscribe({
-        next: (response) => {
-          console.log(response); // "Trainee with Id: 3 Deleted Successfully..."
-          this.showRemoveModal = false;
-          this.removing = false;
-          this.loadTrainees(); // Refresh the list
-          this.loadNotJoinedTrainees();
-        },
-        error: (error) => {
-          console.error('Error removing trainee:', error);
-          this.removing = false;
-          // Handle actual errors here
-          if (error.status !== 200) {
-            alert('Failed to remove trainee');
+    if (this.selectedTrainee) {
+      this.removing = true;
+      this.classService.removeTraineeFromClass(this.classId, this.selectedTrainee.id)
+        .subscribe({
+          next: () => {
+            this.loadTrainees();
+            this.loadNotJoinedTrainees();
+            this.removing = false;
+            this.closeRemoveModal();
+          },
+          error: (error) => {
+            console.error('Error removing trainee:', error);
+            this.removing = false;
           }
-        }
-      });
+        });
+    }
   }
-}
 }

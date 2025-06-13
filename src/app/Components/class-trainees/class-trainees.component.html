@@ -42,7 +42,7 @@
       }
       @if (Trainees.length === 0) {
         <tr>
-          <td colspan="5" class="text-center py-4">No trainees enrolled in this class yet.</td>
+          <td colspan="4" class="text-center py-4">No trainees enrolled in this class yet.</td>
         </tr>
       }
     </tbody>
@@ -50,83 +50,75 @@
 </div>
 
 <!-- Add Trainee Modal -->
-@if(showAddModal) {
-  <div class="modal-container">
-    <div class="modal-backdrop" (click)="closeAddModal()"></div>
-    <div class="modal-wrapper">
-      <div class="modal show" tabindex="-1">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Add Trainee to Class</h5>
-              <button type="button" class="btn-close" (click)="closeAddModal()"></button>
-            </div>
-            <div class="modal-body">
-              <div class="form-group">
-                <label class="form-label">Select Trainee</label>
-                <select class="form-select" [(ngModel)]="selectedTraineeId">
-                  <option value="" disabled selected>Select a trainee</option>
-                  @for (t of notJoinedTrainees; track t.id) {
-                    <option [value]="t.id">{{ t.firstName }} {{ t.lastName }}</option>
-                  }
-                </select>
-              </div>
-              @if (notJoinedTrainees.length === 0) {
-                <div class="alert alert-info mt-3">
-                  All available trainees are already in this class.
-                </div>
+<div class="modal-container" [class.active]="showAddModal">
+  <div class="modal-backdrop" (click)="closeAddModal()"></div>
+  <div class="modal-wrapper">
+    <div class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Trainee to Class</h5>
+          <button type="button" class="btn-close" (click)="closeAddModal()"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Select Trainee</label>
+            <select class="form-select" [(ngModel)]="selectedTraineeId">
+              <option [ngValue]="null" disabled selected>Select a trainee</option>
+              @for (t of notJoinedTrainees; track t.id) {
+                <option [value]="t.id">{{ t.firstName }} {{ t.lastName }}</option>
               }
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" (click)="closeAddModal()">Cancel</button>
-              <button type="button" class="btn btn-primary"
-                      (click)="addTrainee()"
-                      [disabled]="!selectedTraineeId || notJoinedTrainees.length === 0">
-                @if(adding) {
-                  <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
-                  <span role="status">Adding...</span>
-                } @else {
-                  <i class="bi bi-check-circle"></i> Add
-                }
-              </button>
-            </div>
+            </select>
           </div>
+          @if (notJoinedTrainees.length === 0) {
+            <div class="alert alert-info mt-3">
+              All available trainees are already in this class.
+            </div>
+          }
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeAddModal()">Cancel</button>
+          <button type="button" class="btn btn-primary"
+                  (click)="addTrainee()"
+                  [disabled]="!selectedTraineeId || notJoinedTrainees.length === 0">
+            @if(adding) {
+              <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+              <span role="status">Adding...</span>
+            } @else {
+              <i class="bi bi-check-circle"></i> Add
+            }
+          </button>
         </div>
       </div>
     </div>
   </div>
-}
+</div>
 
 <!-- Remove Trainee Modal -->
-@if(showRemoveModal) {
-  <div class="modal-container">
-    <div class="modal-backdrop" (click)="closeRemoveModal()"></div>
-    <div class="modal-wrapper">
-      <div class="modal show" tabindex="-1">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Confirm Removal</h5>
-              <button type="button" class="btn-close" (click)="closeRemoveModal()"></button>
-            </div>
-            <div class="modal-body">
-              <p>Are you sure you want to remove <strong>{{ selectedTrainee?.firstName }} {{ selectedTrainee?.lastName }}</strong> from this class?</p>
-              <p class="text-danger">This action cannot be undone.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" (click)="closeRemoveModal()">Cancel</button>
-              <button type="button" class="btn btn-danger" (click)="removeTrainee()" [disabled]="removing">
-                @if(removing) {
-                  <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
-                  <span role="status">Removing...</span>
-                } @else {
-                  <i class="bi bi-trash"></i> Remove
-                }
-              </button>
-            </div>
-          </div>
+<div class="modal-container" [class.active]="showRemoveModal">
+  <div class="modal-backdrop" (click)="closeRemoveModal()"></div>
+  <div class="modal-wrapper">
+    <div class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirm Removal</h5>
+          <button type="button" class="btn-close" (click)="closeRemoveModal()"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to remove <strong>{{ selectedTrainee?.firstName }} {{ selectedTrainee?.lastName }}</strong> from this class?</p>
+          <p class="text-danger">This action cannot be undone.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeRemoveModal()">Cancel</button>
+          <button type="button" class="btn btn-danger" (click)="removeTrainee()" [disabled]="removing">
+            @if(removing) {
+              <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+              <span role="status">Removing...</span>
+            } @else {
+              <i class="bi bi-trash"></i> Remove
+            }
+          </button>
         </div>
       </div>
     </div>
   </div>
-}
+</div>

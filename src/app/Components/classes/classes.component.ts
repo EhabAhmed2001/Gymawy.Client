@@ -1,25 +1,21 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Class, ClassToSend, Coach } from '../../Interface/Class';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { CurrencyPipe, CommonModule } from '@angular/common';
+import { CurrencyPipe, CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ClassService } from '../../Services/class.service';
 
 @Component({
   selector: 'app-classes',
   standalone: true,
-  imports: [CurrencyPipe, RouterModule, CommonModule, FormsModule],
+  imports: [CurrencyPipe, RouterModule, CommonModule, FormsModule, DatePipe],
   templateUrl: './classes.component.html',
-  styleUrl: './classes.component.css'
+  styleUrls: ['./classes.component.css']
 })
 export class ClassesComponent implements OnInit {
-  @ViewChild('createForm') createForm!: NgForm;
-  @ViewChild('editForm') editForm!: NgForm;
-
   public GymClasses: Class[] = [];
   gymId: number = 0;
 
-  // Selected class for operations
   selectedClass: Class = {
     id: 0,
     name: '',
@@ -31,7 +27,6 @@ export class ClassesComponent implements OnInit {
     coachName: ''
   };
 
-  // New class for creation
   newClass: ClassToSend = {
     name: '',
     description: '',
@@ -55,22 +50,15 @@ export class ClassesComponent implements OnInit {
   };
 
   gymCoaches: Coach[] = [];
-
-  // Modal states
   showViewModal = false;
   showEditModal = false;
   showDeleteModal = false;
   showCreateModal = false;
-
-  // Loading states
   loading = false;
   deleting = false;
   saving = false;
   creating = false;
-
-  // Error handling
   errorMessage: string | null = null;
-  apiErrorDetails: any = null;
 
   constructor(
     private classService: ClassService,
@@ -85,48 +73,38 @@ export class ClassesComponent implements OnInit {
 
   loadClasses(): void {
     this.loading = true;
-    this.errorMessage = null;
     this.classService.getClassesByGym(this.gymId).subscribe({
       next: (data: Class[]) => {
         this.GymClasses = data;
         this.loading = false;
       },
       error: (err) => {
-        console.error('Error loading classes:', err);
-        this.errorMessage = 'Failed to load classes. Please try again later.';
-        this.apiErrorDetails = err.error;
-        this.loading = false;
+        this.handleError(err, 'Failed to load classes');
       }
     });
   }
 
   loadCoaches(): void {
     this.loading = true;
-    this.errorMessage = null;
     this.classService.getCoachesByGym(this.gymId).subscribe({
       next: (data: Coach[]) => {
         this.gymCoaches = data;
         this.loading = false;
       },
       error: (err) => {
-        console.error('Error loading Coaches:', err);
-        this.errorMessage = 'Failed to load coaches. Please try again later.';
-        this.apiErrorDetails = err.error;
-        this.loading = false;
+        this.handleError(err, 'Failed to load coaches');
       }
     });
   }
 
-  // Modal operations
   openViewModal(c: Class): void {
     this.selectedClass = { ...c };
     this.showViewModal = true;
+    document.body.classList.add('modal-open');
   }
 
   openEditModal(c: Class): void {
     this.selectedClass = { ...c };
-
-    // Find the coach by name to get the ID
     const coach = this.gymCoaches.find(coach =>
       `${coach.firstName} ${coach.lastName}` === c.coachName
     );
@@ -143,13 +121,13 @@ export class ClassesComponent implements OnInit {
     };
 
     this.showEditModal = true;
-    this.errorMessage = null;
+    document.body.classList.add('modal-open');
   }
 
   openDeleteModal(c: Class): void {
     this.selectedClass = { ...c };
     this.showDeleteModal = true;
-    this.errorMessage = null;
+    document.body.classList.add('modal-open');
   }
 
   openCreateModal(): void {
@@ -159,166 +137,98 @@ export class ClassesComponent implements OnInit {
       cost: 0,
       currentCapacity: 0,
       capacity: 10,
-      date: new Date(Date.now()),
-      coachId: null,
+      date: new Date(),
+      coachId: 0,
       gymId: this.gymId
     };
     this.showCreateModal = true;
-    this.errorMessage = null;
+    document.body.classList.add('modal-open');
   }
 
-  // Modal close handlers
   closeViewModal(): void {
     this.showViewModal = false;
+    document.body.classList.remove('modal-open');
   }
 
   closeEditModal(): void {
     this.showEditModal = false;
-    this.errorMessage = null;
+    document.body.classList.remove('modal-open');
   }
 
   closeDeleteModal(): void {
     this.showDeleteModal = false;
-    this.errorMessage = null;
+    document.body.classList.remove('modal-open');
   }
 
   closeCreateModal(): void {
     this.showCreateModal = false;
-    this.errorMessage = null;
+    document.body.classList.remove('modal-open');
   }
 
-  // CRUD operations
-  createClass(): void {
-    // Mark all fields as touched to show validation messages
-    if (this.createForm) {
-      Object.keys(this.createForm.controls).forEach(field => {
-        const control = this.createForm.controls[field];
-        control.markAsTouched({ onlySelf: true });
-      });
-    }
-
-    // Check if form is valid
-    if (this.createForm.invalid) {
-      return;
-    }
-
-    // Additional validation for date
-    if (new Date(this.newClass.date).getTime() < Date.now()) {
-      this.createForm.controls['date'].setErrors({ 'invalidDate': true });
-      return;
-    }
-
-    // Check capacity
-    if (this.newClass.currentCapacity > this.newClass.capacity) {
-      this.createForm.controls['currentCapacity'].setErrors({ 'capacityExceeded': true });
-      this.errorMessage = 'Current capacity cannot exceed total capacity';
-      return;
-    }
-
+  createClass(form: NgForm): void {
+    if (form.invalid) return;
+    
     this.creating = true;
-    this.errorMessage = null;
-
     this.classService.createClass(this.newClass).subscribe({
       next: (createdClass) => {
         this.GymClasses.push(createdClass);
+        this.closeCreateModal();
         this.creating = false;
-        this.showCreateModal = false;
-        this.loadClasses();
       },
       error: (err) => {
-        console.error('Error creating class:', err);
-        this.errorMessage = err.error?.message || 'Failed to create class. Please try again.';
-        this.apiErrorDetails = err.error;
-        this.creating = false;
+        this.handleError(err, 'Failed to create class');
       }
     });
   }
 
-  updateClass(): void {
-    // Mark all fields as touched to show validation messages
-    if (this.editForm) {
-      Object.keys(this.editForm.controls).forEach(field => {
-        const control = this.editForm.controls[field];
-        control.markAsTouched({ onlySelf: true });
-      });
-    }
-
-    // Check if form is valid
-    if (this.editForm.invalid) {
-      return;
-    }
-
-    // Additional validation for date
-    if (new Date(this.updatedClass.date).getTime() < Date.now()) {
-      this.editForm.controls['date'].setErrors({ 'invalidDate': true });
-      return;
-    }
-
-    // Check capacity
-    if (this.updatedClass.currentCapacity > this.updatedClass.capacity) {
-      this.editForm.controls['currentCapacity'].setErrors({ 'capacityExceeded': true });
-      this.errorMessage = 'Current capacity cannot exceed total capacity';
-      return;
-    }
-
+  updateClass(form: NgForm): void {
+    if (form.invalid) return;
+    
     this.saving = true;
-    this.errorMessage = null;
-
     this.classService.updateClass(this.selectedClass.id, this.updatedClass).subscribe({
       next: (updatedClass) => {
         const index = this.GymClasses.findIndex(c => c.id === updatedClass.id);
-        if (index !== -1) {
-          this.GymClasses[index] = updatedClass;
-        }
+        if (index !== -1) this.GymClasses[index] = updatedClass;
+        this.closeEditModal();
         this.saving = false;
-        this.showEditModal = false;
-        this.loadClasses();
       },
       error: (err) => {
-        console.error('Error updating class:', err);
-        this.errorMessage = err.error?.message || 'Failed to update class. Please try again.';
-        this.apiErrorDetails = err.error;
-        this.saving = false;
+        this.handleError(err, 'Failed to update class');
       }
     });
   }
 
   deleteClass(): void {
     this.deleting = true;
-    this.errorMessage = null;
-
     this.classService.deleteClass(this.selectedClass.id).subscribe({
       next: () => {
         this.GymClasses = this.GymClasses.filter(c => c.id !== this.selectedClass.id);
+        this.closeDeleteModal();
         this.deleting = false;
-        this.showDeleteModal = false;
-        this.loadClasses();
-        this.loadCoaches();
       },
       error: (err) => {
-        console.error('Error deleting class:', err);
-        this.errorMessage = err.error?.message || 'Failed to delete class. Please try again.';
-        this.apiErrorDetails = err.error;
-        this.deleting = false;
+        this.handleError(err, 'Failed to delete class');
       }
     });
   }
 
-  validateDate(): void {
-    const dateControl = this.createForm.controls['date'];
-    if (new Date(this.newClass.date).getTime() < Date.now()) {
-      dateControl.setErrors({ 'invalidDate': true });
+  validateDate(controlName: string, form: NgForm): void {
+    const dateValue = controlName === 'date' ? this.newClass.date : this.updatedClass.date;
+    const dateControl = form.controls[controlName];
+    
+    if (new Date(dateValue).getTime() < Date.now()) {
+      dateControl?.setErrors({ 'invalidDate': true });
     } else {
-      dateControl.setErrors(null);
+      dateControl?.setErrors(null);
     }
   }
 
-  validateEditDate(): void {
-    const dateControl = this.editForm.controls['date'];
-    if (new Date(this.updatedClass.date).getTime() < Date.now()) {
-      dateControl.setErrors({ 'invalidDate': true });
-    } else {
-      dateControl.setErrors(null);
-    }
+  private handleError(err: any, defaultMessage: string): void {
+    console.error(err);
+    this.errorMessage = err.error?.message || defaultMessage;
+    this.loading = false;
+    this.creating = false;
+    this.saving = false;
+    this.deleting = false;
   }
 }
