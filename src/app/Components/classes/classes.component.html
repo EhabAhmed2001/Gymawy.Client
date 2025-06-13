@@ -7,36 +7,21 @@
   </div>
 }
 
-<!-- Error Message -->
-@if(errorMessage) {
-  <div class="alert alert-danger">
-    {{ errorMessage }}
-    @if(apiErrorDetails) {
-      <div class="mt-2">
-        <small class="text-muted">Details:</small>
-        <pre class="error-details">{{ apiErrorDetails | json }}</pre>
-      </div>
-    }
-  </div>
-}
-
 <!-- Create Class Button -->
-
-<div class="mb-3">
+<div style="margin-bottom: 15px;">
   <button class="btn btn-primary" (click)="openCreateModal()">
     <i class="bi bi-plus"></i> Add New Class
   </button>
 </div>
 
-
 <div class="table-responsive">
   <table class="table table-bordered table-striped custom-table">
     <thead class="table-dark">
       <tr>
-        <th>Id</th>
         <th>Name</th>
         <th>Description</th>
         <th>Cost</th>
+        <th>Date</th>
         <th>Current Capacity</th>
         <th>Capacity</th>
         <th>Coach Name</th>
@@ -46,10 +31,10 @@
     <tbody>
       @for (c of GymClasses; track c.id) {
         <tr>
-          <td>{{ c.id }}</td>
           <td>{{ c.name }}</td>
           <td>{{ c.description }}</td>
           <td>{{ c.cost | currency }}</td>
+          <td>{{ c.date | date: 'yyyy-MM-dd hh:mm a' }}</td>
           <td>{{ c.currentCapacity }}</td>
           <td>{{ c.capacity }}</td>
           <td>{{ c.coachName }}</td>
@@ -64,6 +49,9 @@
               <button class="btn btn-danger btn-sm" (click)="openDeleteModal(c)">
                 <i class="bi bi-trash"></i> Delete
               </button>
+              <a routerLink="{{c.id}}/trainees" class="btn btn-secondary" style="text-decoration:none;">
+                Trainees
+              </a>
             </div>
           </td>
         </tr>
@@ -72,152 +60,245 @@
   </table>
 </div>
 
-
-<!-- Create Class Modal -->
-@if(showCreateModal) {
-  <div class="modal-backdrop show"></div>
-  <div class="modal show d-block" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Create New Class</h5>
-          <button type="button" class="btn-close" (click)="closeCreateModal()" aria-label="Close"></button>
-        </div>
-
-        <form (ngSubmit)="createClass()">
-          <div class="modal-body">
-            <div class="mb-3">
-              <label for="className" class="form-label">Name</label>
-              <input type="text" class="form-control" id="className"
-                     [(ngModel)]="newClass.name" name="name" required>
-              @if (errorMessage?.includes('name')) {
-                <div class="text-danger small mt-1">{{ errorMessage }}</div>
-              }
-            </div>
-
-            <div class="mb-3">
-              <label for="classDescription" class="form-label">Description</label>
-              <textarea class="form-control" id="classDescription"
-                        [(ngModel)]="newClass.description" name="description" rows="3"></textarea>
-            </div>
-
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="classCost" class="form-label">Cost</label>
-                <input type="number" class="form-control" id="classCost"
-                       [(ngModel)]="newClass.cost" name="cost" min="0" step="0.01" required>
-                @if (errorMessage?.includes('Cost')) {
-                  <div class="text-danger small mt-1">{{ errorMessage }}</div>
-                }
-              </div>
-
-              <div class="col-md-6 mb-3">
-                <label for="classCoach" class="form-label">Coach</label>
-                <select class="form-select" id="classCoach"
-                        [(ngModel)]="newClass.coachId" name="coachId" required>
-                  <option [ngValue]="null" disabled>Select a coach</option>
-                  @for (coach of gymCoaches; track coach.id) {
-                    <option [ngValue]="coach.id">
-                      {{ coach.firstName }} {{ coach.lastName }}
-                    </option>
-                  }
-                </select>
-                @if (errorMessage?.includes('coach')) {
-                  <div class="text-danger small mt-1">{{ errorMessage }}</div>
-                }
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="currentCapacity" class="form-label">Current Capacity</label>
-                <input readonly type="number" class="form-control bg-light" id="currentCapacity"
-                       [(ngModel)]="newClass.currentCapacity" name="currentCapacity" min="0">
-              </div>
-
-              <div class="col-md-6 mb-3">
-                <label for="totalCapacity" class="form-label">Total Capacity</label>
-                <input type="number" class="form-control" id="totalCapacity"
-                      [(ngModel)]="newClass.capacity" name="capacity" min="1" required>
-                @if (errorMessage?.includes('Capacity')) {
-                  <div class="text-danger small mt-1">{{ errorMessage }}</div>
-                }
-              </div>
-            </div>
-          </div>
-
-          <div class="modal-footer">
-            @if(errorMessage && !errorMessage.includes('name') && !errorMessage.includes('Cost')
-                && !errorMessage.includes('coach') && !errorMessage.includes('Capacity')) {
-              <div class="alert alert-danger w-100 mb-3">
-                {{ errorMessage }}
-              </div>
-            }
-
-            <button type="button" class="btn btn-secondary" (click)="closeCreateModal()">Cancel</button>
-            <button type="submit" class="btn btn-primary" [disabled]="creating">
-              @if(creating) {
-                <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
-                <span role="status">Creating...</span>
-              } @else {
-                Create Class
-              }
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-}
-
 <!-- View Class Modal -->
 @if(showViewModal) {
-  <div class="modal-backdrop show"></div>
-  <div class="modal show d-block" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Class Details</h5>
-          <button type="button" class="btn-close" (click)="closeViewModal()"></button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-md-12">
-              <h3>{{ selectedClass.name }}</h3>
-              <p class="text-muted">Taught by {{ selectedClass.coachName }}</p>
-              <h4 class="text-primary">{{ selectedClass.cost | currency }}</h4>
-              <hr>
+  <div class="modal-container view-class-modal">
+    <div class="modal-backdrop" (click)="closeViewModal()"></div>
+    <div class="modal-wrapper">
+      <div class="modal show" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Class Details: {{ selectedClass.name }}</h5>
+              <button type="button" class="btn-close" (click)="closeViewModal()"></button>
+            </div>
+            <div class="modal-body">
+              <div class="class-details-container">
+                <div class="class-main-info">
+                  <div class="class-header">
+                    <h3 class="class-name">{{ selectedClass.name }}</h3>
+                    <div class="class-price-badge">
+                      {{ selectedClass.cost | currency }}
+                    </div>
+                  </div>
+                  <p class="class-coach">
+                    Managed by {{ selectedClass.coachName }}
+                  </p>
 
-              <div class="row mb-3">
-                <div class="col-md-6">
-                  <h5>Description</h5>
-                  <p>{{ selectedClass.description || 'No description available' }}</p>
+                  <div class="class-description">
+                    <h5> Description</h5>
+                    <p>{{ selectedClass.description || 'No description provided' }}</p>
+                  </div>
                 </div>
-                <div class="col-md-6">
-                  <h5>Capacity Information</h5>
-                  <p><strong>Current Capacity:</strong> {{ selectedClass.currentCapacity }}</p>
-                  <p><strong>Total Capacity:</strong> {{ selectedClass.capacity }}</p>
-                  <p><strong>Available Spots:</strong> {{ selectedClass.capacity - selectedClass.currentCapacity }}</p>
 
-                  <!-- Capacity Progress Bar -->
-                  <div class="mb-2">
-                    <div class="progress">
-                      <div class="progress-bar"
-                          [style.width.%]="(selectedClass.currentCapacity / selectedClass.capacity) * 100"
-                          [class.bg-success]="(selectedClass.currentCapacity / selectedClass.capacity) < 0.7"
-                          [class.bg-warning]="(selectedClass.currentCapacity / selectedClass.capacity) >= 0.7 && (selectedClass.currentCapacity / selectedClass.capacity) < 0.9"
-                          [class.bg-danger]="(selectedClass.currentCapacity / selectedClass.capacity) >= 0.9">
-                        {{ ((selectedClass.currentCapacity / selectedClass.capacity) * 100) | number:'1.0-0' }}%
+                <div class="class-meta-info">
+                  <div class="class-schedule" style="margin-top: -80px;">
+                    <h5><i class="bi bi-calendar-event"></i> Schedule</h5>
+                    <p>
+                      <i class="bi bi-clock"></i>
+                      {{selectedClass.date | date: 'fullDate'}} at
+                      {{selectedClass.date | date: 'shortTime'}}
+                    </p>
+                  </div>
+
+                  <div class="class-capacity">
+                    <h5><i class="bi bi-people"></i> Capacity</h5>
+                    <div class="capacity-progress-container">
+                      <div class="capacity-stats">
+                        <span class="current-capacity">
+                          {{ selectedClass.currentCapacity }} enrolled
+                        </span>
+                        <span class="total-capacity">
+                          of {{ selectedClass.capacity }} total spots
+                        </span>
+                        <span class="available-spots">
+                          ({{ selectedClass.capacity - selectedClass.currentCapacity }} available)
+                        </span>
+                      </div>
+                      <div class="progress">
+                        <div class="progress-bar"
+                            [style.width.%]="(selectedClass.currentCapacity / selectedClass.capacity) * 100"
+                            [class.bg-success]="(selectedClass.currentCapacity / selectedClass.capacity) < 0.7"
+                            [class.bg-warning]="(selectedClass.currentCapacity / selectedClass.capacity) >= 0.7 && (selectedClass.currentCapacity / selectedClass.capacity) < 0.9"
+                            [class.bg-danger]="(selectedClass.currentCapacity / selectedClass.capacity) >= 0.9">
+                          {{ ((selectedClass.currentCapacity / selectedClass.capacity) * 100) | number:'1.0-0' }}%
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" (click)="closeViewModal()">
+                <i class="bi bi-check-circle"></i> OK
+              </button>
+            </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="closeViewModal()">Close</button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Create Class Modal -->
+@if(showCreateModal) {
+  <div class="modal-container create-class-modal">
+    <div class="modal-backdrop" (click)="closeCreateModal()"></div>
+    <div class="modal-wrapper">
+      <div class="modal show" tabindex="-1" role="dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Create New Class</h5>
+            <button type="button" class="btn-close" (click)="closeCreateModal()" aria-label="Close"></button>
+          </div>
+
+          <form (ngSubmit)="createClass()" #createForm="ngForm">
+            <div class="modal-body">
+              <div class="form-stacked">
+                <!-- Name -->
+                <div class="form-section">
+                  <label for="className" class="form-label required-field">Name</label>
+                  <input type="text" class="form-control" id="className"
+                        [(ngModel)]="newClass.name" name="name" required #name="ngModel"
+                        [class.invalid-field]="name.invalid && (name.dirty || name.touched)">
+                  @if (name.invalid && (name.dirty || name.touched)) {
+                    <div class="text-danger">
+                      Class name is required
+                    </div>
+                  }
+                </div>
+
+                <!-- Description -->
+                <div class="form-section">
+                  <label for="classDescription" class="form-label required-field">Description</label>
+                  <textarea class="form-control" id="classDescription"
+                      [(ngModel)]="newClass.description" name="description" rows="4" required
+                      #description="ngModel"
+                      [class.invalid-field]="description.invalid && (description.dirty || description.touched)"></textarea>
+                  @if (description.invalid && (description.dirty || description.touched)) {
+                    <div class="text-danger">
+                      Description is required
+                    </div>
+                  }
+                </div>
+
+                <!-- Cost -->
+                <div class="form-section">
+                  <label for="classCost" class="form-label required-field">Cost</label>
+                  <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="number" class="form-control" id="classCost"
+                      [(ngModel)]="newClass.cost" name="cost" min="0" step="1" required
+                      #cost="ngModel"
+                      [class.invalid-field]="cost.invalid && (cost.dirty || cost.touched)">
+                  </div>
+                  @if (cost.invalid && (cost.dirty || cost.touched)) {
+                    <div class="text-danger">
+                      @if (cost.errors?.['required']) {
+                        <div>Cost is required</div>
+                      }
+                      @if (cost.errors?.['min']) {
+                        <div>Cost cannot be negative</div>
+                      }
+                    </div>
+                  }
+                </div>
+
+                <!-- Coach -->
+                <div class="form-section">
+                  <label for="classCoach" class="form-label required-field">Coach</label>
+                  <select class="form-select" id="classCoach"
+                          [(ngModel)]="newClass.coachId" name="coachId" required
+                          #coachId="ngModel"
+                          [class.invalid-field]="coachId.invalid && (coachId.dirty || coachId.touched)">
+                    <option [ngValue]="" disabled selected>Select a coach</option>
+                    @for (coach of gymCoaches; track coach.id) {
+                      <option [ngValue]="coach.id">
+                        {{ coach.firstName }} {{ coach.lastName }}
+                      </option>
+                    }
+                  </select>
+                  @if (coachId.invalid && (coachId.dirty || coachId.touched)) {
+                    <div class="text-danger">
+                      Please select a coach
+                    </div>
+                  }
+                </div>
+
+                <!-- Current Capacity -->
+              <div class="form-section">
+                  <label for="currentCapacity" class="form-label required-field">Current Capacity</label>
+                  <input type="number" class="form-control" id="currentCapacity"
+                      [(ngModel)]="newClass.currentCapacity" name="currentCapacity" min="0" readonly>
+                </div>
+
+                <!-- Total Capacity -->
+                <div class="form-section">
+                  <label for="totalCapacity" class="form-label required-field">Total Capacity</label>
+                  <input type="number" class="form-control" id="totalCapacity"
+                        [(ngModel)]="newClass.capacity" name="capacity" min="1" required
+                        #capacity="ngModel"
+                        [class.invalid-field]="capacity.invalid && (capacity.dirty || capacity.touched)">
+                  @if (capacity.invalid && (capacity.dirty || capacity.touched)) {
+                    <div class="text-danger">
+                      @if (capacity.errors?.['required']) {
+                        <div>Capacity is required</div>
+                      }
+                      @if (capacity.errors?.['min']) {
+                        <div>Capacity must be at least 1</div>
+                      }
+                    </div>
+                  }
+                </div>
+
+                <!-- Date -->
+                <div class="form-section">
+                  <label for="date" class="form-label required-field">Date & Time</label>
+                  <input type="datetime-local" class="form-control" id="date"
+                        [(ngModel)]="newClass.date" name="date" required
+                        #date="ngModel" (change)="validateDate()"
+                        [class.invalid-field]="date.invalid && (date.dirty || date.touched)">
+                  @if (date.invalid && (date.dirty || date.touched)) {
+                    <div class="text-danger">
+                      @if (date.errors?.['required']) {
+                        <div>Date is required</div>
+                      }
+                      @if (date.errors?.['invalidDate']) {
+                        <div>Date cannot be in the past</div>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+
+            <!-- General error message (for server-side errors) -->
+            @if (errorMessage) {
+              <div class="alert alert-danger mx-3">
+                {{ errorMessage }}
+              </div>
+            }
+
+            <div class="modal-footer">
+              <div class="required-fields-note">
+                <span class="required-asterisk">*</span> indicates required fields
+              </div>
+              <div class="modal-footer-buttons">
+                <button type="button" class="btn btn-outline-secondary" (click)="closeCreateModal()">
+                  <i class="bi bi-x-circle"></i> Cancel
+                </button>
+                <button type="submit" class="btn btn-primary" [disabled]="creating || createForm.invalid">
+                  @if(creating) {
+                    <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                    <span role="status">Creating...</span>
+                  } @else {
+                    <i class="bi bi-check-circle"></i> Create Class
+                  }
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -226,68 +307,156 @@
 
 <!-- Edit Class Modal -->
 @if(showEditModal) {
-  <div class="modal-backdrop show"></div>
-  <div class="modal show d-block" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Edit Class</h5>
-          <button type="button" class="btn-close" (click)="closeEditModal()"></button>
-        </div>
-        <div class="modal-body">
-          @if(errorMessage) {
-            <div class="alert alert-danger">
-              {{ errorMessage }}
-            </div>
-          }
-          <form>
-            <div class="mb-3">
-              <label class="form-label">Name</label>
-              <input type="text" class="form-control" [(ngModel)]="updatedClass.name" name="name" required>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Description</label>
-              <textarea class="form-control" [(ngModel)]="updatedClass.description" name="description" rows="3"></textarea>
-            </div>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label class="form-label">Cost</label>
-                <input type="number" class="form-control" [(ngModel)]="updatedClass.cost" name="cost" min="0" step="0.01" required>
-              </div>
-              <div class="col-md-6 mb-3">
-                <label class="form-label">Coach</label>
-                <select class="form-select" [(ngModel)]="updatedClass.coachId" name="coachId" required>
-                  <option [ngValue]="null" disabled>Select a coach</option>
-                  @for (coach of gymCoaches; track coach.id) {
-                    <option [value]="coach.id">
-                      {{ coach.firstName }} {{ coach.lastName }}
-                    </option>
+  <div class="modal-container edit-class-modal">
+    <div class="modal-backdrop" (click)="closeEditModal()"></div>
+    <div class="modal-wrapper">
+      <div class="modal show" tabindex="-1">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit Class: {{ selectedClass.name }}</h5>
+            <button type="button" class="btn-close" (click)="closeEditModal()"></button>
+          </div>
+          <form (ngSubmit)="updateClass()" #editForm="ngForm">
+            <div class="modal-body">
+              @if(errorMessage) {
+                <div class="alert alert-danger">
+                  {{ errorMessage }}
+                </div>
+              }
+              <div class="form-stacked">
+                <div class="form-section">
+                  <label class="form-label required-field">Name</label>
+                  <input type="text" class="form-control" [(ngModel)]="updatedClass.name" name="name" required #editName="ngModel"
+                        [class.invalid-field]="editName.invalid && (editName.dirty || editName.touched)">
+                  @if (editName.invalid && (editName.dirty || editName.touched)) {
+                    <div class="text-danger">
+                      Class name is required
+                    </div>
                   }
-                </select>
+                </div>
+
+                <div class="form-section">
+                  <label class="form-label required-field">Description</label>
+                  <textarea class="form-control" [(ngModel)]="updatedClass.description" name="description" rows="4" required
+                            #editDescription="ngModel"
+                            [class.invalid-field]="editDescription.invalid && (editDescription.dirty || editDescription.touched)"></textarea>
+                  @if (editDescription.invalid && (editDescription.dirty || editDescription.touched)) {
+                    <div class="text-danger">
+                      Description is required
+                    </div>
+                  }
+                </div>
+
+                <div class="form-section">
+                  <label class="form-label required-field">Cost</label>
+                  <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="number" class="form-control" [(ngModel)]="updatedClass.cost" name="cost" min="0" step="0.01" required
+                          #editCost="ngModel"
+                          [class.invalid-field]="editCost.invalid && (editCost.dirty || editCost.touched)">
+                  </div>
+                  @if (editCost.invalid && (editCost.dirty || editCost.touched)) {
+                    <div class="text-danger">
+                      @if (editCost.errors?.['required']) {
+                        <div>Cost is required</div>
+                      }
+                      @if (editCost.errors?.['min']) {
+                        <div>Cost cannot be negative</div>
+                      }
+                    </div>
+                  }
+                </div>
+
+                <div class="form-section">
+                  <label class="form-label required-field">Coach</label>
+                  <select class="form-select" [(ngModel)]="updatedClass.coachId" name="coachId" required
+                          #editCoachId="ngModel"
+                          [class.invalid-field]="editCoachId.invalid && (editCoachId.dirty || editCoachId.touched)">
+                    <option [ngValue]="null" disabled>Select a coach</option>
+                    @for (coach of gymCoaches; track coach.id) {
+                      <option [value]="coach.id" [selected]="coach.id === updatedClass.coachId">
+                        {{ coach.firstName }} {{ coach.lastName }}
+                      </option>
+                    }
+                  </select>
+                  @if (editCoachId.invalid && (editCoachId.dirty || editCoachId.touched)) {
+                    <div class="text-danger">
+                      Please select a coach
+                    </div>
+                  }
+                </div>
+
+                <div class="form-section">
+                  <label class="form-label required-field">Current Capacity</label>
+                  <input type="number" class="form-control" [(ngModel)]="updatedClass.currentCapacity" name="currentCapacity" min="0" required
+                        #editCurrentCapacity="ngModel"
+                        [class.invalid-field]="editCurrentCapacity.invalid && (editCurrentCapacity.dirty || editCurrentCapacity.touched)">
+                  @if (editCurrentCapacity.invalid && (editCurrentCapacity.dirty || editCurrentCapacity.touched)) {
+                    <div class="text-danger">
+                      @if (editCurrentCapacity.errors?.['required']) {
+                        <div>Current capacity is required</div>
+                      }
+                      @if (editCurrentCapacity.errors?.['min']) {
+                        <div>Current capacity cannot be negative</div>
+                      }
+                    </div>
+                  }
+                </div>
+
+                <div class="form-section">
+                  <label class="form-label required-field">Total Capacity</label>
+                  <input type="number" class="form-control" [(ngModel)]="updatedClass.capacity" name="capacity" min="1" required
+                        #editCapacity="ngModel"
+                        [class.invalid-field]="editCapacity.invalid && (editCapacity.dirty || editCapacity.touched)">
+                  @if (editCapacity.invalid && (editCapacity.dirty || editCapacity.touched)) {
+                    <div class="text-danger">
+                      @if (editCapacity.errors?.['required']) {
+                        <div>Capacity is required</div>
+                      }
+                      @if (editCapacity.errors?.['min']) {
+                        <div>Capacity must be at least 1</div>
+                      }
+                    </div>
+                  }
+                </div>
+
+                <div class="form-section">
+                  <label class="form-label required-field">Date</label>
+                  <input type="datetime-local" class="form-control" [(ngModel)]="updatedClass.date" name="date" required
+                        #editDate="ngModel" (change)="validateEditDate()"
+                        [class.invalid-field]="editDate.invalid && (editDate.dirty || editDate.touched)">
+                  @if (editDate.invalid && (editDate.dirty || editDate.touched)) {
+                    <div class="text-danger">
+                      @if (editDate.errors?.['required']) {
+                        <div>Date is required</div>
+                      }
+                      @if (editDate.errors?.['invalidDate']) {
+                        <div>Date cannot be in the past</div>
+                      }
+                    </div>
+                  }
+                </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label class="form-label">Current Capacity</label>
-                <input readonly type="number" class="form-control bg-secondary" [(ngModel)]="updatedClass.currentCapacity" name="currentCapacity" min="0" required>
+            <div class="modal-footer">
+              <div class="required-fields-note">
+                <span class="required-asterisk">*</span> indicates required fields
               </div>
-              <div class="col-md-6 mb-3">
-                <label class="form-label">Total Capacity</label>
-                <input type="number" class="form-control" [(ngModel)]="updatedClass.capacity" name="capacity" min="1" required>
+              <div class="modal-footer-buttons">
+                <button type="button" class="btn btn-outline-secondary" (click)="closeEditModal()">
+                  <i class="bi bi-x-circle"></i> Cancel
+                </button>
+                <button type="submit" class="btn btn-primary" [disabled]="saving || editForm.invalid">
+                  @if(saving) {
+                    <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                    <span role="status">Saving...</span>
+                  } @else {
+                    <i class="bi bi-save"></i> Save Changes
+                  }
+                </button>
               </div>
             </div>
           </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="closeEditModal()">Cancel</button>
-          <button type="button" class="btn btn-primary" (click)="updateClass()" [disabled]="saving">
-            @if(saving) {
-              <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-              <span role="status">Saving...</span>
-            } @else {
-              Save Changes
-            }
-          </button>
         </div>
       </div>
     </div>
@@ -296,41 +465,46 @@
 
 <!-- Delete Confirmation Modal -->
 @if(showDeleteModal) {
-  <div class="modal-backdrop show"></div>
-  <div class="modal show d-block" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Confirm Delete</h5>
-          <button type="button" class="btn-close" (click)="closeDeleteModal()"></button>
-        </div>
-        <div class="modal-body">
-          @if(errorMessage) {
-            <div class="alert alert-danger">
-              {{ errorMessage }}
+  <div class="modal-container">
+    <div class="modal-backdrop" (click)="closeDeleteModal()"></div>
+    <div class="modal-wrapper">
+      <div class="modal show" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Confirm Delete</h5>
+              <button type="button" class="btn-close" (click)="closeDeleteModal()"></button>
             </div>
-          }
-          @if(!errorMessage) {
-            <p>Are you sure you want to delete the class <strong>"{{ selectedClass.name }}"</strong>?</p>
-            <p class="text-danger">This action cannot be undone.</p>
-            <div class="class-details-preview">
-              <small class="text-muted">
-                <strong>Coach:</strong> {{ selectedClass.coachName }}<br>
-                <strong>Current Students:</strong> {{ selectedClass.currentCapacity }}/{{ selectedClass.capacity }}
-              </small>
+            <div class="modal-body">
+              @if(errorMessage) {
+                <div class="alert alert-danger">
+                  {{ errorMessage }}
+                </div>
+              }
+              @if(!errorMessage) {
+                <p>Are you sure you want to delete the class <strong>"{{ selectedClass.name }}"</strong>?</p>
+                <p class="text-danger">This action cannot be undone.</p>
+                <div class="class-details-preview">
+                  <small class="text-muted">
+                    <strong>Coach:</strong> {{ selectedClass.coachName }}<br>
+                    <strong>Current Trainees:</strong> {{ selectedClass.currentCapacity }}/{{ selectedClass.capacity }}<br>
+                    <strong>Date:</strong> {{ selectedClass.date | date: 'yyyy-MM-dd hh:mm a' }}
+                  </small>
+                </div>
+              }
             </div>
-          }
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="closeDeleteModal()">Cancel</button>
-          <button type="button" class="btn btn-danger" (click)="deleteClass()" [disabled]="deleting">
-            @if(deleting) {
-              <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-              <span role="status">Deleting...</span>
-            } @else {
-              Delete Class
-            }
-          </button>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="closeDeleteModal()">Cancel</button>
+              <button type="button" class="btn btn-danger" (click)="deleteClass()" [disabled]="deleting">
+                @if(deleting) {
+                  <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                  <span role="status">Deleting...</span>
+                } @else {
+                  Delete Class
+                }
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
