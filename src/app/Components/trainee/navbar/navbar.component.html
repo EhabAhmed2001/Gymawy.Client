@@ -1,0 +1,62 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark px-4 shadow" style="backdrop-filter: blur(10px); z-index: 1030;">
+  <a class="navbar-brand d-flex align-items-center fw-bold fs-4" routerLink="/trainee-gym">
+    <div class="d-flex justify-content-center align-items-center rounded me-2" style="width: 40px; height: 40px;">
+      <img src="https://gymmawy.com/resources/assets/front/img/logo/default_en.png" alt="Logo" class="img-fluid" style="width: 30px; height: 30px;">
+    </div>
+    Gymawy
+  </a>
+
+  <div *ngIf="(_authService.currentUser$ | async) as user" class="collapse navbar-collapse" id="traineeNavbar">
+    <ul class="navbar-nav ms-auto align-items-center">
+      <li class="nav-item px-2">
+        <a class="nav-link d-flex align-items-center nav-click nav-swipe" routerLink="/coach" routerLinkActive="active">
+          <i class="bi bi-people me-1 text-info"></i>
+          <span>My Coach</span>
+        </a>
+      </li>
+      <li class="nav-item px-2 position-relative">
+        <a class="nav-link d-flex align-items-center nav-click nav-swipe" routerLink="/subscriptions" routerLinkActive="active">
+          <i class="bi bi-wallet2 me-1 text-info"></i>
+          <span>Subscriptions</span>
+        </a>
+      </li>
+      <li class="nav-item dropdown px-2">
+        <a
+          class="nav-link dropdown-toggle d-flex align-items-center"
+          href="#"
+          id="profileDropdown"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <span class="me-2 d-none d-md-inline">{{user.userName}}</span>
+          <div class="rounded-circle  text-white fw-bold text-center" style="width: 40px; height: 40px; line-height: 40px;">
+            <img class="img-fluid  rounded-circle" src="{{user.photoUrl || './images/user.png' }}" [alt]="user.userName">
+
+          </div>
+        </a>
+        <ul  class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="profileDropdown">
+          <li class="text-center px-3 py-2">
+            <div class="rounded-circle  text-white fw-bold mx-auto mb-2" style="width: 60px; height: 60px; font-size: 1.5rem; line-height: 60px;">
+              <img class="img-fluid w-100  rounded-circle" src="{{user.photoUrl || './images/user.png' }}" [alt]="user.userName">
+            </div>
+            <h6 class="mb-0">{{user.knownAs}}</h6>
+            <small class="text-muted">Trainee Member</small>
+          </li>
+          <li><hr class="dropdown-divider" /></li>
+          <li><a routerLink="/member/edit" class="dropdown-item" href="#"><i class="bi bi-person me-2 text-info"></i>My Profile</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2 text-info"></i>Account Settings</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-shield-lock me-2 text-info"></i>Privacy & Security</a></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-question-circle me-2 text-info"></i>Help Center</a></li>
+          <li><hr class="dropdown-divider" /></li>
+          <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2 text-danger"></i>Logout</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Fix: Add margin-top below navbar -->
+<div class="container mt-1 pt-4 ">
+</div>

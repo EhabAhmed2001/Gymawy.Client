@@ -1,0 +1,44 @@
+/* trainee-dashboard.component.css */
+.trainee-dashboard {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.gym-card {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  border: none;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.gym-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+.gym-logo {
+  height: 180px;
+  width: 100%;
+  object-fit: contain;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.card-body {
+  padding: 1.5rem;
+  flex: 1;
+}
+
+.empty-state-icon {
+  font-size: 4rem;
+  color: #e0e0e0;
+}
+
+.btn-outline-primary {
+  border-width: 2px;
+  font-weight: 500;
+}

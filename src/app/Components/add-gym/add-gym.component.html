@@ -1,1 +1,195 @@
-<p>add-gym works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Registration Form</title>
+</head>
+<body>
+    <div class="form-container" >
+        <div class="form-header">
+            <h1>🏋️ Gym Registration</h1>
+            <p>Create your perfect fitness center profile</p>
+        </div>
+
+        <div class="form-content">
+            <form [formGroup]="formAddGym" (submit)="submitFormAddGym()">
+
+                <!-- Basic Information Section -->
+                <div class="form-section">
+                    <h2 class="section-title">Basic Information</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Gym Name</label>
+                            <input formControlName="name" type="text" placeholder="Enter gym name">
+                            <div class="error-message" *ngIf="formAddGym.get('name')?.touched && formAddGym.get('name')?.invalid">
+                                <small *ngIf="formAddGym.get('name')?.errors?.['required']">Gym name is required</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input formControlName="phone" type="text" placeholder="Enter phone number">
+                            <div class="error-message" *ngIf="formAddGym.get('phone')?.touched && formAddGym.get('phone')?.invalid">
+                                <small *ngIf="formAddGym.get('phone')?.errors?.['required']">Phone number is required</small>
+                                <small *ngIf="formAddGym.get('phone')?.errors?.['pattern']">Please enter a valid phone number</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Gym Type</label>
+                            <select formControlName="gymType">
+                                <option value="">Select gym type</option>
+                                <option *ngFor="let gymtype of gymTypes" [value]="gymtype.id">{{gymtype.name}}</option>
+                            </select>
+                            <div class="error-message" *ngIf="formAddGym.get('gymType')?.touched && formAddGym.get('gymType')?.invalid">
+                                <small *ngIf="formAddGym.get('gymType')?.errors?.['required']">Please select a gym type</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label>Description</label>
+                            <textarea formControlName="description" rows="4" placeholder="Describe your gym"></textarea>
+                            <div class="error-message" *ngIf="formAddGym.get('description')?.touched && formAddGym.get('description')?.invalid">
+                                <small *ngIf="formAddGym.get('description')?.errors?.['required']">Description is required</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Address Section -->
+                <div class="form-section address-section">
+                    <h2 class="section-title">Location Information</h2>
+                    
+                    <div style="margin-bottom: 25px;">
+                        <app-map (addressChange)="setAddress($event)" #map></app-map>
+                        <div class="address-search">
+                            <input formControlName="searchAddress" type="text" #searchInput (blur)="map.searchAddress(searchInput.value)"  placeholder="Search for an address..." (keyup.enter)="map.searchAddress(searchInput.value)">
+                            <div class="error-message" *ngIf="formAddGym.get('searchAddress')?.touched && formAddGym.get('searchAddress')?.invalid">
+                                <small *ngIf="formAddGym.get('searchAddress')?.errors?.['required']">Address is required</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Street Address</label>
+                            <input formControlName="street" type="text" placeholder="Enter street address">
+                            <div class="error-message" *ngIf="formAddGym.get('street')?.touched && formAddGym.get('street')?.invalid">
+                                <small *ngIf="formAddGym.get('street')?.errors?.['required']">street is required</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>City</label>
+                            <input formControlName="city" type="text" placeholder="Enter city">
+                            <div class="error-message" *ngIf="formAddGym.get('city')?.touched && formAddGym.get('city')?.invalid">
+                                <small *ngIf="formAddGym.get('city')?.errors?.['required']">city is required</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Country</label>
+                            <input formControlName="country" type="text" placeholder="Enter country">
+                              <div class="error-message" *ngIf="formAddGym.get('country')?.touched && formAddGym.get('country')?.invalid">
+                                <small *ngIf="formAddGym.get('country')?.errors?.['required']">country is required</small>
+                              </div>                          
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features Section -->
+                <div class="form-section features-section">
+                    <h2 class="section-title">Available Features</h2>
+                    <div class="controls">
+                        <button type="button" class="btn btn-success" (click)="selectFeature(null)">
+                            Add Custom Feature
+                        </button>
+                    </div>
+                    <div class="available-features" id="featuresGrid">
+                        <div class="available-feature" *ngFor="let item of features; let i = index" (click)="selectFeature(item)">
+                            <div class="available-feature-name">{{item.name}}</div>
+                            <div class="available-feature-hint">Click to add and configure</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Selected Features Section -->
+                <div class="form-section">
+                    <h2 class="section-title">Your Selected Features</h2>
+                    <div class="feature-list" id="selectedFeatures">
+                        <div *ngIf="selectedFeatures.length === 0" class="empty-state">
+                            <div style="font-size: 3rem; margin-bottom: 20px;"></div>
+                            <p>No features selected yet. Choose from available features above!</p>
+                        </div>
+                        <div *ngFor="let item of selectedFeatures; let i = index" class="feature-item">
+                            <div class="feature-header">
+                                <div class="feature-name">{{item.Name}}</div>
+                                <div class="feature-actions">
+                                    <button type="button" class="btn btn-danger" (click)="removeFeature(i)">Remove</button>
+                                </div>
+                            </div>
+                            <div class="feature-description">{{item.Description}}</div>
+                            <div class="feature-description">{{item.Image}}</div>
+                            <div class="feature-cost">💰 ${{item.Cost}}</div>
+                        </div>
+                    </div>
+                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- Feature Modal -->
+    <div id="featureModal" class="modal" [class.show]="currentSelectedFeature">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" (click)="closeModal()">&times;</span>
+                  Configure Feature
+            </div>
+
+            <form id="featureForm" [formGroup]="formAddFeature" (ngSubmit)="saveFeatureConfig()">
+                <div class="form-group" *ngIf="currentSelectedFeature?.id==-1">
+                    <label for="featureName">Feature Name</label>
+                    <input formControlName="name" type="text" id="featureName" placeholder="Enter feature name" required>
+                    <div class="error-message" *ngIf="formAddFeature.get('name')?.touched && formAddFeature.get('name')?.invalid">
+                        <small *ngIf="formAddFeature.get('name')?.errors?.['required']">Feature name is required</small>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="featureImage">📸 Feature Image</label>
+                    <textarea formControlName="image" id="featureImage" rows="3" placeholder="Image URL or description" required></textarea>
+                    <div class="error-message" *ngIf="formAddFeature.get('image')?.touched && formAddFeature.get('image')?.invalid">
+                        <small *ngIf="formAddFeature.get('image')?.errors?.['required']">Image information is required</small>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="featureDescription">Description</label>
+                    <textarea formControlName="description" id="featureDescription" rows="4" placeholder="Describe this feature" required></textarea>
+                    <div class="error-message" *ngIf="formAddFeature.get('description')?.touched && formAddFeature.get('description')?.invalid">
+                        <small *ngIf="formAddFeature.get('description')?.errors?.['required']">Description is required</small>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="featureCost">💰 Cost ($)</label>
+                    <input formControlName="cost" type="number" id="featureCost" step="0.01" min="0" placeholder="0.00" required>
+                    <div class="error-message" *ngIf="formAddFeature.get('cost')?.touched && formAddFeature.get('cost')?.invalid">
+                        <small *ngIf="formAddFeature.get('cost')?.errors?.['required']">Cost is required</small>
+                        <small *ngIf="formAddFeature.get('cost')?.errors?.['pattern']">Invalid number format</small>
+                        <small *ngIf="formAddFeature.get('cost')?.errors?.['min']">Cost must be greater than 0</small>
+                    </div>
+                </div>
+                
+                <div class="modal-buttons">
+                    <button type="button" class="btn" (click)="closeModal()" style="background: #95a5a6; color: white;">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Feature</button>
+                </div>
+          </form>
+        </div>
+    </div>
+</body>
+</html>
