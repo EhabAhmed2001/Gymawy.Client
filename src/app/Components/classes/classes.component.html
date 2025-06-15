@@ -317,7 +317,7 @@
               <div class="d-flex align-items-start gap-3">
                 <div class="input-group" style="flex: 1;">
                   <span class="input-group-text">$</span>
-                  <input type="number" class="form-control" [(ngModel)]="updatedClass.cost" name="cost" min="0" step="0.01" required
+                  <input type="number" class="form-control" [(ngModel)]="updatedClass.cost" name="cost" min="0" step="0.01"
                         #editCost="ngModel"
                         [class.invalid-field]="editCost.invalid && (editCost.dirty || editCost.touched)">
                 </div>
@@ -351,7 +351,7 @@
               <!-- Current Capacity -->
               <div class="form-section">
                 <label class="form-label required-field">Current Capacity</label>
-                <input type="number" class="form-control" [(ngModel)]="updatedClass.currentCapacity" name="currentCapacity" min="0" required
+                <input  readonly type="number" class="form-control" [(ngModel)]="updatedClass.currentCapacity" name="currentCapacity" min="0" required
                       #editCurrentCapacity="ngModel"
                       [class.invalid-field]="editCurrentCapacity.invalid && (editCurrentCapacity.dirty || editCurrentCapacity.touched)">
                 @if (editCurrentCapacity.invalid && (editCurrentCapacity.dirty || editCurrentCapacity.touched)) {

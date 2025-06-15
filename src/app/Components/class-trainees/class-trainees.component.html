@@ -8,7 +8,7 @@
 }
 
 <!-- Add Trainee Button -->
-<div style="margin-bottom: 15px;">
+<div class="mb-3 mx-2">
   <button class="btn btn-primary" (click)="openAddTraineeModal()">
     <i class="bi bi-plus"></i> Add Trainee
   </button>
@@ -60,7 +60,7 @@
           <button type="button" class="btn-close" (click)="closeAddModal()"></button>
         </div>
         <div class="modal-body">
-          <div class="form-group">
+          <div class="form-section">
             <label class="form-label">Select Trainee</label>
             <select class="form-select" [(ngModel)]="selectedTraineeId">
               <option [ngValue]="null" disabled selected>Select a trainee</option>
@@ -76,7 +76,9 @@
           }
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="closeAddModal()">Cancel</button>
+          <button type="button" class="btn btn-outline-secondary" (click)="closeAddModal()">
+            <i class="bi bi-x-circle"></i> Cancel
+          </button>
           <button type="button" class="btn btn-primary"
                   (click)="addTrainee()"
                   [disabled]="!selectedTraineeId || notJoinedTrainees.length === 0">
@@ -104,11 +106,18 @@
           <button type="button" class="btn-close" (click)="closeRemoveModal()"></button>
         </div>
         <div class="modal-body">
-          <p>Are you sure you want to remove <strong>{{ selectedTrainee?.firstName }} {{ selectedTrainee?.lastName }}</strong> from this class?</p>
-          <p class="text-danger">This action cannot be undone.</p>
+          @if(errorMessage) {
+            <div class="alert alert-danger">{{ errorMessage }}</div>
+          }
+          @if(!errorMessage) {
+            <p>Are you sure you want to remove <strong>{{ selectedTrainee?.firstName }} {{ selectedTrainee?.lastName }}</strong> from this class?</p>
+            <p class="text-danger">This action cannot be undone.</p>
+          }
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="closeRemoveModal()">Cancel</button>
+          <button type="button" class="btn btn-outline-secondary" (click)="closeRemoveModal()">
+            <i class="bi bi-x-circle"></i> Cancel
+          </button>
           <button type="button" class="btn btn-danger" (click)="removeTrainee()" [disabled]="removing">
             @if(removing) {
               <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
