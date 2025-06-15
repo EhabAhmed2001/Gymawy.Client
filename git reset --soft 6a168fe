@@ -1,0 +1,14 @@
+[33md5ff5f0[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mDev[m[33m)[m Resolve Conflicts
+[33m6a168fe[m Add the Class Component CRUD and Class-Trainees Component CRUD
+[33m9ea0d63[m[33m ([m[1;31morigin/Dev[m[33m)[m Merge pull request #3 from TraineeCoach
+[33m0436060[m Create Trainee's Coach and His Subs Components
+[33m2c9c06d[m Merge pull request #2 from TraineeHomePage
+[33mc5a56e3[m Merge branch 'Dev' into TraineeHomePage
+[33mf697c04[m Add all gyms, gym details pages
+[33mf187389[m Merge branch 'Dev' into heba
+[33mae0c6ca[m Add gym  With Map && features
+[33m8c54317[m[33m ([m[1;31morigin/rahma[m[33m, [m[1;32mrahma[m[33m)[m make rahma branch updated with Dev
+[33m0c44aeb[m add classes component  with only View, Edit, Delete, Create functionality & Basic styling
+[33me247019[m add envs variable
+[33m654b5f7[m add service gym && coach
+[33m6b99d40[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m initial commit
