@@ -70,7 +70,10 @@
   </div>
 
   <!-- Floating Chat Button -->
+  <!-- [routerLink]="['/members',coach.userName]" [queryParams]="{tab:'Messages'}" -->
+  <!-- [routerLink]="['/members','bob']" [queryParams]="{tab:'Messages'}" -->
   <button
+    [routerLink]="['/members','bob']" [queryParams]="{tab:'Messages'}"
     class="btn btn-primary rounded-circle position-fixed"
     style="
       bottom: 30px;
