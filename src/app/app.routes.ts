@@ -15,6 +15,7 @@ import { LoginComponent } from './Components/login/login.component';
 import { HomeComponent } from './Components/home/home.component';
 import { authGuard } from './guard/auth.guard';
 import { AuthLayoutComponent } from './Layout/auth-layout/auth-layout.component';
+import { CoachDashboardComponent } from './Components/coach/coach-dashboard/coach-dashboard.component';
 
 export const routes: Routes = [
   {
@@ -26,6 +27,7 @@ export const routes: Routes = [
       { path: 'trainee-gym', component: TraineeLandingPageComponent, title: "Trainee Gym" },
       { path: 'gym/:id', component: GymDetailsComponent, title: "Gym" },
       { path: 'coach', component: TraineeCoachComponent, title: "Coach" },
+      {path: 'coach/:coachId', component: CoachDashboardComponent, title: "Dashboard"},
       { path: 'subscriptions', component: TraineeSubscriptionsComponent, title: "Subscriptions" },
       { path: 'members/:username',component: MemberDetailsComponent, resolve: { member: memberDetailsResolver } },
       { path: 'member/edit',canDeactivate:[preventUnsavedChangesGuard],component: MemberEditComponent, title: "Edit Member" },
