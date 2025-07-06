@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Class, ClassToSend, Coach } from '../../Interface/Class';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { CurrencyPipe, CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ClassService } from '../../Services/class.service';
 
@@ -167,7 +167,7 @@ export class ClassesComponent implements OnInit {
 
   createClass(form: NgForm): void {
     if (form.invalid) return;
-    
+
     this.creating = true;
     this.classService.createClass(this.newClass).subscribe({
       next: (createdClass) => {
@@ -183,7 +183,7 @@ export class ClassesComponent implements OnInit {
 
   updateClass(form: NgForm): void {
     if (form.invalid) return;
-    
+
     this.saving = true;
     this.classService.updateClass(this.selectedClass.id, this.updatedClass).subscribe({
       next: (updatedClass) => {
@@ -215,7 +215,7 @@ export class ClassesComponent implements OnInit {
   validateDate(controlName: string, form: NgForm): void {
     const dateValue = controlName === 'date' ? this.newClass.date : this.updatedClass.date;
     const dateControl = form.controls[controlName];
-    
+
     if (new Date(dateValue).getTime() < Date.now()) {
       dateControl?.setErrors({ 'invalidDate': true });
     } else {

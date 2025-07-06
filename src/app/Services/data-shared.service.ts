@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { GymDetails } from '../Interface/TraineeGym';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'any'
 })
 export class DataSharedService {
   gyms : GymDetails[] = [];

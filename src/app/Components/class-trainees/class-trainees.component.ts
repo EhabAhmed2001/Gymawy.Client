@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClassService } from '../../Services/class.service';
-import { Trainee } from '../../Interface/Class';
+import { Class, Trainee } from '../../Interface/Class';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -13,6 +13,16 @@ import { FormsModule, NgForm } from '@angular/forms';
   styleUrls: ['./class-trainees.component.css']
 })
 export class ClassTraineesComponent implements OnInit {
+  public selectedClass: Class = {
+      id: 0,
+      name: '',
+      description: '',
+      cost: 0,
+      currentCapacity: 0,
+      capacity: 0,
+      date: new Date(),
+      coachName: ''
+  };
   public Trainees: Trainee[] = [];
   public notJoinedTrainees: Trainee[] = [];
   classId: number = 0;
@@ -39,8 +49,24 @@ export class ClassTraineesComponent implements OnInit {
   ngOnInit(): void {
     this.classId = +this.route.snapshot.paramMap.get('classId')!;
     this.gymId = +this.route.snapshot.paramMap.get('gymId')!;
+    this.loadClass();
     this.loadTrainees();
     this.loadNotJoinedTrainees();
+  }
+
+  loadClass():void
+  {
+    this.loading = true;
+    this.errorMessage = null;
+    this.classService.getClassById(this.classId).subscribe({
+      next: (data: Class) => {
+        this.selectedClass = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        this.handleError(err, 'Failed to load class trainees');
+      }
+    });
   }
 
   loadTrainees(): void {
@@ -97,7 +123,7 @@ export class ClassTraineesComponent implements OnInit {
   // Actions
   addTrainee(): void {
     if (!this.selectedTraineeId) return;
-    
+
     this.adding = true;
     this.errorMessage = null;
     this.classService.addTraineeToClass(this.classId, this.selectedTraineeId).subscribe({
@@ -115,7 +141,7 @@ export class ClassTraineesComponent implements OnInit {
 
   removeTrainee(): void {
     if (!this.selectedTrainee) return;
-    
+
     this.removing = true;
     this.errorMessage = null;
     this.classService.removeTraineeFromClass(this.classId, this.selectedTrainee.id).subscribe({

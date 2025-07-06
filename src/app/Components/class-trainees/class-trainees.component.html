@@ -80,15 +80,21 @@
             <i class="bi bi-x-circle"></i> Cancel
           </button>
           <button type="button" class="btn btn-primary"
-                  (click)="addTrainee()"
-                  [disabled]="!selectedTraineeId || notJoinedTrainees.length === 0">
-            @if(adding) {
-              <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
-              <span role="status">Adding...</span>
-            } @else {
-              <i class="bi bi-check-circle"></i> Add
-            }
-          </button>
+        (click)="addTrainee()"
+        [disabled]="!selectedTraineeId || notJoinedTrainees.length === 0 || selectedClass.currentCapacity >= selectedClass.capacity">
+        @if(adding) {
+          <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+          <span role="status">Adding...</span>
+        } @else {
+          <i class="bi bi-check-circle"></i> Add
+        }
+      </button>
+
+      <!-- Capacity Full Message -->
+      <div class="text-danger mt-2" *ngIf="selectedClass.currentCapacity >= selectedClass.capacity">
+        Capacity is full. You cannot add more trainees to this class.
+      </div>
+
         </div>
       </div>
     </div>
