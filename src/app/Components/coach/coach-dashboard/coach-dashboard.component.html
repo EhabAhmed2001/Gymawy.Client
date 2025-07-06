@@ -1,0 +1,153 @@
+<div class="dashboard-container">
+      <div class="dashboard-header">
+        <h1 class="dashboard-title">Coach Dashboard</h1>
+        <p class="dashboard-subtitle">Overview of your gyms, classes, and trainees</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card gyms-card">
+          <div class="stat-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7.5 4.27c-1.12.45-2 1.73-2 3.23v1.5h13V7.5c0-1.5-.88-2.78-2-3.23"/>
+              <path d="M5.5 12.5V21c0 .55.45 1 1 1h11c.55 0 1-.45 1-1v-8.5"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <h3 class="stat-number">{{ coachData()?.gyms?.length ?? 0 }}</h3>
+            <p class="stat-label">Joined Gyms</p>
+          </div>
+        </div>
+
+        <div class="stat-card classes-card">
+          <div class="stat-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <h3 class="stat-number">{{ coachData()?.classes?.length ?? 0 }}</h3>
+            <p class="stat-label">Active Classes</p>
+          </div>
+        </div>
+
+        <div class="stat-card trainees-card">
+          <div class="stat-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <h3 class="stat-number">{{ coachData()?.trainees?.length ?? 0 }}</h3>
+            <p class="stat-label">Assigned Trainees</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-grid">
+        <!-- Gyms Section -->
+        <div class="section-card gyms-section">
+          <div class="section-header">
+            <h2 class="section-title">Joined Gyms</h2>
+          </div>
+          <div class="section-content">
+            @if (coachData()?.gyms?.length === 0) {
+              <div class="empty-state">
+                <p>No gyms joined yet</p>
+              </div>
+            } @else {
+              @for (gym of coachData()?.gyms; track gym.id) {
+                <div class="gym-item">
+                  <div class="gym-logo">
+                    <img [src]="gym.logo" [alt]="gym.name + ' logo'" />
+                  </div>
+                  <div class="gym-info">
+                    <h4 class="gym-name">{{ gym.name }}</h4>
+                    <!-- <p class="gym-id">ID: {{ gym.id }}</p> -->
+                  </div>
+                </div>
+              }
+            }
+          </div>
+        </div>
+
+        <!-- Classes Section -->
+<div class="section-card classes-section">
+  <div class="section-header">
+    <h2 class="section-title">Active Classes</h2>
+  </div>
+  <div class="section-content">
+    @if (coachData()?.classes?.length === 0) {
+      <div class="empty-state">
+        <p>No classes assigned yet</p>
+      </div>
+    } @else {
+      @for (class of coachData()?.classes; track class.id) {
+        <div class="class-item">
+          <div class="class-info">
+            <h4 class="class-name">{{ class.name ?? 'Unnamed Class' }}</h4>
+            <!-- <p class="class-details">{{ class.name ?? 'No additional details' }}</p> -->
+          </div>
+          <div class="class-meta">
+            <div class="class-cost">
+              <span class="meta-label">Cost:</span>
+              <span class="meta-value">${{ class.cost }}</span>
+            </div>
+            <div class="class-capacity">
+              <span class="meta-label">Capacity:</span>
+              <span class="meta-value">{{ class.currentCapacity }}</span>
+            </div>
+          </div>
+        </div>
+      }
+    }
+  </div>
+</div>
+
+        <!-- Trainees Section -->
+        <div class="section-card trainees-section">
+          <div class="section-header">
+            <h2 class="section-title">Assigned Trainees</h2>
+          </div>
+          <div class="section-content">
+            @if (coachData()?.trainees?.length === 0) {
+              <div class="empty-state">
+                <p>No trainees assigned yet</p>
+              </div>
+            } @else {
+              @for (trainee of coachData()?.trainees; track trainee.id) {
+                <div class="trainee-item">
+                  <div class="trainee-avatar">
+                    <img [src]="trainee.imageUrl" [alt]="trainee.firstName + ' ' + trainee.lastName" />
+                  </div>
+                  <div class="trainee-info">
+                    <h4 class="trainee-name">{{ trainee.firstName }} {{ trainee.lastName }}</h4>
+                    <!-- <p class="trainee-id">ID: {{ trainee.id }}</p> -->
+                  </div>
+                </div>
+              }
+            }
+          </div>
+        </div>
+      </div>
+
+      @if (isLoading()) {
+        <div class="loading-overlay">
+          <div class="loading-spinner"></div>
+          <p>Loading dashboard data...</p>
+        </div>
+      }
+
+      @if (error()) {
+        <div class="error-message">
+          <p>Error loading dashboard: {{ error() }}</p>
+          <button (click)="retry()" class="retry-button">Retry</button>
+        </div>
+      }
+    </div>
