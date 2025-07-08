@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Registration Form</title>
+</head>
+<body>
+    <div class="form-container" >
+        <div class="form-header">
+            <h1>🏋️ Gym Registration</h1>
+            <p>Create your perfect fitness center profile</p>
+        </div>
+
+        <div class="form-content">
+            <form [formGroup]="formAddGym" (submit)="submitFormAddGym()"  enctype="multipart/form-data">
+
+                <!-- Basic Information Section -->
+                <div class="form-section">
+                    <h2 class="section-title">Basic Information</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Gym Name</label>
+                            <input formControlName="name" type="text" placeholder="Enter gym name" >
+                            <div class="error-message" *ngIf="formAddGym.get('name')?.touched && formAddGym.get('name')?.invalid">
+                                <small *ngIf="formAddGym.get('name')?.errors?.['required']">Gym name is required</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input formControlName="phone" type="text" placeholder="Enter phone number" >
+                            <div class="error-message" *ngIf="formAddGym.get('phone')?.touched && formAddGym.get('phone')?.invalid">
+                                <small *ngIf="formAddGym.get('phone')?.errors?.['required']">Phone number is required</small>
+                                <small *ngIf="formAddGym.get('phone')?.errors?.['pattern']">Please enter a valid phone number</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Gym Type</label>
+                            <select formControlName="gymType" >
+                                <option value=-1 >Select gym type</option>
+                                <option *ngFor="let gymtype of gymTypes" [value]=gymtype.id>{{gymtype.name}}</option>
+                            </select>
+                            <div class="error-message" *ngIf="formAddGym.get('gymType')?.touched && formAddGym.get('gymType')?.invalid">
+                                <small *ngIf="formAddGym.get('gymType')?.errors?.['required']">Please select a gym type</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label>Description</label>
+                            <textarea formControlName="description" rows="4" placeholder="Describe your gym" ></textarea>
+                            <div class="error-message" *ngIf="formAddGym.get('description')?.touched && formAddGym.get('description')?.invalid">
+                                <small *ngIf="formAddGym.get('description')?.errors?.['required']">Description is required</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-section">
+                        <div class="form-group">
+                           
+                          @if (formAddGym.enabled) {
+                            <div class="form-group upload-section">
+
+                                <label class="upload-label">Logo</label>
+                                <input formControlName="logo" type="file" accept="image/*" (change)="uploadLogo($event)" class="file-input" #fileInput >
+                                <div class="error-message" *ngIf="formAddGym.get('logo')?.touched && formAddGym.get('logo')?.invalid">
+                                    <small *ngIf="formAddGym.get('logo')?.errors?.['required']">logo is required</small>
+                                </div>
+                            </div>
+                          }@else {
+                             <label >Logo</label>
+                          }
+
+                        <div class="slider image-slider">
+                          <div class="slider-container">
+                            @if(!logoUrl){
+                              <div class="empty-state">
+                                <div class="empty-icon">📸</div>
+                                <h3>No Images Selected</h3>
+                                <p>Upload some images to start viewing</p>
+                              </div>
+                            }
+                            @else{
+                              <img [src]="logoUrl" class="slider-image">
+                            }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-section">
+                  
+                    <div class="form-group">
+                            @if(formAddGym.disabled){
+                                <label >Images</label>
+                                <app-image-slider [imagesUrl]="gymImagesUrl"></app-image-slider>
+                            }@else {
+                                <app-upload-images (imageUpload)="setGymeImages($event)" [imagesUrl]="gymImagesUrl"  [control]="uploadImageControl"></app-upload-images>
+                                <div class="error-message" *ngIf="formAddGym.get('uploadImage')?.touched && formAddGym.get('uploadImage')?.invalid">
+                                    <small *ngIf="formAddGym.get('uploadImage')?.errors?.['required']">Please select images</small>
+                                </div>
+                            }
+
+                    </div>
+                </div>
+                <!-- Address Section -->
+                <div class="form-section address-section">
+                    <h2 class="section-title">Location Information</h2>
+                    
+                    <div style="margin-bottom: 25px;">
+                        <app-map (addressChange)="setAddress($event)" #map></app-map>
+                        <div class="address-search">
+                          @if (!formAddGym.disabled) {
+                            <input formControlName="searchAddress" type="text" #searchInput (blur)="map.searchAddress(searchInput.value)"  placeholder="Search for an address..." (keyup.enter)="map.searchAddress(searchInput.value)">
+                          }
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Street Address</label>
+                            <input formControlName="street" type="text" placeholder="Enter street address" [disabled]="isDisabled">
+                            <div class="error-message" *ngIf="formAddGym.get('street')?.touched && formAddGym.get('street')?.invalid">
+                                <small *ngIf="formAddGym.get('street')?.errors?.['required']">street is required</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>City</label>
+                            <input formControlName="city" type="text" placeholder="Enter city" [disabled]="isDisabled">
+                            <div class="error-message" *ngIf="formAddGym.get('city')?.touched && formAddGym.get('city')?.invalid">
+                                <small *ngIf="formAddGym.get('city')?.errors?.['required']">city is required</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Country</label>
+                            <input formControlName="country" type="text" placeholder="Enter country" [disabled]="isDisabled">
+                              <div class="error-message" *ngIf="formAddGym.get('country')?.touched && formAddGym.get('country')?.invalid">
+                                <small *ngIf="formAddGym.get('country')?.errors?.['required']">country is required</small>
+                              </div>                          
+                        </div>
+                    </div>
+                </div>
+                
+                <!--<button type="submit" class="btn btn-primary">  {{ formAddGym.disabled ? "Update" : "Submit" }}</button>--> 
+                
+                                
+                @if(formAddGym.disabled){
+                 <button type="submit" class="btn btn-primary">Update</button>
+
+                }
+                @else {
+                <div class="modal-buttons">
+                    <button type="button" class="btn"  style="background: #95a5a6; color: white;" (click)="CancelUpdate()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Feature</button>
+                </div>
+                }
+
+                
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

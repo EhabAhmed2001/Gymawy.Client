@@ -65,7 +65,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     });
   }
 
-  private setMarker(lat: number, lng: number): void {
+  setMarker(lat: number, lng: number): void {
     if (this.marker) {
       this.map.removeLayer(this.marker);
     }
