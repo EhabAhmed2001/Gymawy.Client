@@ -51,3 +51,27 @@ export interface GymUpdate {
   gymType :number,
   address:Address 
 }
+
+export interface GymFeature {
+    id :number,
+    image:string,
+    description:string,
+    cost:number,
+    name:string,
+    isExtra:boolean
+}
+
+export interface GymFeature {
+    id :number,
+    image:string,
+    description:string,
+    cost:number,
+    name:string,
+    featureId:number,
+    isExtra:boolean
+}
+export interface GymFeature {
+      cost:number,
+      image:string,
+
+}
