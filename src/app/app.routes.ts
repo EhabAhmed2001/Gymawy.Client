@@ -18,6 +18,7 @@ import { AuthLayoutComponent } from './Layout/auth-layout/auth-layout.component'
 import { CoachDashboardComponent } from './Components/coach/coach-dashboard/coach-dashboard.component';
 import { ClassTraineesComponent } from './Components/class-trainees/class-trainees.component';
 import { AddGymComponent } from './Components/add-gym/add-gym.component';
+import { GymOwnerComponent } from './Components/gym-owner/gym-owner.component';
 
 
 export const routes: Routes = [
@@ -44,8 +45,11 @@ export const routes: Routes = [
       { path: 'login', component: LoginComponent, title: "login" },
       { path: 'register/trainee', component: RegisterComponent, title: "register" },
     ]},
-    {path:'gym/:gymId/class', component: ClassesComponent, title: "Classes"},
-    {path:'gym/:gymId/class/:classId/trainees', component: ClassTraineesComponent, title: "Joined Trainees"},
+    {path: 'gym-owner/:id',
+    component: GymOwnerComponent,
+    children: [
+      {path:'gym/:gymId/class', component: ClassesComponent, title: "Classes"},
+      {path:'gym/:gymId/class/:classId/trainees', component: ClassTraineesComponent, title: "Joined Trainees"}
+    ]},
     {path:'gym', component:AddGymComponent}
-
 ];

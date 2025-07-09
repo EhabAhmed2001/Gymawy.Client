@@ -62,13 +62,15 @@ export class ClassesComponent implements OnInit {
 
   constructor(
     private classService: ClassService,
-    private router: ActivatedRoute
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.gymId = +this.router.snapshot.paramMap.get('gymId')!;
-    this.loadClasses();
-    this.loadCoaches();
+    this.route.params.subscribe(params => {
+      this.gymId = +params['gymId']; 
+      this.loadClasses();
+      this.loadCoaches();
+    });
   }
 
   loadClasses(): void {
