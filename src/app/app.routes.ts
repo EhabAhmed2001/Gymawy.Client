@@ -49,9 +49,9 @@ export const routes: Routes = [
     ]},
     {path:'gym/:gymId/class', component: ClassesComponent, title: "Classes"},
     {path:'gym/:gymId/class/:classId/trainees', component: ClassTraineesComponent, title: "Joined Trainees"},
-    {path:'gym', component:AddGymComponent}
-  {path:'addGym', component: AddGymComponent, title: "Add Gym"},
-  {path:'image', component: UploadImagesComponent, title: "image"},
-  {path:'gymDetail/:id', component: GetGymComponent, title: "Gym"},
-  {path:'features/:id', component: FeaturesComponent, title: "Gym"}
+    {path:'gym', component:AddGymComponent},
+    {path:'addGym', component: AddGymComponent, title: "Add Gym"},
+    {path:'image', component: UploadImagesComponent, title: "image"},
+    {path:'gymDetail/:id', component: GetGymComponent, title: "Gym"},
+    {path:'features/:id', component: FeaturesComponent, title: "Gym"}
 ];
