@@ -6,13 +6,13 @@
     <ul class="nav-links">
       <li class="nav-item"><a routerLink="/d" routerLinkActive="active">Dashboard</a></li>
       <li class="nav-item"><a routerLink="/p" routerLinkActive="active">Programs</a></li>
-      <li class="nav-item"><a routerLink="/f" routerLinkActive="active">Features</a></li>
+      <li class="nav-item"><a routerLink="features/{{selectedGymId}}" routerLinkActive="active">Features</a></li>
       <li class="nav-item"><a routerLink="gym/{{selectedGymId}}/class" routerLinkActive="active">Classes</a></li>
       <li class="nav-item"><a routerLink="/c" routerLinkActive="active">Pending Coaches</a></li>
     </ul>
     <div class="user-profile">
       <img src="" alt="Profile" class="avatar">
-      <span class="username">Admin</span>
+      <span class="username">Gym Owner</span>
     </div>
   </nav>
 
@@ -20,9 +20,11 @@
   <aside class="gym-sidebar">
     <div class="sidebar-header">
       <h3>My Gyms</h3>
-      <button class="add-gym-btn" (click)="openAddGymModal()">
-        <i class="fas fa-plus"></i> Add Gym
-      </button>
+      <button class="add-gym-btn">
+          <a routerLink="addGym">
+            <i class="fas fa-plus"></i> Add Gym
+          </a>
+        </button>
     </div>
 
     <div class="gym-list">

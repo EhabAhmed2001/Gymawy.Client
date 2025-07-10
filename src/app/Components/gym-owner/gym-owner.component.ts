@@ -47,11 +47,6 @@ export class GymOwnerComponent implements OnInit {
     this.router.navigate([`/gym-owner/1/gym/${gymId}/${feature}`]);
   }
 
-  openAddGymModal(): void {
-    // Implement modal opening logic
-    console.log('Opening add gym modal');
-  }
-
   openEditGymModal(): void {
     // Implement edit modal opening logic
     console.log('Opening edit gym modal for gym:', this.selectedGymId);
