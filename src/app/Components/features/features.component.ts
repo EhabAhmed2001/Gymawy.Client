@@ -66,7 +66,6 @@ export class FeaturesComponent implements OnInit {
     }
     fileReader.readAsDataURL(input.files[0])   
   }
-
   openImagePreview(imageUrl: string): void {
     this.previewImageUrl = imageUrl;
     this.showImagePreview = true;
@@ -118,7 +117,7 @@ export class FeaturesComponent implements OnInit {
     })
     this.imageUrl=feature.image
     this.featureForm.get('name')?.disable();
-    this.featureForm.get('description')?.disable();
+    //this.featureForm.get('description')?.disable();
     this.featureForm.get('isExtra')?.disable();
     this.SelectedGymFeature ={...feature}; 
 
@@ -142,8 +141,7 @@ export class FeaturesComponent implements OnInit {
     console.log(!this.isEditing)
     if(this.showDialog && !this.isEditing && this.featureForm.valid){
 
-          console.log(!this.isEditing)
-
+      console.log(!this.isEditing)
       const formData = new FormData();
       formData.append('description',this.featureForm.get('description')?.value)
       formData.append('cost',this.featureForm.get('cost')?.value)
@@ -155,31 +153,34 @@ export class FeaturesComponent implements OnInit {
             next:(responce)=>{
               this.gymFeatures.push(responce)
               console.log(responce)
-              
             },
             error:(erro)=>{
               console.log(erro)
             }
           })
+          this.closeDialog();              
+
       }
       else {
-           formData.append('featureId', this.featureForm.get('name')?.value)
-          this.gymService.AddNonExGymFeature(this.gymId,formData).subscribe({
-            next:()=>{
+              formData.append('featureId', this.featureForm.get('name')?.value)
+              this.gymService.AddNonExGymFeature(this.gymId,formData).subscribe({
+              next:()=>{
+              },
+              error:(erro)=>{
+                console.log(erro)
+              }
+            })
+            this.closeDialog();
 
-            },
-            error:(erro)=>{
-              console.log(erro)
-            }
-          })
-      }
-       
+      }     
     }
     else if(this.showDialog && this.isEditing && this.featureForm.valid){
         const formData = new FormData();
 
         formData.append('cost',this.featureForm.get('cost')?.value)
         formData.append('image',this.imageFile)
+        formData.append('description',this.featureForm.get('description')?.value)
+
         this.gymService.UpdateGymFeature(this.SelectedGymFeature?.id,formData).subscribe({
         next:(responce)=>{
           console.log(responce);
@@ -191,7 +192,7 @@ export class FeaturesComponent implements OnInit {
           console.log(erro)
         }
         })
-              this.closeDialog();
+        this.closeDialog();
 
     }
   }

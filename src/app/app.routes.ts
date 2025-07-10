@@ -21,6 +21,7 @@ import { AddGymComponent } from './Components/add-gym/add-gym.component';
 import { UploadImagesComponent } from './Components/upload-images/upload-images.component';
 import { GetGymComponent } from './Components/get-gym/get-gym.component';
 import { FeaturesComponent } from './Components/features/features.component';
+import { GymPendingCoachComponent } from './Components/gym-pending-coach/gym-pending-coach.component';
 import { GymOwnerComponent } from './Components/gym-owner/gym-owner.component';
 
 
@@ -53,6 +54,8 @@ export const routes: Routes = [
     {path:'addGym', component: AddGymComponent, title: "Add Gym"},
     {path:'image', component: UploadImagesComponent, title: "image"},
     {path:'gymDetail/:id', component: GetGymComponent, title: "Gym"},
+    {path:'GymPendingCoach/:gymId', component: GymPendingCoachComponent, title: "Pending Coach"}
+
     {path:'features/:id', component: FeaturesComponent, title: "Gym"},
     {path: 'gym-owner/:id',
     component: GymOwnerComponent,
@@ -65,5 +68,5 @@ export const routes: Routes = [
     ]},
     {path:'image', component: UploadImagesComponent, title: "image"},
     {path:'gym', component:AddGymComponent},
-   
+
 ];

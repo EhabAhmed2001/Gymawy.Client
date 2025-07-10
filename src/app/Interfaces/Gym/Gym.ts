@@ -73,5 +73,5 @@ export interface GymFeature {
 export interface GymFeature {
       cost:number,
       image:string,
-
+      description:string
 }
