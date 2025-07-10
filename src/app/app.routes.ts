@@ -48,15 +48,7 @@ export const routes: Routes = [
       { path: 'login', component: LoginComponent, title: "login" },
       { path: 'register/trainee', component: RegisterComponent, title: "register" },
     ]},
-    {path:'gym/:gymId/class', component: ClassesComponent, title: "Classes"},
-    {path:'gym/:gymId/class/:classId/trainees', component: ClassTraineesComponent, title: "Joined Trainees"},
-    {path:'gym', component:AddGymComponent},
-    {path:'addGym', component: AddGymComponent, title: "Add Gym"},
-    {path:'image', component: UploadImagesComponent, title: "image"},
-    {path:'gymDetail/:id', component: GetGymComponent, title: "Gym"},
-    {path:'GymPendingCoach/:gymId', component: GymPendingCoachComponent, title: "Pending Coach"}
 
-    {path:'features/:id', component: FeaturesComponent, title: "Gym"},
     {path: 'gym-owner/:id',
     component: GymOwnerComponent,
     children: [
@@ -64,7 +56,8 @@ export const routes: Routes = [
       {path:'gym/:gymId/class/:classId/trainees', component: ClassTraineesComponent, title: "Joined Trainees"},
       {path:'addGym', component: AddGymComponent, title: "Add Gym"},
       {path:'gymDetail/:id', component: GetGymComponent, title: "Edit Gym Info"},
-      {path:'features/:id', component: FeaturesComponent, title: "Gym Features"}
+      {path:'features/:id', component: FeaturesComponent, title: "Gym Features"},
+      {path:'GymPendingCoach/:gymId', component: GymPendingCoachComponent, title: "Pending Coach"}
     ]},
     {path:'image', component: UploadImagesComponent, title: "image"},
     {path:'gym', component:AddGymComponent},
