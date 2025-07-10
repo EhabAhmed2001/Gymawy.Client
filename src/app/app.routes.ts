@@ -6,6 +6,7 @@ import { GymDetailsComponent } from './Components/trainee/gym-details/gym-detail
 import { TraineeComponent } from './Layout/trainee/trainee.component';
 import { TraineeCoachComponent } from './Components/trainee/trainee-coach/trainee-coach.component';
 import { TraineeSubscriptionsComponent } from './Components/trainee/trainee-subscriptions/trainee-subscriptions.component';
+import { PaymentComponent } from './Components/payment/payment.component';
 
 export const routes: Routes = [
   {
@@ -17,6 +18,7 @@ export const routes: Routes = [
       { path: 'gym/:id', component: GymDetailsComponent, title: "Gym" },
       { path: 'coach', component: TraineeCoachComponent, title: "Coach" },
       { path: 'subscriptions', component: TraineeSubscriptionsComponent, title: "Subscriptions" },
+      { path: 'payment/:id', component: PaymentComponent, title: "Payment" }
     ]
   },
   { path: 'classes/:id', component: ClassesComponent, title: "Classes" },

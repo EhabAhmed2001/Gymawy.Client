@@ -2,6 +2,7 @@
 <div class="container py-5">
   <div class="row">
     <!-- Coach Profile Card -->
+  @if (coach != null) {
     <div class="col-lg-8 mx-auto">
       <div class="card shadow-lg">
         <div class="card-body p-4">
@@ -9,8 +10,8 @@
             <!-- Coach Image -->
             <div class="col-md-4 text-center">
               <img
-                [src]="coach.imageUrl"
-                alt="{{ coach.firstName }} {{ coach.lastName }}"
+                [src]="coach?.imageUrl"
+                alt="{{ coach?.firstName }} {{ coach?.lastName }}"
                 class="img-fluid rounded-circle mb-3 mb-md-0"
                 style="
                   width: 180px;
@@ -24,7 +25,7 @@
             <!-- Coach Info -->
             <div class="col-md-8">
               <h2 class="fw-bold mb-1">
-                {{ coach.firstName }} {{ coach.lastName }}
+                {{ coach?.firstName }} {{ coach?.lastName }}
               </h2>
               <p class="text-muted mb-3">Your Personal Coach</p>
 
@@ -38,10 +39,11 @@
 
               <div class="mb-3">
                 <h5 class="fw-bold mb-2">About Coach</h5>
-                <p class="text-muted">{{ coach.about }}</p>
+                <p class="text-muted">{{ coach?.about }}</p>
               </div>
             </div>
           </div>
+        
         </div>
       </div>
 
@@ -50,7 +52,7 @@
         <div class="col-md-12 mb-3">
           <div class="card h-100 border-0 shadow-sm">
             <div class="card-body text-center">
-              <h3 class="fw-bold text-primary">{{coach.traineeCount}}</h3>
+              <h3 class="fw-bold text-primary">{{coach?.traineeCount}}</h3>
               <p class="text-muted mb-0">Active Trainees</p>
             </div>
           </div>
@@ -67,7 +69,17 @@
       </div>
 
     </div>
+  }
+  @else {
+    <div class="col-lg-8 mx-auto">
+      <div class="alert alert-warning text-center">
+        <strong>No coach assigned yet!</strong> Please wait for your coach to be assigned.
+      </div>
+    </div>
+  }
   </div>
+
+  @if (coach != null) {
 
   <!-- Floating Chat Button -->
   <button
@@ -82,4 +94,5 @@
   >
     <i class="bi bi-chat-dots fs-4"></i>
   </button>
+}
 </div>
