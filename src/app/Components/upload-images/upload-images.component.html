@@ -1,0 +1,6 @@
+<div class="form-group upload-section">
+  <label class="upload-label">Images</label>
+  <input type="file" multiple accept="image/*" [formControl]="control"  (change)="uploadImage($event)" class="file-input" #fileInput>
+</div>
+<app-image-slider [imagesUrl]="imagesUrl" ></app-image-slider>
+

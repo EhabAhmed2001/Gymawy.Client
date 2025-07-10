@@ -5,10 +5,12 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CommonModule } from '@angular/common';
 import { GymService } from '../../Services/gym.service';
 import { Item } from '../../Interfaces/Shared/Shared';
+import { UploadImagesComponent } from "../upload-images/upload-images.component";
+import { ImageSliderComponent } from "../image-slider/image-slider.component";
 
 @Component({
   selector: 'app-add-gym',
-  imports: [MapComponent , ReactiveFormsModule,CommonModule],
+  imports: [MapComponent, ReactiveFormsModule, CommonModule, UploadImagesComponent, ImageSliderComponent],
   templateUrl: './add-gym.component.html',
   styleUrl: './add-gym.component.css'
 })
@@ -16,6 +18,8 @@ export class AddGymComponent implements OnInit {
   gymTypes!:Item[]
   features!:Item[]
   selectedFeatures:SelectedGymFeature[]=[]
+  currentSelectedFeatureImgeFile:File|any=null;
+  currentSelectedFeatureImgeUrl:string|null=null
   currentSelectedFeature:Item|null = null
   gym:Gym={
       Name :"",
@@ -24,30 +28,42 @@ export class AddGymComponent implements OnInit {
       GymType :0,
       GymOwnerId:0,
       Address:{
-        Street:"",
-        City:"" ,
-        Country:"", 
-        Location:{
-          X: 0, //long  
-          Y: 0  //lat
+        street:"",
+        city:"" ,
+        country:"", 
+        location:{
+          x: 0, //long  
+          y: 0  //lat
         }       
       } ,
       GymExtraFeatures:[],
-      GymFeatures:[]
+      GymFeatures:[],
+      GymImages:[],
+      //Media:null
   }
+  logoUrl:string|null=null
+  logoFile!:File
+  uploadedGymImages:File[]|null=null
   formAddFeature!:FormGroup
   formAddGym:FormGroup=new FormGroup({
       name: new FormControl(this.gym.Name,[Validators.required]),
       phone:new FormControl(this.gym.Phone,[Validators.required,Validators.pattern(/^\+?[0-9]{10,15}$/)]),
       description:new FormControl(this.gym.Description,[Validators.required]),
+      uploadImage:new FormControl(this.gym.GymImages,[Validators.required]),
       gymType:new FormControl(this.gym.GymType,[Validators.required]),
-      searchAddress:new FormControl("",[Validators.required]),
-      street:new FormControl(this.gym.Address.Street,[Validators.required]),
-      city:new FormControl(this.gym.Address.City,[Validators.required]), 
-      country:new FormControl(this.gym.Address.Country,[Validators.required]), 
+      searchAddress:new FormControl(""),
+      street:new FormControl(this.gym.Address.street,[Validators.required]),
+      city:new FormControl(this.gym.Address.city,[Validators.required]), 
+      country:new FormControl(this.gym.Address.country,[Validators.required]), 
+      logo:new FormControl([Validators.required]), 
     })
 
-
+  get uploadImageControl(): FormControl {
+    return this.formAddGym.get('uploadImage') as FormControl;
+  }
+  setUploadedImges(e:any){
+    this.uploadedGymImages = e
+  }
   private initformAddFeature() {
     console.log(this.currentSelectedFeature);
     this.formAddFeature=new FormGroup({
@@ -76,39 +92,104 @@ export class AddGymComponent implements OnInit {
     })
   }
 
+  uploadLogo(event:any){
+    const input = event.target as HTMLInputElement
+    if(!input.files) return
+    this.logoUrl=null;
+    this.logoFile =input.files[0]; 
+    const fileReader = new FileReader();
+    fileReader.onload=(e:any)=>{
+      this.logoUrl=e.target.result
+    }
+    fileReader.readAsDataURL(input.files[0])
+  }
+
+  uploadFeatureImage(event:any){
+    const input = event.target as HTMLInputElement
+    if(!input.files) return
+    this.currentSelectedFeatureImgeUrl=null;
+    this.currentSelectedFeatureImgeFile=input.files[0]
+    const fileReader = new FileReader();
+    fileReader.onload=(e:any)=>{
+      this.currentSelectedFeatureImgeUrl=e.target.result
+    }
+    fileReader.readAsDataURL(input.files[0])
+  }
+
+
 
   setAddress(event:any){
     //this.gym.Address.Street=event.street
     console.log(event)
     this.formAddGym.get('city')?.setValue(event.city)
     this.formAddGym.get('street')?.setValue(event.street)
+
     this.formAddGym.get('country')?.setValue(event.country)
-    this.gym.Address.Location.X = event.lon
-    this.gym.Address.Location.Y = event.lat
-  }
 
+    this.gym.Address.location.x = event.lng
+    this.gym.Address.location.y = event.lat
+  }
+  updateImages(event:any){
+    console.log(event)
+  }
   submitFormAddGym(){
-    console.log(this.selectedFeatures)
-    if(this.formAddGym.valid){
-      this.gym.Name = this.formAddGym.get('name')?.value
-      this.gym.Phone = this.formAddGym.get('phone')?.value
-      this.gym.Description = this.formAddGym.get('description')?.value
-      this.gym.Address.Street = this.formAddGym.get('street')?.value
-      this.gym.Address.City = this.formAddGym.get('city')?.value     
-      this.gym.Address.Country = this.formAddGym.get('country')?.value
-      this.gym.GymOwnerId=1
-      this.gym.GymExtraFeatures=this.selectedFeatures.filter(f=>f.FeatureId === -1).map(sf=>({Name:sf.Name ??'', Image:sf.Image , Description: sf.Description,Cost: sf.Cost })) 
-      this.gym.GymFeatures = this.selectedFeatures.filter(f=>f.FeatureId != -1).map(sf=>({FeatureId:sf.FeatureId , Image:sf.Image , Description: sf.Description,Cost: sf.Cost })) 
-      console.log( this.selectedFeatures.filter(f=>f.FeatureId === -1).map(sf=>({Name:sf.Name , Image:sf.Image , Description: sf.Description,Cost: sf.Cost })))
-      this.gymService.AddGym(this.gym).subscribe({
-        next:(res)=>{
+    console.log(this.formAddGym.valid )
 
-        }
-      });
+    for (const control of Object.values(this.formAddGym.controls)) {
+      control.markAsTouched();
     }
+
+    if(this.formAddGym.valid &&this.selectedFeatures.length>0){
+  // Basic gym info
+      const formData = new FormData();
+
+      this.gym.Name= this.formAddGym.get('name')?.value,
+      this.gym.Phone= this.formAddGym.get('phone')?.value,
+      this.gym.Description= this.formAddGym.get('description')?.value,
+      this.gym.GymType= Number( this.formAddGym.get('gymType')?.value),
+
+      this.gym.GymOwnerId= 1,
+      this.gym.Address.street=this.formAddGym.get('street')?.value
+      this.gym.Address.city=this.formAddGym.get('city')?.value
+      this.gym.Address.country=this.formAddGym.get('country')?.value
+      this.gym.GymExtraFeatures=this.selectedFeatures
+                                    .filter(f=>f.FeatureId === -1)
+                                    .map(sf=>{
+                                               formData.append('GymExtraFeaturesImages', sf.Image)
+                                              console.log(sf.Image)
+                                               return{Name:sf.Name ??'' , Description: sf.Description,Cost: sf.Cost }
+                                              }
+                                        )
+      this.gym.GymFeatures = this.selectedFeatures
+                                  .filter(f=>f.FeatureId != -1)
+                                  .map( sf=>{
+                                              formData.append('GymFeaturesImages', sf.Image)
+                                              console.log(sf.Image)
+                                              return {FeatureId:sf.FeatureId , Description: sf.Description,Cost: sf.Cost }
+                                            }
+                                  ) 
+      //this.gym.Media = this.logoFile
+
+    
+    console.log(formData.get('GymFeaturesImages'))
+    formData.append("gymInfo", JSON.stringify(this.gym));
+    formData.append("Media",this.logoFile);
+
+    // Append files
+    const files = this.uploadedGymImages;
+    if (files) {
+      for (let i = 0; i < files.length; i++) {
+        formData.append('GymImages', files[i]);
+      }
+    }
+    console.log(formData)
+    this.gymService.AddGym(formData).subscribe({
+      next:(res)=>{
+      }
+    });
+
   }
-
-
+}
 
   selectFeature(item:Item|null){
             this.initformAddFeature()
@@ -128,7 +209,8 @@ export class AddGymComponent implements OnInit {
           FeatureId:this.currentSelectedFeature?.id,
           Cost: this.formAddFeature.get('cost')?.value ,
           Description: this.formAddFeature.get('description')?.value ,
-          Image: this.formAddFeature.get('image')?.value
+          Image: this.currentSelectedFeatureImgeFile,
+          ImageUrl:this.currentSelectedFeatureImgeUrl
         };
         console.log(AddedSelectedFeature)
         this.selectedFeatures.push(AddedSelectedFeature)
@@ -140,6 +222,8 @@ export class AddGymComponent implements OnInit {
           }
         }
         this.currentSelectedFeature = null;
+        this.currentSelectedFeatureImgeFile = null;
+        this.currentSelectedFeatureImgeUrl = null;
     }
   }
   removeFeature(index:number){
@@ -150,6 +234,7 @@ export class AddGymComponent implements OnInit {
       this.features.push(feature)
     }
     this.selectedFeatures.splice(index,1)
+
   }
   closeModal(){
     this.currentSelectedFeature=null

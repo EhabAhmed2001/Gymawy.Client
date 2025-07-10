@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { TraineeService } from '../../../Services/trainee.service';
 import { TraineeCoachDetails } from '../../../Interface/TraineeGym';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-trainee-coach',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './trainee-coach.component.html',
   styleUrl: './trainee-coach.component.css'
 })
@@ -13,6 +14,7 @@ export class TraineeCoachComponent {
   constructor(private _traineeService: TraineeService) {}
 
   coach : TraineeCoachDetails | null = null;
+
   ngOnInit(){
     this._traineeService.GetTraineeCoachDetails().subscribe({
       next: (data) => {

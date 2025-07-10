@@ -7,20 +7,22 @@ export interface Gym {
   GymOwnerId:number,
   Address:Address ,
   GymExtraFeatures:GymExtraFeatureDto[],
-  GymFeatures:GymFeatureDto[]
+  GymFeatures:GymFeatureDto[],
+  GymImages:File[],
+  //Media:File|null
 }
 
 
 export interface GymExtraFeatureDto {
   Name:string,
-  Image:string,
+//  Image:string,
   Description:string,
   Cost:number
 }
 
 export interface GymFeatureDto{
   FeatureId:number,
-  Image:string,
+  //Image:string,
   Description:string,
   Cost:number
 }
@@ -28,7 +30,48 @@ export interface GymFeatureDto{
 export interface SelectedGymFeature{
   FeatureId:number|any,
   Name:string|null,
-  Image:string,
+  Image:File|any,
+  ImageUrl:string|any,
   Description:string,
   Cost:number
+}
+export interface GymGet {
+  address:Address,
+  gymType:number,
+  mediaUrl:string,
+  gymImagesUrl:string[],
+  name:string,
+  phone:string,
+  description:string
+}
+export interface GymUpdate {
+  name :string,
+  phone:string,
+  description :string,
+  gymType :number,
+  address:Address 
+}
+
+export interface GymFeature {
+    id :number,
+    image:string,
+    description:string,
+    cost:number,
+    name:string,
+    isExtra:boolean
+}
+
+export interface GymFeature {
+    id :number,
+    image:string,
+    description:string,
+    cost:number,
+    name:string,
+    featureId:number,
+    isExtra:boolean
+}
+export interface GymFeature {
+      cost:number,
+      image:string,
+      description:string
 }
