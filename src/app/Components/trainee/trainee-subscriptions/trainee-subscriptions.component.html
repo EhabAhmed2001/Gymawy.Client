@@ -10,117 +10,131 @@
 
   <!-- Membership Card -->
   <div class="row mb-4">
-    <div class="col-lg-8">
-      <div class="card shadow-sm mb-4">
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-start mb-3">
-            <div>
-              <h2 class="card-title fw-bold">
-                {{ subscription.membership.name }}
-              </h2>
-              <p class="text-muted">
-                {{ subscription.membership.description }}
+   @if(subscription?.membership != null)
+   {
+      <div class="col-lg-8">
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <div>
+                <h2 class="card-title fw-bold">
+                  {{ subscription!.membership.name }}
+                </h2>
+                <p class="text-muted">
+                  {{ subscription!.membership.description }}
+                </p>
+              </div>
+              @if(!isExpired()){
+              <span
+                class="badge bg-primary bg-opacity-10 text-primary fs-6 py-2 px-3"
+              >
+                Active
+              </span>
+              } @else{
+              <span class="badge bg-danger bg-opacity-10 text-danger fs-6 py-2 px-3">
+                Disactive
+              </span>
+              }
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-calendar-check fs-4 text-primary me-3"></i>
+                  <div>
+                    <p class="mb-0 text-muted small">Start Date</p>
+                    <p class="mb-0 fw-bold">
+                      {{ subscription!.membershipStartDate | date }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-calendar-x fs-4 text-primary me-3"></i>
+                  <div>
+                    <p class="mb-0 text-muted small">End Date</p>
+                    <p class="mb-0 fw-bold">
+                      {{ subscription!.membershipEndDate | date }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-cash-coin fs-4 text-primary me-3"></i>
+                  <div>
+                    <p class="mb-0 text-muted small">Total Cost</p>
+                    <p class="mb-0 fw-bold">
+                      ${{ subscription!.membership.cost }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-clock-history fs-4 text-primary me-3"></i>
+                  <div>
+                    <p class="mb-0 text-muted small">Duration</p>
+                    <p class="mb-0 fw-bold">
+                      {{ subscription!.membership.duration }} days
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gym Info Card -->
+      <div class="col-lg-4">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <div class="text-center mb-3">
+              <img
+                [src]="subscription!.gymData.logo"
+                alt="{{ subscription!.gymData.name }} logo"
+                class="img-fluid mb-3"
+                style="max-height: 80px"
+              />
+              <h4 class="fw-bold">{{ subscription!.gymData.name }}</h4>
+              <p class="text-muted small">{{ subscription!.gymData.gymType }}</p>
+            </div>
+
+            <div class="d-flex align-items-center mb-2">
+              <i class="bi bi-geo-alt-fill text-primary me-2"></i>
+              <p class="mb-0 small">
+                {{ subscription!.gymData.address.street }},
+                {{ subscription!.gymData.address.city }},
+                {{ subscription!.gymData.address.country }}
               </p>
             </div>
-            @if(!isExpired()){
-            <span
-              class="badge bg-primary bg-opacity-10 text-primary fs-6 py-2 px-3"
-            >
-              Active
-            </span>
-            } @else{
-            <span class="badge bg-danger bg-opacity-10 text-danger fs-6 py-2 px-3">
-              Disactive
-            </span>
-            }
-          </div>
 
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <div class="d-flex align-items-center">
-                <i class="bi bi-calendar-check fs-4 text-primary me-3"></i>
-                <div>
-                  <p class="mb-0 text-muted small">Start Date</p>
-                  <p class="mb-0 fw-bold">
-                    {{ subscription.membershipStartDate | date }}
-                  </p>
-                </div>
-              </div>
+            <div class="d-flex align-items-center mb-3">
+              <i class="bi bi-telephone-fill text-primary me-2"></i>
+              <p class="mb-0 small">{{ subscription!.gymData.phone }}</p>
             </div>
-            <div class="col-md-6 mb-3">
-              <div class="d-flex align-items-center">
-                <i class="bi bi-calendar-x fs-4 text-primary me-3"></i>
-                <div>
-                  <p class="mb-0 text-muted small">End Date</p>
-                  <p class="mb-0 fw-bold">
-                    {{ subscription.membershipEndDate | date }}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6 mb-3">
-              <div class="d-flex align-items-center">
-                <i class="bi bi-cash-coin fs-4 text-primary me-3"></i>
-                <div>
-                  <p class="mb-0 text-muted small">Total Cost</p>
-                  <p class="mb-0 fw-bold">
-                    ${{ subscription.membership.cost }}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6 mb-3">
-              <div class="d-flex align-items-center">
-                <i class="bi bi-clock-history fs-4 text-primary me-3"></i>
-                <div>
-                  <p class="mb-0 text-muted small">Duration</p>
-                  <p class="mb-0 fw-bold">
-                    {{ subscription.membership.duration }} days
-                  </p>
-                </div>
-              </div>
-            </div>
+
+            <a class="btn btn-outline-primary w-100 mt-2" routerLink="/gym/{{ subscription!.gymData.id }}">
+              <i class="bi bi-info-circle me-2"></i>View Gym Details
+            </a>
           </div>
         </div>
       </div>
-    </div>
+    }
 
-    <!-- Gym Info Card -->
-    <div class="col-lg-4">
-      <div class="card shadow-sm h-100">
-        <div class="card-body">
-          <div class="text-center mb-3">
-            <img
-              [src]="subscription.gymData.logo"
-              alt="{{ subscription.gymData.name }} logo"
-              class="img-fluid mb-3"
-              style="max-height: 80px"
-            />
-            <h4 class="fw-bold">{{ subscription.gymData.name }}</h4>
-            <p class="text-muted small">{{ subscription.gymData.gymType }}</p>
-          </div>
-
-          <div class="d-flex align-items-center mb-2">
-            <i class="bi bi-geo-alt-fill text-primary me-2"></i>
-            <p class="mb-0 small">
-              {{ subscription.gymData.address.street }},
-              {{ subscription.gymData.address.city }},
-              {{ subscription.gymData.address.country }}
-            </p>
-          </div>
-
-          <div class="d-flex align-items-center mb-3">
-            <i class="bi bi-telephone-fill text-primary me-2"></i>
-            <p class="mb-0 small">{{ subscription.gymData.phone }}</p>
-          </div>
-
-          <button class="btn btn-outline-primary w-100 mt-2">
-            <i class="bi bi-info-circle me-2"></i>View Gym Details
-          </button>
+    @else
+    {
+      <div class="col-12">
+        <div class="alert alert-warning" role="alert">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>
+          You currently do not have an active subscription.
         </div>
       </div>
-    </div>
+    }
   </div>
+
 
   <!-- Features Section -->
   <div class="row mb-4">
@@ -128,12 +142,13 @@
       <div class="card shadow-sm">
         <div class="card-body">
           <h3 class="card-title fw-bold mb-4">
-            <i class="bi bi-stars text-primary me-2"></i>Included Features
+            <i class="bi bi-stars text-primary me-2"></i>Membership Included Features
           </h3>
 
+          @if (subscription?.membership?.features != null && (subscription?.membership?.features?.length ?? 0) > 0) {
           <div class="row">
 
-            @for (feature of subscription.membership.features; track $index) {
+            @for (feature of subscription!.membership.features; track $index) {
                 <div class="col-md-6 mb-3" >
                   <div class="d-flex">
                     <div class="flex-shrink-0">
@@ -153,7 +168,13 @@
             }
 
           </div>
-
+          } 
+          @else {
+          <div class="alert alert-info" role="alert">
+            <i class="bi bi-info-circle-fill me-2"></i>
+            No features included in this membership.
+          </div>
+          }
 
         </div>
       </div>
@@ -161,7 +182,7 @@
   </div>
 
   <!-- Additional Features -->
-  <div class="row mb-4" *ngIf="subscription.features.length > 0">
+  <div class="row mb-4" >
     <div class="col-12">
       <div class="card shadow-sm">
         <div class="card-body">
@@ -169,6 +190,9 @@
             <i class="bi bi-plus-circle text-primary me-2"></i>Additional
             Features
           </h3>
+
+
+          @if(subscription?.features != null && (subscription?.features?.length??0) > 0) {
 
           <div class="table-responsive">
             <table class="table">
@@ -181,7 +205,7 @@
                 </tr>
               </thead>
               <tbody>
-                @for (feature of subscription.features; track $index) {
+                @for (feature of subscription!.features; track $index) {
                     <tr >
                       <td>{{ feature.name }}</td>
                       <td>{{ feature.count }}</td>
@@ -192,13 +216,21 @@
               </tbody>
             </table>
           </div>
+          } @else {
+          <div class="alert alert-info" role="alert">
+            <i class="bi bi-info-circle-fill me-2"></i>
+            No additional features included in this subscription.
+            </div>
+          }
+
+
         </div>
       </div>
     </div>
   </div>
 
   <!-- Classes Section -->
-  <div class="row" *ngIf="subscription.class.length > 0">
+  <div class="row">
     <div class="col-12">
       <div class="card shadow-sm">
         <div class="card-body">
@@ -206,10 +238,12 @@
             <i class="bi bi-people-fill text-primary me-2"></i>Booked Classes
           </h3>
 
+
+          @if(subscription?.class != null && (subscription?.class?.length??0) > 0) {
           <div class="row">
             <div
               class="col-md-6 col-lg-4 mb-4"
-              *ngFor="let class of subscription.class"
+              *ngFor="let class of subscription!.class"
             >
               <div class="card h-100 border-0 shadow-sm">
                 <div class="card-body">
@@ -225,8 +259,7 @@
                   <div class="d-flex align-items-center mb-3">
                     <i class="bi bi-people text-primary me-2"></i>
                     <span class="small">
-                      {{ class.currentCapacity }}/{{ class.capacity }} spots
-                      filled
+                      {{ class.currentCapacity }}/{{ class.capacity }} Trainees
                     </span>
                   </div>
 
@@ -243,6 +276,13 @@
               </div>
             </div>
           </div>
+          } @else {
+          <div class="alert alert-info" role="alert">
+            <i class="bi bi-info-circle-fill me-2"></i>
+            No booked classes available in your subscription.
+          </div>
+          }
+
         </div>
       </div>
     </div>

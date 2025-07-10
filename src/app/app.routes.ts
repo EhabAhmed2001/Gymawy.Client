@@ -6,6 +6,7 @@ import { GymDetailsComponent } from './Components/trainee/gym-details/gym-detail
 import { TraineeComponent } from './Layout/trainee/trainee.component';
 import { TraineeCoachComponent } from './Components/trainee/trainee-coach/trainee-coach.component';
 import { TraineeSubscriptionsComponent } from './Components/trainee/trainee-subscriptions/trainee-subscriptions.component';
+import { PaymentComponent } from './Components/payment/payment.component';
 import { MemberDetailsComponent } from './Components/members/member-details/member-details.component';
 import { memberDetailsResolver } from './resolver/member-details.resolver';
 import { MemberEditComponent } from './Components/members/member-edit/member-edit.component';
@@ -25,6 +26,7 @@ import { GymPendingCoachComponent } from './Components/gym-pending-coach/gym-pen
 import { GymOwnerComponent } from './Components/gym-owner/gym-owner.component';
 
 
+
 export const routes: Routes = [
   {
     path: '',
@@ -37,6 +39,7 @@ export const routes: Routes = [
       { path: 'coach', component: TraineeCoachComponent, title: "Coach" },
       {path: 'coach/:coachId', component: CoachDashboardComponent, title: "Dashboard"},
       { path: 'subscriptions', component: TraineeSubscriptionsComponent, title: "Subscriptions" },
+      { path: 'payment/:id', component: PaymentComponent, title: "Payment" }
       { path: 'members/:username',component: MemberDetailsComponent, resolve: { member: memberDetailsResolver } },
       { path: 'member/edit',canDeactivate:[preventUnsavedChangesGuard],component: MemberEditComponent, title: "Edit Member" },
       { path: 'notFound', component: NotFoundComponent, title: "nofound" },

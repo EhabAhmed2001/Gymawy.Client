@@ -64,7 +64,7 @@
             </ul>
 
             <div class="d-grid gap-2 mt-auto pt-4">
-              <button class="btn btn-primary">Select</button>
+              <button class="btn btn-primary" (click)="JoinMembership(item.id,item.cost)" >Select</button>
             </div>
           </div>
         </div>
@@ -74,31 +74,58 @@
     </div>
 
     <!-- Features Section -->
-<div class="section-card">
-  <h2 class="section-title">Facilities & Features</h2>
+    <div class="section-card">
+      <h2 class="section-title">Facilities & Features</h2>
 
-  @for (item of gymFeatures; track $index) {
-    <div class="feature-card d-flex align-items-center justify-content-between p-3 mb-3 border rounded shadow-sm">
-      
-      <!-- Icon & Info -->
-      <div class="d-flex align-items-center">
-        <div class="feature-icon me-3">
-          <img src="{{ item.image }}" alt="{{item.name}}" style="width: 40px; height: 40px;" />
+      @for (item of gymFeatures; track $index) {
+        <div class="feature-card d-flex align-items-center justify-content-between p-3 mb-3 border rounded shadow-sm">
+          
+          <!-- Icon & Info -->
+          <div class="d-flex align-items-center">
+            <div class="feature-icon me-3">
+              <img src="{{ item.image }}" alt="{{item.name}}" style="width: 40px; height: 40px;" />
+            </div>
+            <div class="feature-info">
+              <h5 class="mb-1">{{ item.name }}</h5>
+              <p class="mb-0 text-muted small">{{ item.description }}</p>
+            </div>
+          </div>
+
+          <!-- Feature Cost -->
+
+          <div class="feature-cost text-end d-flex flex-row align-items-end">
+
+            <!-- <span class="fw-bold text-primary">${{ item.cost }} / Session</span> -->
+
+
+            <div class="price-desktop d-none d-md-flex flex-column align-items-end">
+              <span class="fw-bold text-primary">${{ item.cost }}</span>
+              <span class="fw-bold text-primary">per session</span>
+            </div>
+
+
+            <div class="quantity-counter d-flex align-items-center gap-2 mb-2 ms-4 ">
+              <button class="btn btn-outline-secondary rounded-circle" (click)="decrement($index)">
+                <i class="bi bi-dash"></i>
+              </button>
+
+              <div class="fs-5 fw-bold" style="width: 30px; text-align: center;">
+                {{ featureCounts[$index] }}
+              </div>
+
+              <button class="btn btn-outline-primary rounded-circle" (click)="increment($index)">
+                <i class="bi bi-plus"></i>
+              </button>
+            </div>
+
+          </div>
+
+            <button class="btn btn-primary ms-4" (click)="JoinFeature(item.id, item.cost,featureCounts[$index])">Book Session</button>
+
+
         </div>
-        <div class="feature-info">
-          <h5 class="mb-1">{{ item.name }}</h5>
-          <p class="mb-0 text-muted small">{{ item.description }}</p>
-        </div>
-      </div>
-
-      <!-- Feature Cost -->
-      <div class="feature-cost text-end">
-        <span class="fw-bold text-primary">${{ item.cost }} / Session</span>
-      </div>
-
+      }
     </div>
-  }
-</div>
 
     <!-- Classes Section -->
     <div class="section-card">
@@ -126,11 +153,12 @@
 
             
             <div class="capacity-info">
-            <h6>{{item.currentCapacity}} of {{item.capacity}} used</h6>
+            <h6>{{item.currentCapacity}} of {{item.capacity}} Trainees</h6>
             </div>
 
+
             <br>
-            <button class="btn btn-primary mt-2">Book Class</button>
+            <button class="btn btn-primary mt-2" (click)="JoinClass(item.id, item.cost)">Book Class</button>
         </div>
         <hr>
       }
