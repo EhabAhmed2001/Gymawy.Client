@@ -1,0 +1,68 @@
+<div class="dashboard-container">
+  <header class="dashboard-header">
+    <h1>Admin Dashboard</h1>
+  </header>
+
+  <!-- Stats Cards -->
+  <div class="stats-cards" *ngIf="dashboardData">
+    <div class="stat-card">
+      <h3>Total Gyms</h3>
+      <p>{{ dashboardData.numGyms }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Gym Owners</h3>
+      <p>{{ dashboardData.numGymOwners }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Coaches</h3>
+      <p>{{ dashboardData.numCoaches }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Trainees</h3>
+      <p>{{ dashboardData.numTrainees }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Pending Gyms</h3>
+      <p>{{ dashboardData.numPendingGyms }}</p>
+    </div>
+  </div>
+
+  <!-- Charts Row -->
+  <div class="chart-row">
+    <div class="chart-container">
+      <canvas id="statsChart"></canvas>
+    </div>
+    <div class="chart-container">
+      <canvas id="profitChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Gym Owners Table -->
+  <div class="gym-owners-table" *ngIf="dashboardData?.ownerStatDto">
+    <h2>Gym Owners Statistics</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Username</th>
+          <th>Gyms</th>
+          <th>Trainees</th>
+          <th>Classes</th>
+          <th>Memberships</th>
+          <th>Profit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let owner of dashboardData.ownerStatDto">
+          <td>{{ owner.firstName }} {{ owner.lastName }}</td>
+          <td>{{ owner.userName }}</td>
+          <td>{{ owner.numGyms }}</td>
+          <td>{{ owner.numTrainees }}</td>
+          <td>{{ owner.numClasses }}</td>
+          <td>{{ owner.numMemberships }}</td>
+          <td>${{ owner.profit.toFixed(2) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

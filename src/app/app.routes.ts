@@ -23,6 +23,7 @@ import { GetGymComponent } from './Components/get-gym/get-gym.component';
 import { FeaturesComponent } from './Components/features/features.component';
 import { GymPendingCoachComponent } from './Components/gym-pending-coach/gym-pending-coach.component';
 import { GymOwnerComponent } from './Components/gym-owner/gym-owner.component';
+import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
 
 
 export const routes: Routes = [
@@ -61,5 +62,5 @@ export const routes: Routes = [
     ]},
     {path:'image', component: UploadImagesComponent, title: "image"},
     {path:'gym', component:AddGymComponent},
-
+    {path:'admin/dashboard', component:AdminDashboardComponent, title: "Admin Dashboard"}
 ];

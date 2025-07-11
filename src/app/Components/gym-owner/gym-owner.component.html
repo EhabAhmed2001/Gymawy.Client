@@ -10,9 +10,9 @@
       <li class="nav-item"><a routerLink="gym/{{selectedGymId}}/class" routerLinkActive="active">Classes</a></li>
       <li class="nav-item"><a routerLink="GymPendingCoach/{{selectedGymId}}" routerLinkActive="active">Pending Coaches</a></li>
     </ul>
-    <div class="user-profile">
-      <img src="" alt="Profile" class="avatar">
-      <span class="username">Gym Owner</span>
+
+    <!-- profile -->
+    <div class="user-profile" (click)="toggleProfileDropdown()">
     </div>
   </nav>
 
@@ -21,8 +21,8 @@
     <div class="sidebar-header">
       <h3>My Gyms</h3>
       <button class="add-gym-btn">
-          <a routerLink="addGym">
-            <i class="fas fa-plus"></i> Add Gym
+          <a routerLink="addGym" class="text-white" style="text-decoration: none;">
+            <i class="fas fa-plus text-white"></i> Add Gym
           </a>
         </button>
     </div>
@@ -38,11 +38,10 @@
     </div>
 
     <div class="gym-actions" *ngIf="selectedGymId">
-      <button class="edit-gym-btn" (click)="openEditGymModal()">
-        <i class="fas fa-edit"></i> Edit Gym
-      </button>
-      <button class="delete-gym-btn" (click)="confirmDeleteGym()">
-        <i class="fas fa-trash"></i> Delete Gym
+      <button class="edit-gym-btn">
+        <a routerLink="gymDetail/{{selectedGymId}}" class="text-white" style="text-decoration: none;">
+          <i class="fas fa-edit"></i> Edit Gym
+        </a>
       </button>
     </div>
   </aside>
