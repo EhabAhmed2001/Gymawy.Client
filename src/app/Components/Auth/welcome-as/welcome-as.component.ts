@@ -16,4 +16,9 @@ constructor(private router: Router) {}
    navigateTo(role: string) {
     this.router.navigate([`/register/${role}`]);
   }
+
+  navigateToLogin() {
+  this.router.navigate(['/login']);
+}
+
 }

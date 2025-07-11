@@ -28,13 +28,29 @@
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-.overlay {
+/* .overlay {
   position: absolute;
   bottom: 20px;
   left: 20px;
   color: white;
   z-index: 1;
   text-shadow: 1px 1px 5px #000;
+} */
+.overlay-Register {
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  z-index: 1;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: bold;
+  padding: 10px 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 255, 100, 0.4);
+  transition: transform 0.3s ease;
 }
 
 .role-card.owner {
@@ -48,4 +64,39 @@
 
 .role-card.trainee {
   background-image: url('/images/RegisterAsTrainee.webp');
+}
+
+
+
+.login-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 150px;
+  height: 80px;
+  background-image: url('/images/LoginCard.jpg'); /* ضع صورة حلوة هنا */
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0,255,100,0.3);
+  transition: transform 0.3s ease;
+  z-index: 3;
+}
+
+.login-button:hover {
+  transform: scale(1.05);
+}
+
+.login-button .overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0,0,0,0.5);
+  text-align: center;
+  color: #00ff88;
+  font-weight: bold;
+  padding: 5px;
+  text-shadow: 1px 1px 4px black;
 }

@@ -1,19 +1,26 @@
+<div class="login-button" (click)="navigateToLogin()">
+  <div class="overlay">
+    <h4>Login</h4>
+  </div>
+</div>
+
+
 <!-- home.component.html -->
 <div class="home-container ">
   <!-- <div class="role-card owner" (click)="navigateTo('owner')"> -->
   <div class="role-card owner" (click)="navigateTo('admin')">
-    <div class="overlay">
-      <h2>Register as Gym Owner</h2>
+    <div class="overlay-Register">
+      <h2>Join as Gym Owner</h2>
     </div>
   </div>
   <div class="role-card coach" (click)="navigateTo('coach')">
-    <div class="overlay">
-      <h2>Register as Coach</h2>
+    <div class="overlay-Register">
+      <h2>Join as Coach</h2>
     </div>
   </div>
   <div class="role-card trainee" (click)="navigateTo('trainee')">
-    <div class="overlay ">
-      <h2>Register as Trainee</h2>
+    <div class="overlay-Register ">
+      <h2>Join as Trainee</h2>
     </div>
   </div>
 </div>

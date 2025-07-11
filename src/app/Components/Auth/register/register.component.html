@@ -1,11 +1,10 @@
-<div class="container-fluid  d-flex justify-content-center align-items-center">
+<!-- <div class="container-fluid  d-flex justify-content-center align-items-center">
   <div class="card shadow p-4" style="max-width: 600px; width: 100%;">
     <h4 class="card-title text-center mb-4">Register</h4>
     <p class="text-center text-white">Step {{ currentStep }} of {{ totalSteps }}</p>
 
     <form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && Register(registerForm)">
 
-      <!-- Step 1: Personal Info -->
       <div *ngIf="currentStep === 1 || currentStep === 0">
         <app-text-input [formControl]="$any(registerForm.get('firstName'))" [label]="'First Name'" [type]="'text'"></app-text-input>
         <app-text-input [formControl]="$any(registerForm.get('lastName'))" [label]="'Last Name'" [type]="'text'"></app-text-input>
@@ -15,7 +14,6 @@
         <input type="date" class="form-control" [max]="maxDate | date:'yyyy-MM-dd'" [formControl]="$any(registerForm.get('dateOfBirth'))">
       </div>
 
-      <!-- Step 2: Account Info -->
       <div *ngIf="currentStep === 2">
         <app-text-input [formControl]="$any(registerForm.get('password'))" [label]="'Password'" [type]="'password'"></app-text-input>
         <app-text-input [formControl]="$any(registerForm.get('weight'))" [label]="'Weight'" [type]="'number'"></app-text-input>
@@ -23,11 +21,9 @@
         <app-text-input [formControl]="$any(registerForm.get('role'))" [label]="'Role'" [type]="'text'"></app-text-input>
       </div>
 
-      <!-- Step 3: Address Info -->
       <div *ngIf="currentStep === 3">
 
           <div *ngIf="currentStep === 3">
-  <!-- Address Section -->
   <h2 class="section-title">Location Information</h2>
 
   <div class="map-container">
@@ -59,16 +55,13 @@
 
 
 
-      <!-- </div> -->
 
-      <!-- Validation Errors -->
       <div class="row" *ngIf="validationErrors">
         <ul class="text-danger">
           <li *ngFor="let error of validationErrors">{{ error }}</li>
         </ul>
       </div>
 
-      <!-- Navigation Buttons -->
       <div class="d-flex justify-content-between mt-3">
         <button type="button" class="btn btn-secondary" (click)="previousStep()" >Back</button>
         <button *ngIf="currentStep < totalSteps" type="button" class="btn btn-primary" (click)="nextStep()">Next</button>
@@ -81,7 +74,7 @@
 </div>
 
 <p>{{ registerForm.value | json }}</p>
-<p>{{ registerForm.status | json }}</p>
+<p>{{ registerForm.status | json }}</p> -->
    <!-- <app-text-input [formControl]="$any(registerForm.get('address.street'))" [label]="'Street'" [type]="'text'"></app-text-input>
         <app-text-input [formControl]="$any(registerForm.get('address.city'))" [label]="'City'" [type]="'text'"></app-text-input>
         <app-text-input [formControl]="$any(registerForm.get('address.country'))" [label]="'Country'" [type]="'text'"></app-text-input>
@@ -89,3 +82,68 @@
         <app-text-input [formControl]="$any(registerForm.get('address.location.y'))" [label]="'Y'" [type]="'number'"></app-text-input>
  -->
         <!-- <app-date-picker [formControl]="$any(registerForm.get('dateOfBirth'))" [label]="'Date of Birth'" [maxDate]="maxDate"></app-date-picker> -->
+
+
+<div class="container-fluid d-flex justify-content-center align-items-center min-vh-100">
+  <div class="card shadow p-4 form-card">
+    <h4 class="card-title text-center mb-4">Register</h4>
+    <p class="text-center text-white">Step {{ currentStep }} of {{ totalSteps }}</p>
+
+    <form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && Register(registerForm)">
+      <!-- Step 1: Personal Info -->
+      <div *ngIf="currentStep === 1 || currentStep === 0">
+        <app-text-input [formControl]="$any(registerForm.get('firstName'))" [label]="'First Name'" [type]="'text'"></app-text-input>
+        <app-text-input [formControl]="$any(registerForm.get('lastName'))" [label]="'Last Name'" [type]="'text'"></app-text-input>
+        <app-text-input [formControl]="$any(registerForm.get('userName'))" [label]="'KnownAs'" [type]="'text'"></app-text-input>
+        <app-text-input [formControl]="$any(registerForm.get('email'))" [label]="'Email'" [type]="'email'"></app-text-input>
+        <app-text-input [formControl]="$any(registerForm.get('phoneNumber'))" [label]="'Phone Number'" [type]="'text'"></app-text-input>
+        <input type="date" class="form-control mb-3" [max]="maxDate | date:'yyyy-MM-dd'" [formControl]="$any(registerForm.get('dateOfBirth'))">
+      </div>
+
+      <!-- Step 2: Account Info -->
+      <div *ngIf="currentStep === 2">
+        <app-text-input [formControl]="$any(registerForm.get('password'))" [label]="'Password'" [type]="'password'"></app-text-input>
+        <app-text-input [formControl]="$any(registerForm.get('weight'))" [label]="'Weight'" [type]="'number'"></app-text-input>
+        <app-text-input [formControl]="$any(registerForm.get('reasonForJoining'))" [label]="'Reason for Joining'" [type]="'text'"></app-text-input>
+        <app-text-input [formControl]="$any(registerForm.get('role'))" [label]="'Role'" [type]="'text'"></app-text-input>
+      </div>
+
+      <!-- Step 3: Address Info -->
+      <div *ngIf="currentStep === 3">
+        <h2 class="section-title">Location Information</h2>
+
+        <div class="map-container mb-3">
+          <app-map (addressChange)="setAddress($event)" #map></app-map>
+          <div class="address-search mt-2">
+            <input formControlName="searchAddress" type="text" #searchInput (blur)="map.searchAddress(searchInput.value)" (keyup.enter)="map.searchAddress(searchInput.value)" placeholder="Search for an address..." class="form-control">
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <app-text-input [formControl]="$any(registerForm.get('address.street'))" [label]="'Street'" [type]="'text'"></app-text-input>
+          <app-text-input [formControl]="$any(registerForm.get('address.city'))" [label]="'City'" [type]="'text'"></app-text-input>
+          <app-text-input [formControl]="$any(registerForm.get('address.country'))" [label]="'Country'" [type]="'text'"></app-text-input>
+        </div>
+      </div>
+
+      <!-- Validation Errors -->
+      <div class="row" *ngIf="validationErrors">
+        <ul class="text-danger">
+          <li *ngFor="let error of validationErrors">{{ error }}</li>
+        </ul>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="d-flex justify-content-between mt-3">
+        <button type="button" class="btn neon-btn" (click)="previousStep()">Back</button>
+        <button *ngIf="currentStep < totalSteps" type="button" class="btn neon-btn" (click)="nextStep()">Next</button>
+        <button *ngIf="currentStep === totalSteps" type="submit" class="btn neon-btn" [disabled]="!registerForm.valid">
+          <i class="fa fa-right-to-bracket me-2"></i> Register
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<p>{{ registerForm.value | json }}</p>
+<p>{{ registerForm.status | json }}</p>

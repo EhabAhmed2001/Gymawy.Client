@@ -1,10 +1,9 @@
-<div class="container-fluid  d-flex justify-content-center align-items-center">
+<!-- <div class="container-fluid  d-flex justify-content-center align-items-center">
   <div class="card shadow p-4" style="max-width: 600px; width: 100%;">
     <h4 class="card-title text-center mb-4">Register</h4>
 
     <form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && Register(registerForm)">
 
-      <!-- Step 1: Personal Info -->
       <div>
         <app-text-input [formControl]="$any(registerForm.get('firstName'))" [label]="'First Name'"
           [type]="'text'"></app-text-input>
@@ -20,13 +19,11 @@
           [type]="'password'"></app-text-input>
       </div>
 
-      <!-- Validation Errors -->
       <div class="row" *ngIf="validationErrors">
         <ul class="text-danger">
           <li *ngFor="let error of validationErrors">{{ error }}</li>
         </ul>
       </div>
- <!-- Navigation Buttons -->
       <div class="d-flex justify-content-between mt-3">
         <button type="button" class="btn btn-secondary" [routerLink]="['/register']" routerLinkActive="router-link-active"  >Back</button>
         <button  type="submit" class="btn btn-success"
@@ -41,4 +38,38 @@
 
 <p>{{ registerForm.value | json }}</p>
 <p>{{ registerForm.status | json }}</p>
+ -->
 
+
+ <div class="container-fluid d-flex justify-content-center align-items-center min-vh-100" >
+  <div class="card shadow p-4 form-card">
+    <h4 class="card-title text-center mb-4">Register</h4>
+
+    <form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && Register(registerForm)">
+      <!-- Step 1: Personal Info -->
+      <div>
+        <app-text-input [formControl]="$any(registerForm.get('firstName'))" [label]="'First Name'" [type]="'text'"></app-text-input>
+        <app-text-input [formControl]="$any(registerForm.get('lastName'))" [label]="'Last Name'" [type]="'text'"></app-text-input>
+        <app-text-input [formControl]="$any(registerForm.get('userName'))" [label]="'KnownAs'" [type]="'text'"></app-text-input>
+        <app-text-input [formControl]="$any(registerForm.get('email'))" [label]="'Email'" [type]="'email'"></app-text-input>
+        <app-text-input [formControl]="$any(registerForm.get('phoneNumber'))" [label]="'Phone Number'" [type]="'text'"></app-text-input>
+        <app-text-input [formControl]="$any(registerForm.get('password'))" [label]="'Password'" [type]="'password'"></app-text-input>
+      </div>
+
+      <!-- Validation Errors -->
+      <div class="row" *ngIf="validationErrors">
+        <ul class="text-danger">
+          <li *ngFor="let error of validationErrors">{{ error }}</li>
+        </ul>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="d-flex justify-content-between mt-3">
+        <button type="button" class="btn neon-btn" [routerLink]="['/register']" routerLinkActive="router-link-active">Back</button>
+        <button type="submit" class="btn neon-btn" [disabled]="!registerForm.valid">
+          <i class="fa fa-right-to-bracket me-2"></i> Register
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
