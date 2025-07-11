@@ -14,6 +14,8 @@ import { ICoachInfo } from '../../../Interfaces/ICoach';
 import { CoachService } from '../../../Services/coach.service';
 import { TraineeService } from '../../../Services/trainee.service';
 import { ITraineeInfo } from '../../../Interfaces/ITraineeInfo';
+import { IOwnerInfo } from '../../../Interfaces/IOwnerInfo';
+import { GymOwnerService } from '../../../Services/gym-owner.service';
 
 @Component({
   selector: 'app-member-edit',
@@ -32,6 +34,7 @@ export class MemberEditComponent implements OnInit {
   member: IMember | undefined;
   coach: ICoachInfo | undefined;
   trainee: ITraineeInfo | undefined;
+   owner: IOwnerInfo | undefined;
 
   user: IUser | null = null;
 
@@ -39,6 +42,7 @@ export class MemberEditComponent implements OnInit {
     private _membersService: MembersService,
     private _coachService: CoachService,
     private _traineeService: TraineeService,
+    private _gymOwnerService: GymOwnerService,
     private _toastrService:ToastrService) {}
 
 ngOnInit(): void {
@@ -47,12 +51,17 @@ ngOnInit(): void {
   if(this.user?.role === 'Coach')
       this.loadCoachInfo();
 
+  if(this.user?.role === 'Owner')
+      this.loadOwnerInfo();
+
   if(this.user?.role === 'Trainee') {
       this.loadTraineeInfo();
   }
 
 
 }
+
+
 
 loadMember():void {
 this.GetCurrentUser();
@@ -98,6 +107,18 @@ loadTraineeInfo():void{
       },
     });
 }
+
+loadOwnerInfo():void {
+     this.GetCurrentUser();
+    if(!this.user) return;
+    this._gymOwnerService.getOwnerByUserName(this.user.userName).subscribe({
+      next: owner => {
+        this.owner = owner
+        console.log(this.owner);
+
+      },
+    });
+  }
 
 
 UpdateMember():void {

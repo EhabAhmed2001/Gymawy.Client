@@ -5,3 +5,18 @@
 input [type=file] {
 color: transparent;
 }
+.my-drop-zone {
+  transition: border-color 0.3s ease;
+  cursor: pointer;
+  min-height: 120px;
+  background-color: #f9f9f9;
+}
+
+.nv-file-over {
+  border: 2px dashed #0d6efd !important;
+  background-color: #eef6ff;
+}
+
+input[type="file"] {
+  cursor: pointer;
+}
