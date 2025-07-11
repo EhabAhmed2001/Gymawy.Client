@@ -69,6 +69,7 @@ export const routes: Routes = [
       {path:'features/:id', component: FeaturesComponent, title: "Gym Features"},
       {path:'GymPendingCoach/:gymId', component: GymPendingCoachComponent, title: "Pending Coach"}
     ]},
+    
     {path:'image', component: UploadImagesComponent, title: "image"},
     {path:'gym', component:AddGymComponent},
     {path:'admin/dashboard', component:AdminDashboardComponent, title: "Admin Dashboard"},
