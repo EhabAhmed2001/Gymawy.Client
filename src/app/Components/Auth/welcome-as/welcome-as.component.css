@@ -1,0 +1,51 @@
+/* home.component.css */
+.home-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.role-card {
+  flex: 1;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  transition: transform 0.4s ease-in-out;
+  cursor: pointer;
+}
+
+.role-card:hover {
+  transform: scale(1.03);
+  z-index: 2;
+}
+
+.role-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  height: 100%; width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: white;
+  z-index: 1;
+  text-shadow: 1px 1px 5px #000;
+}
+
+.role-card.owner {
+  background-image: url('/images/RegisterAsGymOwner.webp');
+}
+
+.role-card.coach {
+ /* background-image: url('/images/RegisterAsCoach.webp'); */
+ background-image: url('/images/RegisterAsCoach - Copy.jpg');
+}
+
+.role-card.trainee {
+  background-image: url('/images/RegisterAsTrainee.webp');
+}

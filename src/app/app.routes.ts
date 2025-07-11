@@ -10,8 +10,7 @@ import { MemberDetailsComponent } from './Components/members/member-details/memb
 import { memberDetailsResolver } from './resolver/member-details.resolver';
 import { MemberEditComponent } from './Components/members/member-edit/member-edit.component';
 import { preventUnsavedChangesGuard } from './guard/prevent-unsaved-changes.guard';
-import { RegisterComponent } from './Components/register/register.component';
-import { LoginComponent } from './Components/login/login.component';
+import { RegisterComponent } from './Components/Auth/register/register.component';
 import { HomeComponent } from './Components/home/home.component';
 import { authGuard } from './guard/auth.guard';
 import { AuthLayoutComponent } from './Layout/auth-layout/auth-layout.component';
@@ -23,6 +22,10 @@ import { GetGymComponent } from './Components/get-gym/get-gym.component';
 import { FeaturesComponent } from './Components/features/features.component';
 import { GymPendingCoachComponent } from './Components/gym-pending-coach/gym-pending-coach.component';
 import { GymOwnerComponent } from './Components/gym-owner/gym-owner.component';
+import { WelcomeAsComponent } from './Components/Auth/welcome-as/welcome-as.component';
+import { LoginComponent } from './Components/Auth/login/login.component';
+import { RegisterAsCoachComponent } from './Components/Auth/register-as-coach/register-as-coach.component';
+import { RegisterAsGymOwnerComponent } from './Components/Auth/register-as-gym-owner/register-as-gym-owner.component';
 
 
 export const routes: Routes = [
@@ -45,8 +48,12 @@ export const routes: Routes = [
   },
 
   { path: '', component: AuthLayoutComponent, children: [
+      { path: '', redirectTo: 'register', pathMatch: 'full' },
+      { path: 'register', component: WelcomeAsComponent, title: "register" },
       { path: 'login', component: LoginComponent, title: "login" },
       { path: 'register/trainee', component: RegisterComponent, title: "register" },
+      { path: 'register/coach', component: RegisterAsCoachComponent, title: "register" },
+      { path: 'register/admin', component: RegisterAsGymOwnerComponent, title: "register" },
     ]},
 
     {path: 'gym-owner/:id',

@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule,
+   ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { IUser } from '../../Interfaces/IUser';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../../Services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../../Services/auth.service';
+import { IUser } from '../../../Interfaces/IUser';
 
 @Component({
   selector: 'app-login',

@@ -7,14 +7,16 @@ import {
   AbstractControl,
   ReactiveFormsModule,
   FormControl,
+  FormsModule,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../../Services/auth.service';
+import { AuthService } from '../../../Services/auth.service';
 import { CommonModule } from '@angular/common';
-import { TextInputComponent } from '../../shared/text-input/text-input.component';
-import { DatePickerComponent } from '../../shared/date-picker/date-picker.component';
+import { TextInputComponent } from '../../../shared/text-input/text-input.component';
+import { DatePickerComponent } from '../../../shared/date-picker/date-picker.component';
+import { MapComponent } from '../../map/map.component';
 
 @Component({
   selector: 'app-register',
@@ -23,6 +25,8 @@ import { DatePickerComponent } from '../../shared/date-picker/date-picker.compon
     ReactiveFormsModule,
     TextInputComponent,
     DatePickerComponent,
+    MapComponent,
+    FormsModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
@@ -139,4 +143,36 @@ export class RegisterComponent implements OnInit {
       .toISOString()
       .slice(0, 10);
   }
+
+currentStep = 1;
+totalSteps = 3;
+
+nextStep() {
+  if (this.currentStep < this.totalSteps)
+    this.currentStep++;
+  console.log(this.currentStep);
+
+}
+
+previousStep() {
+this.currentStep--;
+// console.log(this.currentStep);
+ if (this.currentStep < 1)
+    this._router.navigate(['/register']);
+}
+
+
+
+
+  setAddress(event:any){
+    console.log(event)
+    this.registerForm.get('address.city')?.setValue(event.city)
+    this.registerForm.get('address.street')?.setValue(event.street)
+
+    this.registerForm.get('address.country')?.setValue(event.country)
+
+    this.registerForm.get('address.location.x')?.setValue(event.lng)
+    this.registerForm.get('address.location.y')?.setValue(event.lat)
+  }
+
 }
