@@ -23,6 +23,7 @@ import { GetGymComponent } from './Components/get-gym/get-gym.component';
 import { FeaturesComponent } from './Components/features/features.component';
 import { GymPendingCoachComponent } from './Components/gym-pending-coach/gym-pending-coach.component';
 import { GymOwnerComponent } from './Components/gym-owner/gym-owner.component';
+import { TraineeDetailsComponent } from './Components/coach/trainee-details/trainee-details.component';
 
 
 export const routes: Routes = [
@@ -36,6 +37,7 @@ export const routes: Routes = [
       { path: 'gym/:id', component: GymDetailsComponent, title: "Gym" },
       { path: 'coach', component: TraineeCoachComponent, title: "Coach" },
       {path: 'coach/:coachId', component: CoachDashboardComponent, title: "Dashboard"},
+      {path: 'coach/traineeDetails/:traineeId', component: TraineeDetailsComponent, title: "Trainee Details"},
       { path: 'subscriptions', component: TraineeSubscriptionsComponent, title: "Subscriptions" },
       { path: 'members/:username',component: MemberDetailsComponent, resolve: { member: memberDetailsResolver } },
       { path: 'member/edit',canDeactivate:[preventUnsavedChangesGuard],component: MemberEditComponent, title: "Edit Member" },

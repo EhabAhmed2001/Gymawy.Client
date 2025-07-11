@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CoachData } from '../Interface/Coach/CoachDashboard';
+import { CoachData, TraineeDetails } from '../Interface/Coach/CoachDashboard';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { PendingCoach } from '../Interfaces/Coach';
@@ -14,6 +14,9 @@ export class CoachService {
 
   GetCoachDashboard(coachId: number): Observable<CoachData> {
     return this.httpClient.get<CoachData>(`${this.apiUrl}/Dashboard/${coachId}`);
+  }
+  GetTraineeDetails(traineeId: number): Observable<TraineeDetails> {
+    return this.httpClient.get<TraineeDetails>(`${this.apiUrl}/Dashboard/traineeDetails/${traineeId}`);
   }
   GetGymPendingCoachs(gymId:number):Observable<PendingCoach[]>{
     console.log(`${this.apiUrl}/PendingCoach/${gymId}`)
