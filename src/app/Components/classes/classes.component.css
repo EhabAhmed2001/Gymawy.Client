@@ -38,7 +38,7 @@
 /* Table Styles */
 .table-responsive {
   overflow-x: auto;
-  border-radius: 0.5rem; 
+  border-radius: 0.5rem;
   margin: 0 10px 2rem;
 }
 
@@ -326,7 +326,7 @@
   .action-buttons {
     flex-direction: column;
   }
-  
+
   .modal-wrapper {
     margin: 0.5rem;
   }

@@ -128,6 +128,7 @@ export class ClassTraineesComponent implements OnInit {
     this.errorMessage = null;
     this.classService.addTraineeToClass(this.classId, this.selectedTraineeId).subscribe({
       next: () => {
+        this.loadClass();
         this.loadTrainees();
         this.loadNotJoinedTrainees();
         this.closeAddModal();
@@ -146,6 +147,7 @@ export class ClassTraineesComponent implements OnInit {
     this.errorMessage = null;
     this.classService.removeTraineeFromClass(this.classId, this.selectedTrainee.id).subscribe({
       next: () => {
+        this.loadClass();
         this.loadTrainees();
         this.loadNotJoinedTrainees();
         this.closeRemoveModal();

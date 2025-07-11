@@ -3,6 +3,7 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { GymClasses, GymFeatures, GymMembership, GymDetails, TraineeCoachDetails, TraineeSubscription } from '../Interface/TraineeGym';
 import { Observable } from 'rxjs/internal/Observable';
+import { PaymentReturn } from '../Interfaces/Payment/PaymentReturn';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,24 @@ export class TraineeService {
 
   GetTraineeSubscriptions(): Observable<TraineeSubscription> {
     return this.httpClient.get<TraineeSubscription>(`${this.apiUrl}/subscriptions`);
+  }
+
+  JoinIntoMembership(membershipId: number): Observable<PaymentReturn> {
+    return this.httpClient.post<PaymentReturn>(`${this.apiUrl}/assign-membership/${membershipId}`, {});
+  }
+
+  JoinToClass(classId: number): Observable<PaymentReturn> {
+    return this.httpClient.post<PaymentReturn>(`${this.apiUrl}/join-class/${classId}`, {});
+  }
+
+  AddFeature(featureId: number, count: number): Observable<PaymentReturn> {
+    const params = { count: count.toString() };
+
+    return this.httpClient.post<PaymentReturn>(
+      `${this.apiUrl}/add-feature/${featureId}`,
+      {},              // Empty body
+      { params }        // Query parameters
+    );
   }
 
 }
