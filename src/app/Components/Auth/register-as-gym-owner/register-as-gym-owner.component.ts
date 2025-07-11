@@ -56,7 +56,8 @@ constructor(
         .subscribe({
           next: (response) => {
             console.log(response);
-            this._router.navigate(['/trainee-gym']);
+             this._router.navigate(['/login']);
+
           },
           error: (err) => {
             this.validationErrors = err; //will get it back form my interceptor arry error
