@@ -17,6 +17,16 @@ export interface Trainee {
   lastName: string;
   imageUrl: string;
 }
+export interface TraineeDetails {
+  id: number;
+  firstName: string;
+  lastName: string;
+  imageUrl: string;
+  dateOfBirth: Date;
+  reasonForJoining: string;
+  weight: number;
+  gymName: string;
+}
 
 export interface CoachData {
   gyms: Gym[];
