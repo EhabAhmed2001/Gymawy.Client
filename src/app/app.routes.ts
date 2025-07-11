@@ -22,6 +22,8 @@ import { UploadImagesComponent } from './Components/upload-images/upload-images.
 import { GetGymComponent } from './Components/get-gym/get-gym.component';
 import { FeaturesComponent } from './Components/features/features.component';
 import { GymPendingCoachComponent } from './Components/gym-pending-coach/gym-pending-coach.component';
+import { GetPendingGymsComponent } from './Components/get-pending-gyms/get-pending-gyms.component';
+import { GymDetailsAdminComponent } from './Components/gym-details-admin/gym-details-admin.component';
 
 
 export const routes: Routes = [
@@ -48,13 +50,14 @@ export const routes: Routes = [
       { path: 'login', component: LoginComponent, title: "login" },
       { path: 'register/trainee', component: RegisterComponent, title: "register" },
     ]},
+    {path:'PendingGymDetails/:id', component: GymDetailsAdminComponent, title: "Gym Detail"},
     {path:'gym/:gymId/class', component: ClassesComponent, title: "Classes"},
     {path:'gym/:gymId/class/:classId/trainees', component: ClassTraineesComponent, title: "Joined Trainees"},
-    {path:'gym', component:AddGymComponent},
     {path:'addGym', component: AddGymComponent, title: "Add Gym"},
     {path:'image', component: UploadImagesComponent, title: "image"},
     {path:'gymDetail/:id', component: GetGymComponent, title: "Gym"},
     {path:'features/:id', component: FeaturesComponent, title: "Gym"},
-    {path:'GymPendingCoach/:gymId', component: GymPendingCoachComponent, title: "Pending Coach"}
+    {path:'GymPendingCoach/:gymId', component: GymPendingCoachComponent, title: "Pending Coach"},
+    {path:'PendingGyms', component: GetPendingGymsComponent, title: "Pending Gyms"}
 
 ];

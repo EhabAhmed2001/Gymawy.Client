@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Gym, GymFeature, GymGet } from '../Interfaces/Gym/Gym';
+import { Gym, GymFeature, GymGet, PendingGym } from '../Interfaces/Gym/Gym';
 
 @Injectable({
   providedIn: 'root'
@@ -47,5 +47,16 @@ export class GymService {
   }
   DeleteGymFeature(gymFeatureId:number):Observable<any>{
     return this.httpclient.delete(`${this.url}/GymFeature/${gymFeatureId}`)
+  }
+
+  GetPendingGyms():Observable<PendingGym[]>{
+    return this.httpclient.get<PendingGym[]>(`${this.url}/PendingGyms`)
+  }
+  HandleGymAddRequest(gymId:number,IsAccept: boolean):Observable<number>{
+    return this.httpclient.get<number>(`${this.url}/HandleGymAddRequest/${gymId}?IsAccepted=${IsAccept}`)
+  }
+
+  GetGymWithFeaturesById(gymId:number):Observable<GymGet>{
+    return this.httpclient.get<GymGet>(`${this.url}/GymWithFeatures/${gymId}`)
   }
 }
