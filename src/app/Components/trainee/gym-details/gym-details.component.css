@@ -325,6 +325,12 @@
   padding-left: 1rem;
 }
 
+.quantity-counter button {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+}
+
 @media (max-width: 768px) {
   .gym-header-content {
     padding: 1.5rem;

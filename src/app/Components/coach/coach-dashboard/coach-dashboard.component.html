@@ -122,7 +122,7 @@
               </div>
             } @else {
               @for (trainee of coachData()?.trainees; track trainee.id) {
-                <div class="trainee-item">
+                <div class="trainee-item clickable" [routerLink]="['/coach/traineeDetails', trainee.id]">
                   <div class="trainee-avatar">
                     <img [src]="trainee.imageUrl" [alt]="trainee.firstName + ' ' + trainee.lastName" />
                   </div>

@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { DataSharedService } from '../../../Services/data-shared.service';
 import { TraineeService } from '../../../Services/trainee.service';
 import { GymClasses, GymDetails, GymFeatures, GymMembership } from '../../../Interface/TraineeGym';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PaymentService } from '../../../Services/payment.service';
+import { PayFor } from '../../../Interfaces/Payment/PaymentReturn';
 
 @Component({
   selector: 'app-gym-details',
@@ -11,8 +13,35 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './gym-details.component.css'
 })
 export class GymDetailsComponent {
+  JoinFeature(id: number, cost: number, sessionCount: number) {
+    this._paymentService.payFor = PayFor.Feature;
+    this._paymentService.totalAmount = cost * sessionCount;
+    // Navigate to payment page with feature ID
+    this._paymentService.featureCount = sessionCount;
+    this.router.navigate(['/payment', id])
+  }
 
-  constructor(private _sharedData: DataSharedService, private _traineeService: TraineeService, private route: ActivatedRoute) { }
+
+  JoinClass(id: number, cost: number) {
+    this._paymentService.payFor = PayFor.Class;
+    this._paymentService.totalAmount = cost;
+    // Navigate to payment page with class ID
+    this.router.navigate(['/payment', id]);
+  }
+
+
+
+  JoinMembership(id: number, cost: number) {
+    this._paymentService.payFor = PayFor.Membership;
+    this._paymentService.totalAmount = cost;
+    // Navigate to payment page with membership ID
+    this.router.navigate(['/payment', id]);
+  }
+
+
+
+
+  constructor(private router: Router, private _sharedData: DataSharedService, private _traineeService: TraineeService, private route: ActivatedRoute, private _paymentService: PaymentService) { }
 
   gymId: number = 0;
 
@@ -20,6 +49,8 @@ export class GymDetailsComponent {
   gymMemberships: GymMembership[] = [];
   gymFeatures: GymFeatures[] = [];
   gymClasses: GymClasses[] = [];
+
+  featureCounts: number[] = [];
 
 
 
@@ -37,10 +68,22 @@ export class GymDetailsComponent {
     this.getGymClasses();
     this.getGymFeatures();
 
-
   }
 
-    getGymById(gymId: number) {
+
+  increment(index: number): void {
+    if (this.featureCounts[index] < 10) {
+      this.featureCounts[index]++;
+    }
+  }
+
+  decrement(index: number): void {
+    if (this.featureCounts[index] > 1) {
+      this.featureCounts[index]--;
+    }
+  }
+
+  getGymById(gymId: number) {
     return this._traineeService.GetGymDetails(gymId).subscribe({
       next: (response) => {
         this.gymDetails = response;
@@ -67,7 +110,7 @@ export class GymDetailsComponent {
     return this._traineeService.GetGymClasses(this.gymId).subscribe({
       next: (response) => {
         this.gymClasses = response;
-
+        this.featureCounts = response.map(() => 1);
       },
       error: (error) => {
         console.error('Error fetching gym classes:', error);

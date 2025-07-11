@@ -13,15 +13,8 @@ export class TraineeCoachComponent {
 
   constructor(private _traineeService: TraineeService) {}
 
-  coach : TraineeCoachDetails = {
-    id: 0,
-    firstName: '',
-    lastName: '',
-    userName: '',
-    imageUrl: '',
-    about: '',
-    traineeCount: 0
-  };
+  coach : TraineeCoachDetails | null = null;
+
   ngOnInit(){
     this._traineeService.GetTraineeCoachDetails().subscribe({
       next: (data) => {
