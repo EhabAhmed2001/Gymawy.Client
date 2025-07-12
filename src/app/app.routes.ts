@@ -26,6 +26,8 @@ import { WelcomeAsComponent } from './Components/Auth/welcome-as/welcome-as.comp
 import { LoginComponent } from './Components/Auth/login/login.component';
 import { RegisterAsCoachComponent } from './Components/Auth/register-as-coach/register-as-coach.component';
 import { RegisterAsGymOwnerComponent } from './Components/Auth/register-as-gym-owner/register-as-gym-owner.component';
+import { RoomComponent } from './Components/coach/room/room.component';
+import { InbodyComponent } from './Components/trainee/inbody/inbody.component';
 
 
 export const routes: Routes = [
@@ -44,6 +46,8 @@ export const routes: Routes = [
       { path: 'member/edit',canDeactivate:[preventUnsavedChangesGuard],component: MemberEditComponent, title: "Edit Member" },
       { path: 'notFound', component: NotFoundComponent, title: "nofound" },
       { path: 'home', component: HomeComponent, title: "home" },
+      {path:'room/:roomId', component:RoomComponent, title:'room'},
+      {path:'inbody', component:InbodyComponent, title:'Inbody Analyzer'},
     ]
   },
 

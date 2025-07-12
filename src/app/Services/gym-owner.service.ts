@@ -20,7 +20,7 @@ export class GymOwnerService {
   }
 
 getOwnerByUserName(username:string): Observable<IOwnerInfo> {
-  return this.httpClient.get<IOwnerInfo>(`${this.baseUrl}/gym/${username}`);
+  return this.httpClient.get<IOwnerInfo>(`${this.baseUrl}/gymowner/${username}`);
 }
 
 
