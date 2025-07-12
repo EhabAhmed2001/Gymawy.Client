@@ -12,7 +12,8 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-gym-member-ships',
   imports: [
     CommonModule,
-    NgFor,FormsModule
+    NgFor,FormsModule,
+    RouterModule
   ],
   templateUrl: './gym-member-ships.component.html',
   styleUrl: './gym-member-ships.component.css'
@@ -24,16 +25,29 @@ errorMessage:string=''
 featurecount:number=0
 // In your component class
 showModal: boolean = false;
-Membershipdetails: DisplayMemberShips | null = null;  
+Membershipdetails: DisplayMemberShips | null = null;
 constructor(private gymserv:GymService,private router:ActivatedRoute,private routerNav: Router
 )
 {}
  ngOnInit(): void {
     this.gymId = +this.router.snapshot.paramMap.get('id')!;
     this.displayMemberships(this.gymId);
- 
+
   }
 
+  getModifiedUrl(): string {
+    // Get the current URL segments
+    const urlTree = this.routerNav.parseUrl(this.routerNav.url);
+    const segments = urlTree.root.children['primary']?.segments || [];
+
+    // Remove the last two segments
+    const modifiedSegments = segments.slice(0, -2);
+
+    // Reconstruct the URL
+    const newUrl = modifiedSegments.map(segment => segment.path).join('/');
+
+    return newUrl;
+  }
 
   displayMemberships(Id:number)
   {
@@ -41,7 +55,7 @@ constructor(private gymserv:GymService,private router:ActivatedRoute,private rou
     ({
       next:(data: DisplayMemberShips[]) => {
                       this.Memberships = data;
-                      console.log(this.Memberships);
+                      
       this.featurenumber()
                },
 
@@ -50,11 +64,11 @@ constructor(private gymserv:GymService,private router:ActivatedRoute,private rou
         this.errorMessage = 'Failed to load classes. Please try again later.';
       }
     })
-    
+
   }
  public featurenumber(): void {
   this.featurecount = 0;
- 
+
   this.Memberships.forEach(element => {
     console.log(element)
       const featuresLength = element.features ? element.features.length : 0;
@@ -63,7 +77,7 @@ constructor(private gymserv:GymService,private router:ActivatedRoute,private rou
 }
 
 editMembership(memberId: number) {
-  this.routerNav.navigate(['/EditMembership', memberId]); 
+  this.routerNav.navigate(['/EditMembership', memberId]);
 }
   showDeleteModal = false;
   memberToDelete: number | null = null;
@@ -100,7 +114,7 @@ editMembership(memberId: number) {
 
 viewDetails(memberid: number) {
   console.log('Button clicked, fetching ID:', memberid); // Debug 1
-  
+
   this.gymserv.getmebershipbyid(memberid).subscribe({
     next: (data) => {
       console.log('Received data:', data); // Debug 2

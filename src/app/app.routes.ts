@@ -35,6 +35,7 @@ import { MembershipComponent } from './Components/membership/membership.componen
 import { GymMemberShipsComponent } from './Components/gym-member-ships/gym-member-ships.component';
 import { EditMembershipComponent } from './Components/edit-membership/edit-membership.component';
 import { GymTraineesComponent } from './gym-trainees/gym-trainees.component';
+import { GymOwnerProfileComponent } from './Components/gym-owner-profile/gym-owner-profile.component';
 
 
 
@@ -72,7 +73,11 @@ export const routes: Routes = [
       {path:'addGym', component: AddGymComponent, title: "Add Gym"},
       {path:'gymDetail/:id', component: GetGymComponent, title: "Edit Gym Info"},
       {path:'features/:id', component: FeaturesComponent, title: "Gym Features"},
-      {path:'GymPendingCoach/:gymId', component: GymPendingCoachComponent, title: "Pending Coach"}
+      {path:'GymPendingCoach/:gymId', component: GymPendingCoachComponent, title: "Pending Coach"},
+      {path:'createmembership/:id', component:MembershipComponent , title: "Createmembership"},
+      {path:'memberships/:id', component:GymMemberShipsComponent , title: "GetMemberShips"},
+      {path:'EditMembership/:id', component:EditMembershipComponent , title: "Edit MemberShip"},
+      {path:'profile', component:GymOwnerProfileComponent , title: "Owner Profile"}
     ]},
     {
       path:'admin',component:AdminLayoutComponent,
@@ -81,14 +86,11 @@ export const routes: Routes = [
         {path:'PendingGyms', component: GetPendingGymsComponent, title: "Pending Gyms"}
       ]
     },
-    
+
     {path:'image', component: UploadImagesComponent, title: "image"},
     {path:'admin/dashboard', component:AdminDashboardComponent, title: "Admin Dashboard"},
     {path:'PendingGymDetails/:id', component: GymDetailsAdminComponent, title: "Gym Detail"},
     //{path:'PendingGyms', component: GetPendingGymsComponent, title: "Pending Gyms"}
 {path:'classes/:id', component: ClassesComponent, title: "Classes"},
-    {path:'createmembership/:id', component:MembershipComponent , title: "Createmembership"},
-    {path:'memberships/:id', component:GymMemberShipsComponent , title: "GetMemberShips"},
-    {path:'EditMembership/:id', component:EditMembershipComponent , title: "Edit MemberShip"},
     {path:'trainess/:id', component:GymTraineesComponent , title: "Trainees"}
 ];
