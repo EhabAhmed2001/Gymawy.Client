@@ -5,15 +5,12 @@
     <div class="navbar-brand">GymPro</div>
     <ul class="nav-links">
       <li class="nav-item"><a routerLink="/d" routerLinkActive="active">Dashboard</a></li>
-      <li class="nav-item"><a routerLink="/p" routerLinkActive="active">Programs</a></li>
+      <li class="nav-item"><a routerLink="memberships/{{selectedGymId}}" routerLinkActive="active">Memberships</a></li>
       <li class="nav-item"><a routerLink="features/{{selectedGymId}}" routerLinkActive="active">Features</a></li>
       <li class="nav-item"><a routerLink="gym/{{selectedGymId}}/class" routerLinkActive="active">Classes</a></li>
       <li class="nav-item"><a routerLink="GymPendingCoach/{{selectedGymId}}" routerLinkActive="active">Pending Coaches</a></li>
+      <li class="nav-item"><a routerLink="profile" routerLinkActive="active">My Profile</a></li>
     </ul>
-
-    <!-- profile -->
-    <div class="user-profile" (click)="toggleProfileDropdown()">
-    </div>
   </nav>
 
   <!-- Sidebar with Gym List -->
