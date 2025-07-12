@@ -30,6 +30,7 @@ import { TraineeDetailsComponent } from './Components/coach/trainee-details/trai
 import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
 import { GymDetailsAdminComponent } from './Components/gym-details-admin/gym-details-admin.component';
 import { GetPendingGymsComponent } from './Components/get-pending-gyms/get-pending-gyms.component';
+import { AdminLayoutComponent } from './Components/admin-layout/admin-layout.component';
 
 
 
@@ -37,7 +38,7 @@ export const routes: Routes = [
     {
       path: '',
       component: TraineeComponent,
-      canActivate:[authGuard],
+      //canActivate:[authGuard],
       children: [
         { path: '', redirectTo: 'trainee-gym', pathMatch: 'full' },
         { path: 'trainee-gym', component: TraineeLandingPageComponent, title: "Trainee Gym" },
@@ -69,11 +70,17 @@ export const routes: Routes = [
       {path:'features/:id', component: FeaturesComponent, title: "Gym Features"},
       {path:'GymPendingCoach/:gymId', component: GymPendingCoachComponent, title: "Pending Coach"}
     ]},
+    {
+      path:'admin',component:AdminLayoutComponent,
+      children:[
+        {path:"" , component:AdminDashboardComponent, title:'Admin Dashboard' },
+        {path:'PendingGyms', component: GetPendingGymsComponent, title: "Pending Gyms"}
+      ]
+    },
     
     {path:'image', component: UploadImagesComponent, title: "image"},
-    {path:'gym', component:AddGymComponent},
     {path:'admin/dashboard', component:AdminDashboardComponent, title: "Admin Dashboard"},
     {path:'PendingGymDetails/:id', component: GymDetailsAdminComponent, title: "Gym Detail"},
-    {path:'PendingGyms', component: GetPendingGymsComponent, title: "Pending Gyms"}
+    //{path:'PendingGyms', component: GetPendingGymsComponent, title: "Pending Gyms"}
 
 ];
