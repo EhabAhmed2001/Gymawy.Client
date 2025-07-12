@@ -6,10 +6,13 @@
     <title>Gym Memberships</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        
+
     </style>
 </head>
 <body>
+  <button class="create-btn" routerLink="/{{getModifiedUrl()}}/createmembership/{{gymId}}">
+      <i class="fas fa-plus"></i> Create New Membership
+  </button>
     <div class="container">
         <div class="header">
             <h1>💪 Gym Memberships</h1>
@@ -20,7 +23,7 @@
                 <div class="stat-number">{{Memberships.length}}</div>
                 <div class="stat-label">Membership Plans</div>
             </div>
-           
+
             <div class="stat-card">
                 <div class="stat-number">{{featurecount}}+</div>
                 <div class="stat-label">Feature Items</div>
@@ -35,7 +38,7 @@
                         <div class="membership-price">${{membership.cost}}</div>
                         <div class="membership-duration">{{membership.duration}} month</div>
                     </div>
-                    
+
                     <div class="membership-description">
                         {{membership.description}}
                     </div>
@@ -79,7 +82,7 @@
             <div class="modal-body">
                 <p><strong>Price:</strong> ${{Membershipdetails.cost}} for {{Membershipdetails.duration}} month(s)</p>
                 <p><strong>Description:</strong> {{Membershipdetails.description}}</p>
-                
+
                 <div class="modal-features" *ngIf="Membershipdetails.features?.length">
                     <div class="modal-features-title">Features Included:</div>
                     <ul class="modal-features-list">

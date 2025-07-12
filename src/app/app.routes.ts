@@ -41,6 +41,7 @@ import { RegisterAsCoachComponent } from './Components/Auth/register-as-coach/re
 import { RegisterAsGymOwnerComponent } from './Components/Auth/register-as-gym-owner/register-as-gym-owner.component';
 import { RoomComponent } from './Components/coach/room/room.component';
 import { InbodyComponent } from './Components/trainee/inbody/inbody.component';
+import { GymOwnerProfileComponent } from './Components/gym-owner-profile/gym-owner-profile.component';
 
 
 export const routes: Routes = [
@@ -77,7 +78,11 @@ export const routes: Routes = [
       {path:'addGym', component: AddGymComponent, title: "Add Gym"},
       {path:'gymDetail/:id', component: GetGymComponent, title: "Edit Gym Info"},
       {path:'features/:id', component: FeaturesComponent, title: "Gym Features"},
-      {path:'GymPendingCoach/:gymId', component: GymPendingCoachComponent, title: "Pending Coach"}
+      {path:'GymPendingCoach/:gymId', component: GymPendingCoachComponent, title: "Pending Coach"},
+      {path:'createmembership/:id', component:MembershipComponent , title: "Createmembership"},
+      {path:'memberships/:id', component:GymMemberShipsComponent , title: "GetMemberShips"},
+      {path:'EditMembership/:id', component:EditMembershipComponent , title: "Edit MemberShip"},
+      {path:'profile', component:GymOwnerProfileComponent , title: "Owner Profile"}
     ]},
     {
       path:'admin',component:AdminLayoutComponent,
@@ -102,9 +107,6 @@ export const routes: Routes = [
     {path:'PendingGymDetails/:id', component: GymDetailsAdminComponent, title: "Gym Detail"},
     //{path:'PendingGyms', component: GetPendingGymsComponent, title: "Pending Gyms"}
 {path:'classes/:id', component: ClassesComponent, title: "Classes"},
-    {path:'createmembership/:id', component:MembershipComponent , title: "Createmembership"},
-    {path:'memberships/:id', component:GymMemberShipsComponent , title: "GetMemberShips"},
-    {path:'EditMembership/:id', component:EditMembershipComponent , title: "Edit MemberShip"},
     {path:'trainess/:id', component:GymTraineesComponent , title: "Trainees"},
     { path: 'notFound', component: NotFoundComponent, title: "nofound" },
 

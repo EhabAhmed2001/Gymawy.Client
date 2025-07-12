@@ -17,6 +17,8 @@ export class GymOwnerComponent implements OnInit {
   public gyms: GymBasicInfo[] = [];
   public selectedGymId: number | null = null;
   public ownerInfo: GymOwnerInfo = {
+    firstName:'',
+    lastName:'',
     email:'',
     userName: '',
     phoneNumber:''
