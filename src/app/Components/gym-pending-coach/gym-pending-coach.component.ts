@@ -3,6 +3,7 @@ import { CoachService } from '../../Services/coach.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PendingCoach } from '../../Interfaces/Coach';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-gym-pending-coach',
   imports: [CommonModule],
@@ -12,7 +13,7 @@ import { PendingCoach } from '../../Interfaces/Coach';
 export class GymPendingCoachComponent implements OnInit {
   gymId!:number
   pendingCoachs:PendingCoach[]=[]
-  constructor(private coachService:CoachService , private route:ActivatedRoute){
+  constructor(private coachService:CoachService , private route:ActivatedRoute,private httpclient:HttpClient){
     this.gymId = Number( route.snapshot.paramMap.get('gymId'))
   }
   ngOnInit(): void {
@@ -26,6 +27,20 @@ export class GymPendingCoachComponent implements OnInit {
         console.log(e);
       }
     })
+  }
+  downloadPdf(){
+    console.log("pdf")
+      const pdfUrl = 'https://res.cloudinary.com/dkepejnr7/raw/upload/v1752330303/GymGym/moaxwmyzuwt2lo9ipwim.pdf';
+  const fileName = 'GymFile.pdf';
+
+  this.httpclient.get(pdfUrl, { responseType: 'blob' }).subscribe(blob => {
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = fileName;
+    link.click();
+    window.URL.revokeObjectURL(url);
+  });
   }
   handelJobRequest(coachId:number, isAccept:boolean){
     let JobRequest = {coachId:coachId , isAccepted:isAccept}

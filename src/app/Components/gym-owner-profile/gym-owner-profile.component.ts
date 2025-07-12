@@ -22,22 +22,23 @@ export class GymOwnerProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+          this.loadOwnerData();
     // Get the parent route's ID parameter
-    this.route.parent?.paramMap.subscribe(params => {
-      this.ownerId = params.get('id')!;
-      this.loadOwnerData();
-    });
+    // this.route.parent?.paramMap.subscribe(params => {
+    //   this.ownerId = params.get('id')!;
+
+    // });
   }
 
   private loadOwnerData(): void {
-    if (!this.ownerId) return;
+    // if (!this.ownerId) return;
 
-    this.ownerService.getOwnerInfo(+this.ownerId).subscribe({
+    this.ownerService.getOwnerInfo().subscribe({
       next: (data) => {
         this.ownerInfo = data;
         this.isLoading = false;
         console.log(data);
-      },
+      }, 
       error: (err) => {
         this.errorMessage = 'Failed to load owner information';
         this.isLoading = false;

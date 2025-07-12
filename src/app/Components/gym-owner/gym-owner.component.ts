@@ -34,20 +34,31 @@ export class GymOwnerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.gymOwnerService.getGymsForOwner(+this.ownerId).subscribe({
+    console.log("enter");
+    console.log(this.ownerId)
+    this.gymOwnerService.getGymsForOwner().subscribe({
+      
       next: (data: GymBasicInfo[]) => {
+            console.log("entersds");
+
         this.gyms = data;
         if (this.gyms.length > 0) {
           this.selectedGymId = this.gyms[0].id;
         }
+                    console.log("dv");
+
+      },
+      error:(e)=>{
+        console.log("ee");
+        console.log(e)
       }
     });
 
-    this.loadOwnerInfo();
+    // this.loadOwnerInfo();
   }
 
   loadOwnerInfo(): void {
-    this.gymOwnerService.getOwnerInfo(+this.ownerId).subscribe({
+    this.gymOwnerService.getOwnerInfo().subscribe({
       next:(data:any) => {
         this.ownerInfo = data;
       }

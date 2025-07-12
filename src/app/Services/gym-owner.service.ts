@@ -15,14 +15,18 @@ export class GymOwnerService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getGymsForOwner(id: number):Observable<GymBasicInfo[]>
+  getGymsForOwner():Observable<GymBasicInfo[]>
   {
-    return this.httpClient.get<GymBasicInfo[]>(`${this.apiUrl}/GymOwner/${id}/Gyms`);
+    //return this.httpClient.get<GymBasicInfo[]>(`${this.apiUrl}/GymOwner/${id}/Gyms`);
+    console.log("serivce");
+    return this.httpClient.get<GymBasicInfo[]>(`${this.baseUrl}/gymowner/Gyms`);
   }
 
-  getOwnerInfo(id:number):Observable<GymOwnerInfo>
+  getOwnerInfo():Observable<GymOwnerInfo>
   {
-    return this.httpClient.get<GymOwnerInfo>(`${this.apiUrl}/GymOwner/${id}/Info`);
+    //return this.httpClient.get<GymOwnerInfo>(`${this.apiUrl}/GymOwner/${id}/Info`);
+        return this.httpClient.get<GymOwnerInfo>(`${this.baseUrl}/gymowner/Info`);
+
   }
 
 getOwnerByUserName(username:string): Observable<IOwnerInfo> {

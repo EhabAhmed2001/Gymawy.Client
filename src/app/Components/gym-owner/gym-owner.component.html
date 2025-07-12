@@ -1,4 +1,4 @@
-<!-- gym-owner.component.html -->
+gym-owner.component.html
 <div class="gym-owner-container">
   <!-- Top Navigation Bar -->
   <nav class="top-navbar">
@@ -9,7 +9,7 @@
       <li class="nav-item"><a routerLink="features/{{selectedGymId}}" routerLinkActive="active">Features</a></li>
       <li class="nav-item"><a routerLink="gym/{{selectedGymId}}/class" routerLinkActive="active">Classes</a></li>
       <li class="nav-item"><a routerLink="GymPendingCoach/{{selectedGymId}}" routerLinkActive="active">Pending Coaches</a></li>
-      <li class="nav-item"><a routerLink="profile" routerLinkActive="active">My Profile</a></li>
+      <li class="nav-item"><a routerLink="profile" routerLinkActive="active" (click)="loadOwnerInfo()">My Profile</a></li>
     </ul>
   </nav>
 
