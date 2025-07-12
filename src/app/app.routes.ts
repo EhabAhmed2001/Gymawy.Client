@@ -41,7 +41,7 @@ export const routes: Routes = [
       {path: 'coach/:coachId', component: CoachDashboardComponent, title: "Dashboard"},
       {path: 'coach/traineeDetails/:traineeId', component: TraineeDetailsComponent, title: "Trainee Details"},
       { path: 'subscriptions', component: TraineeSubscriptionsComponent, title: "Subscriptions" },
-      { path: 'payment/:id', component: PaymentComponent, title: "Payment" }
+      { path: 'payment/:id', component: PaymentComponent, title: "Payment" },
       { path: 'members/:username',component: MemberDetailsComponent, resolve: { member: memberDetailsResolver } },
       { path: 'member/edit',canDeactivate:[preventUnsavedChangesGuard],component: MemberEditComponent, title: "Edit Member" },
       { path: 'notFound', component: NotFoundComponent, title: "nofound" },
