@@ -17,7 +17,7 @@ export interface ClassToSend {
   cost: number;
   currentCapacity: number;
   capacity: number;
-  date: Date;
+  date: Date | string;
   coachId: number | null;
   gymId: number;
 }
@@ -25,7 +25,9 @@ export interface ClassToSend {
 export interface Coach {
   firstName: string,
   lastName: string,
-  id: number
+  id: number,
+  currentCapcity:number,
+  specializations:string
 }
 
 export interface Trainee {

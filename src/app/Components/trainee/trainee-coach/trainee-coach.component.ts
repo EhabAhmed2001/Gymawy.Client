@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { TraineeService } from '../../../Services/trainee.service';
 import { TraineeCoachDetails } from '../../../Interface/TraineeGym';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-trainee-coach',
-  imports: [RouterLink],
+  imports: [RouterLink, RouterModule],
   templateUrl: './trainee-coach.component.html',
   styleUrl: './trainee-coach.component.css'
 })

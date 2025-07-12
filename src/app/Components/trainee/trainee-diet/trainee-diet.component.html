@@ -1,0 +1,77 @@
+<div class="container py-4">
+  <!-- Loading -->
+  @if (isLoading()) {
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-2">Loading meal schedule...</p>
+    </div>
+  }
+
+  <!-- Error -->
+  @if (error()) {
+    <div class="alert alert-danger d-flex justify-content-between align-items-center">
+      <span>
+        <i class="bi bi-exclamation-triangle me-2"></i>
+        {{ error() }}
+      </span>
+      <button class="btn btn-sm btn-outline-danger" (click)="loadDiet()">Retry</button>
+    </div>
+  }
+
+  <!-- Diet List -->
+  @if (traineeDiets().length && !isLoading() && !error()) {
+    @for (diet of traineeDiets(); track diet.id) {
+      <div class="mb-5">
+        <!-- Diet Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div>
+            <h2 class="fw-bold mb-1">Meal Plan #{{ diet.id }}</h2>
+            <div class="text-muted">
+              <i class="bi bi-calendar-range me-1"></i>
+              {{ diet.startDate | date: 'mediumDate' }} - 
+              {{ diet.endDate | date: 'mediumDate' }}
+            </div>
+          </div>
+          <div class="badge bg-primary bg-opacity-10 text-primary py-2 px-3">
+            <i class="bi bi-person-video2 me-1"></i>
+            Coach ID: {{ diet.coachId }}
+          </div>
+        </div>
+
+        <!-- Grouped Meals by Day -->
+        <div class="timeline">
+          @for (dayGroup of getGroupedMeals(diet.meals); track dayGroup.day) {
+            <div class="timeline-day mb-4">
+              <div class="timeline-date fw-semibold text-primary mb-2">
+                {{ dayGroup.day | date: 'EEEE, MMMM d' }}
+              </div>
+
+              <div class="timeline-meals">
+                @for (meal of dayGroup.meals; track meal.id) {
+                  <div class="meal-card mb-3 shadow-sm p-3 rounded bg-light">
+                    <div class="d-flex align-items-start">
+                      <div class="meal-icon me-3 text-primary fs-4">
+                        <i class="bi {{ getMealIcon(meal.mealType) }}"></i>
+                      </div>
+                      <div class="meal-content flex-grow-1">
+                        <div class="d-flex justify-content-between">
+                          <h5 class="meal-type text-capitalize mb-1">
+                            {{ getMealTypeLabel(meal.mealType) }}
+                          </h5>
+                          <span class="meal-time text-muted ms-2">{{ meal.day | date: 'shortTime' }}</span>
+                        </div>
+                        <p class="meal-description mb-0">{{ meal.description }}</p>
+                      </div>
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  }
+</div>

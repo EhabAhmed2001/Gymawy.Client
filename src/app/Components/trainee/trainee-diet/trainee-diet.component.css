@@ -1,0 +1,100 @@
+/* meal-schedule.component.css */
+.timeline {
+  position: relative;
+  padding-left: 1rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 1.75rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(67, 97, 238, 0.1);
+}
+
+.timeline-day {
+  position: relative;
+  padding-bottom: 1.5rem;
+}
+
+.timeline-date {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding-left: 2rem;
+  position: relative;
+}
+
+.timeline-date::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: #4361ee;
+  border: 3px solid white;
+  box-shadow: 0 0 0 2px #4361ee;
+}
+
+.meal-card {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.meal-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.meal-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(67, 97, 238, 0.1);
+  border-radius: 50%;
+  color: #4361ee;
+  flex-shrink: 0;
+}
+
+.meal-icon .bi {
+  font-size: 1.25rem;
+}
+
+.meal-content {
+  flex-grow: 1;
+}
+
+.meal-type {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+  color: #121826;
+}
+
+.meal-time {
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.meal-description {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin-bottom: 0;
+}
+
+/* Meal type specific colors */
+.meal-icon .bi-cup-hot { color: #ff9f1c; }
+.meal-icon .bi-egg-fried { color: #2ec4b6; }
+.meal-icon .bi-moon { color: #4361ee; }
+.meal-icon .bi-apple { color: #f72585; }
