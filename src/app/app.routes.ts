@@ -67,7 +67,8 @@ export const routes: Routes = [
     },
 
 
-    {path: 'gym-owner/:id',
+    {//path: 'gym-owner/:id',
+      path: 'gym-owner',
     component: GymOwnerComponent,
     canActivate:[authGuard],
     children: [

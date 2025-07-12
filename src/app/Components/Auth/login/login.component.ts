@@ -48,8 +48,16 @@ Login(loginFormValues:FormGroup):void{
 
     this.isLoading = true;
   this.loginsubscribe =  this._authService.setLogin(loginFormValues.value).subscribe({
-      next:(response:IUser) =>{
+      next:(user:IUser) =>{
+    if(user?.role === 'Coach')
           this._router.navigate(['/trainee-gym']);
+
+  if(user?.role === 'Owner')
+          this._router.navigate(['/gym-owner']);
+
+  if(user?.role === 'Trainee') {
+          this._router.navigate(['/trainee-gym']);
+  }
       },
       error:(error:any)=>{
         console.log(error);
