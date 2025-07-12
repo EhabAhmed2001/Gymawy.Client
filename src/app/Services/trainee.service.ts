@@ -1,6 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { GymClasses, GymFeatures, GymMembership, GymDetails, TraineeCoachDetails, TraineeSubscription } from '../Interface/TraineeGym';
+import { Observable } from 'rxjs/internal/Observable';
+import { PaymentReturn } from '../Interfaces/Payment/PaymentReturn';
 import { Trainee,AssignCoachTrainee} from '../Interface/Trainee';
 
 @Injectable({
@@ -8,20 +11,65 @@ import { Trainee,AssignCoachTrainee} from '../Interface/Trainee';
 })
 export class TraineeService {
 
-  private url='http://localhost:5000/api'
+  private apiUrl = `${environment.apiUrl}/trainee`;
   constructor(private httpClient: HttpClient) { }
 
+  GetAllGyms(): Observable<GymDetails[]> {
+    return this.httpClient.get<GymDetails[]>(`${this.apiUrl}/all-gyms`);
+  }
 
-getTraineeByGymId(gymid:number):Observable<Trainee[]>
+  GetGymDetails(gymId: number): Observable<GymDetails> {
+    return this.httpClient.get<GymDetails>(`${this.apiUrl}/gym/${gymId}`);
+  }
+
+  GetMembershipByGymId(gymId: number): Observable<GymMembership[]> {
+    return this.httpClient.get<GymMembership[]>(`${this.apiUrl}/get-memberships/${gymId}`);
+  }
+
+  GetGymClasses(gymId: number): Observable<GymClasses[]> {
+    return this.httpClient.get<GymClasses[]>(`${this.apiUrl}/classes/${gymId}`);
+  }
+
+  GetGymFeatures(gymId: number): Observable<GymFeatures[]> {
+    return this.httpClient.get<GymFeatures[]>(`${this.apiUrl}/features/${gymId}`);
+  }
+
+  GetTraineeCoachDetails(/*coachId: number*/): Observable<TraineeCoachDetails> {
+    return this.httpClient.get<TraineeCoachDetails>(`${this.apiUrl}/coach`);
+  }
+
+  GetTraineeSubscriptions(): Observable<TraineeSubscription> {
+    return this.httpClient.get<TraineeSubscription>(`${this.apiUrl}/subscriptions`);
+  }
+
+  JoinIntoMembership(membershipId: number): Observable<PaymentReturn> {
+    return this.httpClient.post<PaymentReturn>(`${this.apiUrl}/assign-membership/${membershipId}`, {});
+  }
+
+  JoinToClass(classId: number): Observable<PaymentReturn> {
+    return this.httpClient.post<PaymentReturn>(`${this.apiUrl}/join-class/${classId}`, {});
+  }
+
+  AddFeature(featureId: number, count: number): Observable<PaymentReturn> {
+    const params = { count: count.toString() };
+
+    return this.httpClient.post<PaymentReturn>(
+      `${this.apiUrl}/add-feature/${featureId}`,
+      {},              // Empty body
+      { params }        // Query parameters
+    );
+  }
+  getTraineeByGymId(gymid:number):Observable<Trainee[]>
 {
-  return this.httpClient.get<Trainee[]>(`${this.url}/Trainee/Trainees/${gymid}`);
+  return this.httpClient.get<Trainee[]>(`${this.apiUrl}/Trainees/${gymid}`);
 }
 
 AssignCoachtoTrainee(data:AssignCoachTrainee)
 {
   return this.httpClient.post<{ message: string }>(
-    `${this.url}/Trainee/AssignCoachToTrainee`,
+    `${this.apiUrl}/AssignCoachToTrainee`,
     data
   );
 }
+
 }

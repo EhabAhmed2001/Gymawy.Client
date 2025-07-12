@@ -1,0 +1,351 @@
+ :root {
+      --primary: #4361ee;
+      --secondary: #3f37c9;
+      --accent: #4895ef;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray: #6c757d;
+      --light-gray: #e9ecef;
+      --border-radius: 12px;
+      --shadow: 0 4px 12px rgba(0,0,0,0.08);
+      --transition: all 0.3s ease;
+    }
+.body {
+  background-color: #f5f7fa;
+  color: var(--dark);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+}
+
+.gym-detail-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.gym-header {
+  background: linear-gradient(135deg, #4361ee 0%, #3f37c9 100%);
+  color: white;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.gym-header-content {
+  padding: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.gym-logo-container {
+  background-color: white;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 4px solid white;
+}
+
+.gym-logo {
+  max-width: 80px;
+  max-height: 80px;
+}
+
+.gym-name {
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.gym-type {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.gym-address {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.gym-phone {
+  display: flex;
+  align-items: center;
+}
+
+.section-title {
+  position: relative;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  border-radius: 2px;
+}
+
+.section-card {
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  transition: var(--transition);
+}
+
+.section-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.membership-card {
+  border: 1px solid var(--light-gray);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: var(--transition);
+}
+
+.membership-card:hover {
+  border-color: var(--primary);
+  transform: translateX(5px);
+}
+
+.membership-name {
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.membership-price {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--dark);
+  margin-bottom: 1rem;
+}
+
+.membership-price span {
+  font-size: 1rem;
+  font-weight: normal;
+  color: var(--gray);
+}
+
+.feature-badge {
+  background-color: var(--light);
+  color: var(--primary);
+  border: 1px solid var(--light-gray);
+  border-radius: 30px;
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem 0.5rem 0;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.feature-badge i {
+  margin-right: 0.5rem;
+  color: var(--accent);
+}
+
+.feature-card {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid var(--light-gray);
+  border-radius: var(--border-radius);
+  margin-bottom: 1rem;
+  transition: var(--transition);
+  background-color: #f9f9f9;
+
+}
+
+.feature-cost {
+  font-size: 1.1rem;
+  min-width: 60px;
+}
+
+.feature-card:hover {
+  border-color: var(--primary);
+  background-color: rgba(67, 97, 238, 0.03);
+}
+
+.feature-icon {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(67, 97, 238, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.feature-icon img {
+  width: 30px;
+  height: 30px;
+}
+
+.extra-feature {
+  border-left: 4px solid var(--accent);
+}
+
+.class-card {
+  border: 1px solid var(--light-gray);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: var(--transition);
+}
+
+.class-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-5px);
+}
+
+.class-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.class-name {
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0;
+}
+
+.class-price {
+  font-weight: 700;
+  color: var(--dark);
+  font-size: 1.25rem;
+}
+
+.coach-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.coach-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.75rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.capacity-meter {
+  height: 10px;
+  background-color: var(--light-gray);
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.capacity-fill {
+  height: 100%;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  border-radius: 5px;
+}
+
+.capacity-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: var(--gray);
+}
+
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
+}
+
+.back-btn {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: var(--transition);
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateX(-3px);
+}
+
+.action-btns {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+
+.btn-primary:hover {
+  background-color: var(--primary);
+  color: var(--primary);
+}
+
+.feature-cost {
+  font-weight: 700;
+  color: var(--accent);
+  margin-left: auto;
+  padding-left: 1rem;
+}
+
+.quantity-counter button {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .gym-header-content {
+    padding: 1.5rem;
+  }
+
+  .section-card {
+    padding: 1.25rem;
+  }
+
+  .action-btns {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .action-btns .btn {
+    width: 100%;
+  }
+}

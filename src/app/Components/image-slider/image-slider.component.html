@@ -1,0 +1,26 @@
+<div class="slider image-slider">
+  <div class="slider-container">
+    @if(imagesUrl.length==0){
+      <div class="empty-state">
+        <div class="empty-icon">📸</div>
+        <h3>No Images Selected</h3>
+        <p>Upload some images to start viewing</p>
+      </div>
+    }
+    @else{
+      <img [src]="imagesUrl[curntImageIdx]" class="slider-image">
+      <button type="button" (click)="nextImage()" class="nav-btn next-btn">
+        <svg class="nav-icon" viewBox="0 0 24 24">
+          <path d="M9 18l6-6-6-6v12z"/>
+        </svg>
+      </button>
+      <button type="button" (click)="previousImage()" class="nav-btn prev-btn">
+        <svg class="nav-icon" viewBox="0 0 24 24">
+          <path d="M15 18l-6-6 6-6v12z"/>
+        </svg>
+      </button>
+      <div class="image-counter">
+        {{curntImageIdx + 1}} / {{imagesUrl.length}}
+      </div>
+    }
+  </div>

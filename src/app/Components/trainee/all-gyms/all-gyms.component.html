@@ -1,0 +1,50 @@
+<div class="trainee-dashboard  mt-5 pt-5">
+  <div class="container py-4">
+    <!-- Header -->
+    <header class="mb-5">
+      <h1 class="display-5 fw-bold mb-0 text-primary">Find Your Gym</h1>
+      <p class="text-muted">Browse all available gym locations</p>
+    </header>
+
+    <!-- Gym Cards Grid -->
+    <div *ngIf="_dataShared.gyms.length > 0; else noGyms" class="row g-4">
+      <div *ngFor="let gym of _dataShared.gyms" class="col-md-6 col-lg-4">
+        <div class="gym-card card h-100 shadow-sm">
+          <div class="card-img-top">
+            <img [src]="gym.logo" alt="{{gym.name}} logo" class="gym-logo">
+          </div>
+          <div class="card-body">
+            <h3 class="card-title fw-bold text-dark">{{gym.name}} - {{gym.gymType}} Gym</h3>
+            <div class="d-flex align-items-center text-secondary mb-2">
+              <i class="bi bi-geo-alt me-2"></i>
+              <span class="gym-address">{{gym.address.street}}, {{gym.address.city}}, {{gym.address.country}}</span>
+            </div>
+            <div class="d-flex align-items-center text-secondary mb-2">
+              <i class="bi bi-geo-alt me-2"></i>
+              <span class="gym-address">{{gym.description}}</span>
+            </div>
+            <div class="d-flex align-items-center text-secondary mb-2">
+              <i class="bi bi-geo-alt me-2"></i>
+              <span class="gym-address">{{gym.phone}}</span>
+            </div>
+          </div>
+          <div class="card-footer bg-transparent border-top-0">
+            <a class="btn btn-outline-primary w-100" routerLink="/gym/{{gym.id}}">
+              View Details <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noGyms>
+      <div class="text-center py-5">
+        <div class="empty-state-icon mb-3">
+          <i class="bi bi-building text-muted"></i>
+        </div>
+        <h3 class="text-dark">No Gyms Available</h3>
+        <p class="text-muted">Please check back later for available gyms</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

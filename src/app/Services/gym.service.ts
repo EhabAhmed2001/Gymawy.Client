@@ -1,49 +1,101 @@
 
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Features, MemberShip ,DisplayMemberShips} from '../Interface/Gym/Membership';
+
+import { Gym, GymFeature, GymGet, PendingGym } from '../Interfaces/Gym/Gym';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GymService {
+  private url:string = `${environment.apiUrl}/Gym`
+  constructor(private httpclient:HttpClient) {
+    
+  }
 
-  private url='http://localhost:5000/api'
-  constructor(private httpClient: HttpClient) { }
+  GetGymTypes():Observable<any>{
+    return this.httpclient.get(`${this.url}/GetGymTypes`)
+  }
+  GetGymFeatures():Observable<any>{
+    return this.httpclient.get(`${this.url}/GetGymFeatures`)
+  }
+  AddGym(gym: any):Observable<any>{
+    return this.httpclient.post(`${this.url}/RequestAddGym`,gym)
+  }
+  GetGymById(gymId:number):Observable<GymGet>{
+    return this.httpclient.get<GymGet>(`${this.url}/${gymId}`)
+  }
+  UpdateGym(gymId:number,data:FormData):Observable<any>{
+    return this.httpclient.put(`${this.url}/${gymId}`,data);
+  }
 
-   getFeaturesByGymID(gymid :number):Observable<Features[]>
+  GetFeaturesByGymId(gymId:number):Observable<GymFeature[]>{
+    return this.httpclient.get<GymFeature[]>(`${this.url}/Features/${gymId}`)
+  }
+
+  GetGymFeatureById(gymFeatureId:number):Observable<GymFeature>{
+    return this.httpclient.get<GymFeature>(`${this.url}/Feature/${gymFeatureId}`)
+  }
+  AddNonExGymFeature(gymId:number,data:FormData):Observable<GymFeature>{
+    return this.httpclient.post<GymFeature>(`${this.url}/NonExGymFeature/${gymId}`,data)
+  }
+  AddExtraGymFeature(gymId:number,data:FormData):Observable<GymFeature>{
+    return this.httpclient.post<GymFeature>(`${this.url}/ExtraGymFeature/${gymId}`,data)
+  }
+  UpdateGymFeature(gymFeatureId:number,data:FormData):Observable<GymFeature>{
+    return this.httpclient.put<GymFeature>(`${this.url}/GymFeature/${gymFeatureId}`,data)
+  }
+  DeleteGymFeature(gymFeatureId:number):Observable<any>{
+    return this.httpclient.delete(`${this.url}/GymFeature/${gymFeatureId}`)
+  }
+
+  GetPendingGyms():Observable<PendingGym[]>{
+    return this.httpclient.get<PendingGym[]>(`${this.url}/PendingGyms`)
+  }
+  HandleGymAddRequest(gymId:number,IsAccept: boolean):Observable<number>{
+    return this.httpclient.get<number>(`${this.url}/HandleGymAddRequest/${gymId}?IsAccepted=${IsAccept}`)
+  }
+
+  GetGymWithFeaturesById(gymId:number):Observable<GymGet>{
+    return this.httpclient.get<GymGet>(`${this.url}/GymWithFeatures/${gymId}`)
+  }
+
+
+     getFeaturesByGymID(gymid :number):Observable<Features[]>
    {
-      return this.httpClient.get<Features[]>(`${this.url}/Gym/${gymid}`);
+      return this.httpclient.get<Features[]>(`${this.url}/${gymid}`);
    }
 
  createMemberShip(membership: MemberShip): Observable<{ message: string }> {
-  return this.httpClient.post<{ message: string }>(
-    `${this.url}/Gym/MemberShip`,
+  return this.httpclient.post<{ message: string }>(
+    `${this.url}/MemberShip`,
     membership
   );
 }
 
 getmembershipsByGym(gymId:number):Observable<DisplayMemberShips[]>
 {
-      return this.httpClient.get<DisplayMemberShips[]>(`${this.url}/Gym/GetmMemberShips/${gymId}`);
+      return this.httpclient.get<DisplayMemberShips[]>(`${this.url}/GetmMemberShips/${gymId}`);
 
 }
 
 getmebershipbyid(memberid:number):Observable<DisplayMemberShips>
 {
-return this.httpClient.get<DisplayMemberShips>(`${this.url}/Gym/GetmMemberShip/${memberid}`);
+return this.httpclient.get<DisplayMemberShips>(`${this.url}/GetmMemberShip/${memberid}`);
 }
 
 
 deleteMembership(memberId: number): Observable<any> {
-    return this.httpClient.delete(`${this.url}/Gym/DeleteMemberShip/${memberId}`);
+    return this.httpclient.delete(`${this.url}/DeleteMemberShip/${memberId}`);
   }
 
 updateMembership(memberId:number,membership: MemberShip):Observable<{ message: string }>
 {
- return this.httpClient.put<{ message: string }>(
-    `${this.url}/Gym/UpdateMemberShip/${memberId}`,
+ return this.httpclient.put<{ message: string }>(
+    `${this.url}/UpdateMemberShip/${memberId}`,
     membership
   );}
 
