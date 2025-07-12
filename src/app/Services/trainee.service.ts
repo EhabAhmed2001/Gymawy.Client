@@ -11,7 +11,7 @@ import { Trainee,AssignCoachTrainee} from '../Interface/Trainee';
 })
 export class TraineeService {
 
-  private apiUrl = `${environment.apiUrl}/trainee`;
+  private apiUrl = `${environment.apiUrl}/Trainee`;
   constructor(private httpClient: HttpClient) { }
 
   GetAllGyms(): Observable<GymDetails[]> {

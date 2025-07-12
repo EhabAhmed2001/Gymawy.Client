@@ -64,9 +64,9 @@ export class GymService {
   }
 
 
-     getFeaturesByGymID(gymid :number):Observable<Features[]>
+     getGym2FeaturesByGymID(gymid :number):Observable<Features[]>
    {
-      return this.httpclient.get<Features[]>(`${this.url}/${gymid}`);
+      return this.httpclient.get<Features[]>(`${this.url}/GetGymFeature2/${gymid}`);
    }
 
  createMemberShip(membership: MemberShip): Observable<{ message: string }> {

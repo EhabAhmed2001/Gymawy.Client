@@ -169,7 +169,7 @@ loadMembership() {
 }
 
   getFeatures(gymid:number) {
-    this.gymserv.getFeaturesByGymID(gymid).subscribe({
+    this.gymserv.getGym2FeaturesByGymID(gymid).subscribe({
       next: (data: Features[]) => {
         this.GymFeatures = data;
         console.log('Features loaded:', this.GymFeatures);

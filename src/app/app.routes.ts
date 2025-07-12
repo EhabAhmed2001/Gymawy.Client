@@ -35,6 +35,7 @@ import { MembershipComponent } from './Components/membership/membership.componen
 import { GymMemberShipsComponent } from './Components/gym-member-ships/gym-member-ships.component';
 import { EditMembershipComponent } from './Components/edit-membership/edit-membership.component';
 import { GymTraineesComponent } from './gym-trainees/gym-trainees.component';
+import { GymOwnerDashboardComponent } from './gym-owner-dashboard/gym-owner-dashboard.component';
 
 
 
@@ -90,5 +91,6 @@ export const routes: Routes = [
     {path:'createmembership/:id', component:MembershipComponent , title: "Createmembership"},
     {path:'memberships/:id', component:GymMemberShipsComponent , title: "GetMemberShips"},
     {path:'EditMembership/:id', component:EditMembershipComponent , title: "Edit MemberShip"},
-    {path:'trainess/:id', component:GymTraineesComponent , title: "Trainees"}
+    {path:'trainess/:id', component:GymTraineesComponent , title: "Trainees"},
+{path:'gymownerdashboard/:id', component:GymOwnerDashboardComponent , title: "GymOwner Dashboard"}
 ];

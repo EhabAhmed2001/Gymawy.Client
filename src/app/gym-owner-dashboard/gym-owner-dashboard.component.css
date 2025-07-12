@@ -1,0 +1,456 @@
+/* gym-owner-dashboard.component.css - Black & Red Theme */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.dashboard-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a0000 0%, #000000 50%, #2d0000 100%);
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dashboard-header {
+  background: linear-gradient(135deg, #ff0000 0%, #990000 50%, #000000 100%);
+  color: white;
+  padding: 40px;
+  text-align: center;
+  border-radius: 20px 20px 0 0;
+  margin-bottom: 0;
+  box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+.dashboard-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  position: relative;
+  z-index: 1;
+}
+
+.error-message {
+  background: linear-gradient(135deg, #ff3333, #cc0000);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-weight: 600;
+  margin: 20px 0;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(255, 51, 51, 0.4);
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.dashboard-content {
+  background: rgba(20, 20, 20, 0.95);
+  border-radius: 0 0 20px 20px;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  min-height: 80vh;
+  border: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+.gym-info {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 30px;
+  background: linear-gradient(135deg, #000000 0%, #ff0000 50%, #990000 100%);
+  border-radius: 20px;
+  color: white;
+  box-shadow: 0 15px 35px rgba(255, 0, 0, 0.3);
+  transform: translateY(0);
+  transition: all 0.3s ease;
+  border: 2px solid #ff0000;
+}
+
+.gym-info:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 45px rgba(255, 0, 0, 0.5);
+}
+
+.gym-name {
+  font-size: 2.2rem;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.gym-type {
+  font-size: 1.3rem;
+  font-weight: 400;
+  opacity: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.stats-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+  padding: 35px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  transition: all 0.4s ease;
+  border: 2px solid #ff0000;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #ff0000, #990000, #ff3333, #cc0000);
+  background-size: 300% 100%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.stat-card:hover {
+  transform: translateY(-15px) scale(1.02);
+  box-shadow: 0 25px 50px rgba(255, 0, 0, 0.4);
+  border-color: #ff3333;
+}
+
+.stat-card h3 {
+  color: #ffffff;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ff0000;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  background: linear-gradient(135deg, #ff0000, #ff3333);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.charts-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 35px;
+  margin-bottom: 50px;
+}
+
+.chart-container {
+  background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+  padding: 35px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #990000;
+}
+
+.chart-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ff0000, #990000);
+}
+
+.chart-container:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 45px rgba(255, 0, 0, 0.3);
+  border-color: #ff0000;
+}
+
+.chart-container canvas {
+  max-width: 100%;
+  height: auto !important;
+  min-height: 300px;
+}
+
+.membership-table {
+  background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+  padding: 35px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  border: 2px solid #990000;
+}
+
+.membership-table h3 {
+  color: #ffffff;
+  font-size: 1.6rem;
+  margin-bottom: 30px;
+  font-weight: 600;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+}
+
+.membership-table h3::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #ff0000, #990000);
+  border-radius: 2px;
+}
+
+.membership-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.membership-table thead {
+  background: linear-gradient(135deg, #ff0000 0%, #990000 100%);
+  color: white;
+}
+
+.membership-table th,
+.membership-table td {
+  padding: 18px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+  color: #ffffff;
+}
+
+.membership-table th {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+}
+
+.membership-table tbody tr {
+  transition: all 0.3s ease;
+  background: rgba(20, 20, 20, 0.8);
+}
+
+.membership-table tbody tr:hover {
+  background: linear-gradient(135deg, rgba(255, 0, 0, 0.2), rgba(153, 0, 0, 0.2));
+  transform: scale(1.02);
+}
+
+.membership-table tbody tr:nth-child(even) {
+  background: rgba(40, 40, 40, 0.8);
+}
+
+.membership-table tbody tr:nth-child(even):hover {
+  background: linear-gradient(135deg, rgba(255, 0, 0, 0.2), rgba(153, 0, 0, 0.2));
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  font-size: 1.4rem;
+  color: #ff0000;
+  font-weight: 600;
+  flex-direction: column;
+}
+
+.loading::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ff0000;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+  margin-top: 20px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .charts-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 10px;
+  }
+  
+  .dashboard-header {
+    padding: 25px;
+  }
+  
+  .dashboard-header h1 {
+    font-size: 2rem;
+  }
+  
+  .gym-name {
+    font-size: 1.8rem;
+  }
+  
+  .gym-type {
+    font-size: 1.1rem;
+  }
+  
+  .stats-cards {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .stat-card {
+    padding: 25px;
+  }
+  
+  .stat-number {
+    font-size: 2.5rem;
+  }
+  
+  .charts-section {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  
+  .chart-container {
+    padding: 25px;
+  }
+  
+  .dashboard-content {
+    padding: 25px;
+  }
+  
+  .membership-table {
+    padding: 25px;
+  }
+  
+  .membership-table th,
+  .membership-table td {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .chart-container canvas {
+    min-height: 250px;
+  }
+  
+  .membership-table {
+    overflow-x: auto;
+  }
+  
+  .membership-table table {
+    min-width: 500px;
+  }
+}
+
+/* Chart specific styling */
+.chart-container {
+  position: relative;
+}
+
+.chart-container canvas {
+  position: relative;
+  z-index: 1;
+}
+
+/* Animation for stats cards */
+.stat-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.stat-card:nth-child(1) { animation-delay: 0.1s; }
+.stat-card:nth-child(2) { animation-delay: 0.2s; }
+.stat-card:nth-child(3) { animation-delay: 0.3s; }
+.stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Chart containers animation */
+.chart-container {
+  animation: slideIn 0.8s ease-out;
+}
+
+.chart-container:nth-child(1) { animation-delay: 0.2s; }
+.chart-container:nth-child(2) { animation-delay: 0.4s; }
+.chart-container:nth-child(3) { animation-delay: 0.6s; }
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

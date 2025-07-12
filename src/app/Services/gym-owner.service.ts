@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { GymBasicInfo } from '../Interface/GymBasicInfo';
 import { environment } from '../../environments/environment';
 import { GymOwnerInfo } from '../Interface/GymOwnerInfo';
+import {GymownerData,GymOwnerMembership  } from '../Interfaces/GymOwnerData';
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,4 +23,17 @@ export class GymOwnerService {
   {
     return this.httpClient.get<GymOwnerInfo>(`${this.apiUrl}/GymOwner/${id}/Info`);
   }
+
+getGymownerData(id:number):Observable<GymownerData[]>
+{
+      return this.httpClient.get<GymownerData[]>(`${this.apiUrl}/GymOwner/GymOwnerData/${id}`);
+
+}
+
+getGymownerMembership(id:number):Observable<GymOwnerMembership[]>
+{
+      return this.httpClient.get<GymOwnerMembership[]>(`${this.apiUrl}/GymOwner/GymMemberships/${id}`);
+
+}
+
 }
