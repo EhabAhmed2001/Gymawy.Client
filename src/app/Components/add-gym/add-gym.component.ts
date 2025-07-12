@@ -10,7 +10,8 @@ import { ImageSliderComponent } from "../image-slider/image-slider.component";
 
 @Component({
   selector: 'app-add-gym',
-  imports: [MapComponent, ReactiveFormsModule, CommonModule, UploadImagesComponent, ImageSliderComponent],
+  imports: [MapComponent, ReactiveFormsModule, CommonModule,
+    UploadImagesComponent, ImageSliderComponent],
   templateUrl: './add-gym.component.html',
   styleUrl: './add-gym.component.css'
 })
@@ -30,11 +31,11 @@ export class AddGymComponent implements OnInit {
       Address:{
         street:"",
         city:"" ,
-        country:"", 
+        country:"",
         location:{
-          x: 0, //long  
+          x: 0, //long
           y: 0  //lat
-        }       
+        }
       } ,
       GymExtraFeatures:[],
       GymFeatures:[],
@@ -53,9 +54,9 @@ export class AddGymComponent implements OnInit {
       gymType:new FormControl(this.gym.GymType,[Validators.required]),
       searchAddress:new FormControl(""),
       street:new FormControl(this.gym.Address.street,[Validators.required]),
-      city:new FormControl(this.gym.Address.city,[Validators.required]), 
-      country:new FormControl(this.gym.Address.country,[Validators.required]), 
-      logo:new FormControl([Validators.required]), 
+      city:new FormControl(this.gym.Address.city,[Validators.required]),
+      country:new FormControl(this.gym.Address.country,[Validators.required]),
+      logo:new FormControl([Validators.required]),
     })
 
   get uploadImageControl(): FormControl {
@@ -74,7 +75,7 @@ export class AddGymComponent implements OnInit {
     })
   }
   constructor(private gymService:GymService) {
-    
+
   }
   ngOnInit(): void {
     this.initformAddFeature()
@@ -96,7 +97,7 @@ export class AddGymComponent implements OnInit {
     const input = event.target as HTMLInputElement
     if(!input.files) return
     this.logoUrl=null;
-    this.logoFile =input.files[0]; 
+    this.logoFile =input.files[0];
     const fileReader = new FileReader();
     fileReader.onload=(e:any)=>{
       this.logoUrl=e.target.result
@@ -167,10 +168,10 @@ export class AddGymComponent implements OnInit {
                                               console.log(sf.Image)
                                               return {FeatureId:sf.FeatureId , Description: sf.Description,Cost: sf.Cost }
                                             }
-                                  ) 
+                                  )
       //this.gym.Media = this.logoFile
 
-    
+
     console.log(formData.get('GymFeaturesImages'))
     formData.append("gymInfo", JSON.stringify(this.gym));
     formData.append("Media",this.logoFile);
@@ -217,8 +218,8 @@ export class AddGymComponent implements OnInit {
 
         if(this.currentSelectedFeature?.id!=-1){
           var index= this.features.findIndex(f=>f.id==this.currentSelectedFeature?.id);
-          if (index !== -1) {  
-            this.features.splice(index, 1); 
+          if (index !== -1) {
+            this.features.splice(index, 1);
           }
         }
         this.currentSelectedFeature = null;

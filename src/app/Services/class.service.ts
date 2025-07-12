@@ -33,7 +33,7 @@ export class ClassService {
   }
 
   getCoachesByGym(gymId: number): Observable<Coach[]> {
-    return this.httpClient.get<Coach[]>(`${this.apiUrl}/Coach/${gymId}`);
+    return this.httpClient.get<Coach[]>(`${this.apiUrl}/Coach/GetCoachesBygem/${gymId}`);
   }
 
   getClassTrainees(classId: number) :Observable<Trainee[]>

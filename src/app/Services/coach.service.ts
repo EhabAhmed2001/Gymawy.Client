@@ -7,12 +7,17 @@ import { PendingCoach } from '../Interfaces/Coach';
 import{Coach} from'../Interface/Coach';
 import { JoinGymRequest } from '../Interface/Coach/JoinGymReques';
 
+import { ISpecializationOption } from '../Interfaces/ISpecializationOption';
+import { ICoachInfo } from '../Interfaces/ICoach';
+
 @Injectable({
   providedIn: 'root'
 })
 export class CoachService {
 
   private apiUrl = `${environment.apiUrl}/Coach`;
+  private readonly baseUrl:string = environment.apiUrl;
+
   constructor(private httpClient: HttpClient) {}
 
   GetCoachDashboard(coachId: number): Observable<CoachData> {
@@ -43,4 +48,20 @@ export class CoachService {
       }
     });
   }
+
+getCoachByUserName(username:string): Observable<ICoachInfo> {
+  return this.httpClient.get<ICoachInfo>(`${this.baseUrl}/coach/${username}`);
+}
+
+  getSpecializations(): Observable<ISpecializationOption[]> {
+    return this.httpClient.get<ISpecializationOption[]>(`${this.baseUrl}/account/specializations`);
+
+}
+
+
+
+
+
+
+
 }

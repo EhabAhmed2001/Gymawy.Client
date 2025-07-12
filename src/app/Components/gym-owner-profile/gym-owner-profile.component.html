@@ -1,1 +1,39 @@
-<p>gym-owner-profile works!</p>
+
+<div class="profile-container">
+  <div *ngIf="isLoading" class="loading-message">
+    Loading owner information...
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="ownerInfo && !isLoading" class="profile-card">
+    <h2>Owner Profile</h2>
+
+    <div class="profile-field">
+      <span class="field-label">First Name:</span>
+      <span class="field-value">{{ ownerInfo.firstName }}</span>
+    </div>
+
+    <div class="profile-field">
+      <span class="field-label">Last Name:</span>
+      <span class="field-value">{{ ownerInfo.lastName }}</span>
+    </div>
+
+    <div class="profile-field">
+      <span class="field-label">Username:</span>
+      <span class="field-value">{{ ownerInfo.userName }}</span>
+    </div>
+
+    <div class="profile-field">
+      <span class="field-label">Email:</span>
+      <span class="field-value">{{ ownerInfo.email }}</span>
+    </div>
+
+    <div class="profile-field">
+      <span class="field-label">Phone:</span>
+      <span class="field-value">{{ ownerInfo.phoneNumber }}</span>
+    </div>
+  </div>
+</div>

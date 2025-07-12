@@ -2,16 +2,22 @@ import { Component } from '@angular/core';
 import { TraineeService } from '../../../Services/trainee.service';
 import { TraineeCoachDetails } from '../../../Interface/TraineeGym';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../../Services/auth.service';
+import { CommonModule } from '@angular/common';
+import { take } from 'rxjs';
+import { IUser } from '../../../Interfaces/IUser';
 
 @Component({
   selector: 'app-trainee-coach',
-  imports: [RouterLink],
+  imports: [RouterLink,CommonModule],
   templateUrl: './trainee-coach.component.html',
   styleUrl: './trainee-coach.component.css'
 })
 export class TraineeCoachComponent {
 
-  constructor(private _traineeService: TraineeService) {}
+user!:IUser;
+  constructor(private _traineeService: TraineeService ,
+     private _authService: AuthService) {}
 
   coach : TraineeCoachDetails | null = null;
 
@@ -24,6 +30,8 @@ export class TraineeCoachComponent {
         console.error('Error fetching coach details:', err);
       }
     });
+    this.IsCoach();
+
   }
 
 
@@ -41,4 +49,16 @@ export class TraineeCoachComponent {
     console.log('Opening chat with coach');
     // Add your chat opening logic here
   }
+
+  IsCoach():void{
+    this._authService.currentUser$.pipe(take(1)).subscribe({
+      next : user => {
+        if(user) {
+          this.user = user;
+        }
+      }
+    })
+  }
+
+
 }

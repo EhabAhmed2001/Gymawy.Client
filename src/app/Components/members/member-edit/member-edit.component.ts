@@ -10,6 +10,12 @@ import { CommonModule } from '@angular/common';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TimeagoModule } from 'ngx-timeago';
 import { PhotoEditorComponent } from '../photo-editor/photo-editor.component';
+import { ICoachInfo } from '../../../Interfaces/ICoach';
+import { CoachService } from '../../../Services/coach.service';
+import { TraineeService } from '../../../Services/trainee.service';
+import { ITraineeInfo } from '../../../Interfaces/ITraineeInfo';
+import { IOwnerInfo } from '../../../Interfaces/IOwnerInfo';
+import { GymOwnerService } from '../../../Services/gym-owner.service';
 
 @Component({
   selector: 'app-member-edit',
@@ -26,17 +32,36 @@ export class MemberEditComponent implements OnInit {
     }
   }
   member: IMember | undefined;
+  coach: ICoachInfo | undefined;
+  trainee: ITraineeInfo | undefined;
+   owner: IOwnerInfo | undefined;
+
   user: IUser | null = null;
 
   constructor(private _authService: AuthService,
     private _membersService: MembersService,
-  private _toastrService:ToastrService) {}
+    private _coachService: CoachService,
+    private _traineeService: TraineeService,
+    private _gymOwnerService: GymOwnerService,
+    private _toastrService:ToastrService) {}
 
 ngOnInit(): void {
   this.loadMember();
-  console.log('seka');
+
+  if(this.user?.role === 'Coach')
+      this.loadCoachInfo();
+
+  if(this.user?.role === 'Owner')
+      this.loadOwnerInfo();
+
+  if(this.user?.role === 'Trainee') {
+      this.loadTraineeInfo();
+  }
+
 
 }
+
+
 
 loadMember():void {
 this.GetCurrentUser();
@@ -58,6 +83,43 @@ GetCurrentUser():void {
     }
     });
 }
+
+loadCoachInfo():void{
+  this.GetCurrentUser();
+    if(!this.user) return;
+    this._coachService.getCoachByUserName(this.user.userName).subscribe({
+      next: coach => {
+        this.coach = coach
+        console.log(this.coach);
+
+      },
+    });
+}
+
+loadTraineeInfo():void{
+  this.GetCurrentUser();
+    if(!this.user) return;
+    this._traineeService.getTraineeByUserName(this.user.userName).subscribe({
+      next: trainee => {
+        this.trainee = trainee
+        console.log(this.trainee);
+
+      },
+    });
+}
+
+loadOwnerInfo():void {
+     this.GetCurrentUser();
+    if(!this.user) return;
+    this._gymOwnerService.getOwnerByUserName(this.user.userName).subscribe({
+      next: owner => {
+        this.owner = owner
+        console.log(this.owner);
+
+      },
+    });
+  }
+
 
 UpdateMember():void {
 

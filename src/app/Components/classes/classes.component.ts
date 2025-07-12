@@ -32,9 +32,9 @@ export class ClassesComponent implements OnInit {
     description: '',
     cost: 0,
     currentCapacity: 0,
-    capacity: 0,
+    capacity: 10,
     date: new Date(),
-    coachId: 0,
+    coachId: null, // null instead of 0
     gymId: 0
   };
 
@@ -45,7 +45,7 @@ export class ClassesComponent implements OnInit {
     currentCapacity: 0,
     capacity: 0,
     date: new Date(),
-    coachId: 0,
+    coachId: null, // null instead of 0
     gymId: 0
   };
 
@@ -117,8 +117,8 @@ export class ClassesComponent implements OnInit {
       cost: c.cost,
       currentCapacity: c.currentCapacity,
       capacity: c.capacity,
-      date: c.date,
-      coachId: coach?.id || 0,
+      date: new Date(c.date),
+      coachId: coach?.id ?? null,
       gymId: this.gymId
     };
 
@@ -140,7 +140,7 @@ export class ClassesComponent implements OnInit {
       currentCapacity: 0,
       capacity: 10,
       date: new Date(),
-      coachId: 0,
+      coachId: null,
       gymId: this.gymId
     };
     this.showCreateModal = true;
@@ -215,13 +215,19 @@ export class ClassesComponent implements OnInit {
   }
 
   validateDate(controlName: string, form: NgForm): void {
-    const dateValue = controlName === 'date' ? this.newClass.date : this.updatedClass.date;
-    const dateControl = form.controls[controlName];
+    const control = form.controls[controlName];
+    const value = control?.value;
+    const date = new Date(value);
 
-    if (new Date(dateValue).getTime() < Date.now()) {
-      dateControl?.setErrors({ 'invalidDate': true });
+    if (isNaN(date.getTime()) || date.getTime() < Date.now()) {
+      control?.setErrors({ ...(control.errors || {}), 'invalidDate': true });
     } else {
-      dateControl?.setErrors(null);
+      if (control?.errors) {
+        delete control.errors['invalidDate'];
+        if (Object.keys(control.errors).length === 0) {
+          control.setErrors(null);
+        }
+      }
     }
   }
 

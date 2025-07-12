@@ -5,6 +5,8 @@ import { GymClasses, GymFeatures, GymMembership, GymDetails, TraineeCoachDetails
 import { Observable } from 'rxjs/internal/Observable';
 import { PaymentReturn } from '../Interfaces/Payment/PaymentReturn';
 import { Trainee,AssignCoachTrainee} from '../Interface/Trainee';
+import { ITraineeInfo } from '../Interfaces/ITraineeInfo';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +14,8 @@ import { Trainee,AssignCoachTrainee} from '../Interface/Trainee';
 export class TraineeService {
 
   private apiUrl = `${environment.apiUrl}/trainee`;
+  private readonly baseUrl:string = environment.apiUrl;
+
   constructor(private httpClient: HttpClient) { }
 
   GetAllGyms(): Observable<GymDetails[]> {
@@ -71,5 +75,7 @@ AssignCoachtoTrainee(data:AssignCoachTrainee)
     data
   );
 }
-
+getTraineeByUserName(username:string): Observable<ITraineeInfo> {
+  return this.httpClient.get<ITraineeInfo>(`${this.baseUrl}/trainee/${username}`);
+}
 }
