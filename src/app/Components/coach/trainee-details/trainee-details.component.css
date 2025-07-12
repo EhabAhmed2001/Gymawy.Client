@@ -1,0 +1,485 @@
+:host {
+  --primary: #4361ee;
+  --secondary: #3f37c9;
+  --accent: #4895ef;
+  --light: #f8f9fa;
+  --dark: #212529;
+  --gray: #6c757d;
+  --light-gray: #e9ecef;
+  --border-radius: 12px;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --transition: all 0.3s ease;
+}
+
+/* Loading States */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid var(--light-gray);
+  border-top: 4px solid var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-text {
+  font-size: 1.125rem;
+  color: var(--gray);
+  margin: 0;
+}
+
+/* Error States */
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  text-align: center;
+  padding: 2rem;
+}
+
+.error-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.error-text {
+  font-size: 1.125rem;
+  color: var(--gray);
+  margin-bottom: 1.5rem;
+}
+
+.retry-btn {
+  padding: 0.75rem 2rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.retry-btn:hover {
+  background: var(--secondary);
+  transform: translateY(-2px);
+}
+
+.trainee-details-container {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--light) 0%, #ffffff 100%);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Left Section - Trainee Info (1/3 width) */
+.trainee-info-section {
+  flex: 0 0 calc(33.333% - 1rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.trainee-card {
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 2rem;
+  height: fit-content;
+  border: 1px solid var(--light-gray);
+  transition: var(--transition);
+}
+
+.trainee-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.trainee-image-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.trainee-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--primary);
+  box-shadow: 0 4px 12px rgba(67, 97, 238, 0.2);
+  transition: var(--transition);
+}
+
+.trainee-image:hover {
+  transform: scale(1.05);
+}
+
+.trainee-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--dark);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: var(--light);
+  border-radius: 8px;
+  border-left: 4px solid var(--accent);
+}
+
+.detail-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--gray);
+  margin-bottom: 0.25rem;
+}
+
+.detail-value {
+  font-size: 1rem;
+  font-weight: 550;
+  color: var(--dark);
+}
+
+.detail-value.reason {
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* Right Section - Actions (2/3 width) */
+.actions-section {
+  flex: 0 0 calc(66.666% - 1rem);
+  display: flex;
+  align-items: flex-start;
+}
+
+.actions-container {
+  width: 100%;
+}
+
+.actions-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--dark);
+  text-align: center;
+  margin-bottom: 2rem;
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.buttons-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.25rem 2rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1.125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.action-btn:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.action-btn:hover:before {
+  left: 100%;
+}
+
+.diet-btn {
+  background: linear-gradient(45deg, var(--primary), var(--accent));
+  color: white;
+}
+
+.diet-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(67, 97, 238, 0.3);
+}
+
+.exercise-btn {
+  background: linear-gradient(45deg, var(--secondary), var(--primary));
+  color: white;
+}
+
+.exercise-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(63, 55, 201, 0.3);
+}
+
+.action-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Diet Display Styles */
+.diet-display {
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.diet-summary {
+  margin-bottom: 2rem;
+}
+
+.meals-list {
+  margin-top: 1.5rem;
+}
+
+.meal-item {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--light);
+  border-radius: 8px;
+  border-left: 4px solid var(--accent);
+}
+
+.meal-item strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--dark);
+}
+
+.meal-item p {
+  margin: 0;
+  color: var(--gray);
+}
+
+.diet-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.diet-actions .action-btn {
+  flex: 1;
+}
+
+/* Exercise Schedule Display Styles */
+.exercise-schedule-display {
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.schedule-summary {
+  margin-bottom: 2rem;
+}
+
+.exercises-list {
+  margin-top: 1.5rem;
+}
+
+.exercise-item {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--light);
+  border-radius: 8px;
+  border-left: 4px solid var(--accent);
+}
+
+.exercise-item strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--dark);
+}
+
+.exercise-item p {
+  margin: 0;
+  color: var(--gray);
+}
+
+.schedule-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.schedule-actions .action-btn {
+  flex: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .trainee-details-container {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .trainee-info-section,
+  .actions-section {
+    flex: 0 0 100%;
+    width: 100%;
+  }
+
+  .actions-section {
+    align-items: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .trainee-details-container {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .trainee-card {
+    padding: 1.5rem;
+  }
+
+  .trainee-image {
+    width: 100px;
+    height: 100px;
+  }
+
+  .trainee-name {
+    font-size: 1.25rem;
+  }
+
+  .actions-title {
+    font-size: 1.5rem;
+  }
+
+  .buttons-wrapper {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .action-btn {
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .trainee-details-container {
+    padding: 0.75rem;
+  }
+
+  .trainee-card {
+    padding: 1rem;
+  }
+
+  .trainee-image {
+    width: 80px;
+    height: 80px;
+  }
+
+  .detail-item {
+    padding: 0.5rem;
+  }
+
+  .action-btn {
+    padding: 0.875rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Exercise Item Styles */
+.exercise-content {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.exercise-image-container {
+  flex: 0 0 120px;
+}
+
+.exercise-image {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  aspect-ratio: 1/1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.exercise-details {
+  flex: 1;
+}
+
+.exercise-description {
+  margin: 0;
+  color: var(--gray);
+  line-height: 1.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .exercise-content {
+    flex-direction: column;
+  }
+
+  .exercise-image-container {
+    flex: 0 0 auto;
+    max-width: 200px;
+    margin: 0 auto;
+  }
+}

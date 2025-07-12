@@ -1,0 +1,209 @@
+<div class="exercise-form-container">
+  <div class="form-header">
+    <h2 class="form-title">
+      {{
+        isEditMode ? "Edit Exercise Schedule" : "Create New Exercise Schedule"
+      }}
+    </h2>
+    <button type="button" class="close-btn" (click)="onCancel()">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+
+  <form
+    [formGroup]="exerciseForm"
+    (ngSubmit)="onSubmit()"
+    class="exercise-form"
+  >
+  <div *ngIf="validationErrors.length > 0" class="validation-errors" style="margin-bottom: 1rem; padding: 0.75rem; background-color: #f8d7da; border: 1px solid #f5c6cb; border-radius: 4px;">
+      <h4 style="margin: 0 0 0.5rem 0; color: #721c24;">Please fix the following errors:</h4>
+      <ul style="margin: 0; padding-left: 1.5rem; color: #721c24;">
+        <li *ngFor="let error of validationErrors">{{ error }}</li>
+      </ul>
+    </div>
+    <!-- Date Range Section -->
+    <div class="form-section">
+      <h3 class="section-title">Schedule Duration</h3>
+      <div class="date-range-container">
+        <div class="form-group">
+          <label for="startDate" class="form-label">Start Date</label>
+          <input
+            type="date"
+            id="startDate"
+            formControlName="startDate"
+            class="form-control"
+            [class.error]="getFieldError('startDate')"
+          />
+          <div class="error-message" *ngIf="getFieldError('startDate')">
+            Start date is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="endDate" class="form-label">End Date</label>
+          <input
+            type="date"
+            id="endDate"
+            formControlName="endDate"
+            class="form-control"
+            [class.error]="getFieldError('endDate')"
+          />
+          <div class="error-message" *ngIf="getFieldError('endDate')">
+            End date is required
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exercises Section -->
+    <div class="form-section">
+      <div class="exercises-header">
+        <h3 class="section-title">Scheduled Exercises</h3>
+      </div>
+
+      <div class="exercises-container" formArrayName="scheduledExercises">
+        <div
+          *ngFor="let exercise of exercisesFormArray.controls; let i = index"
+          [formGroupName]="i"
+          class="exercise-card"
+        >
+          <div class="exercise-header">
+            <h4 class="exercise-title">Exercise {{ i + 1 }}</h4>
+            <button
+              type="button"
+              class="remove-exercise-btn"
+              (click)="removeExercise(i)"
+              [disabled]="exercisesFormArray.length === 1"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="3,6 5,6 21,6"></polyline>
+                <path
+                  d="m19,6v14a2,2 0 0,1-2,2H7a2,2 0 0,1-2-2V6m3,0V4a2,2 0 0,1,2-2h4a2,2 0 0,1,2,2v2"
+                ></path>
+              </svg>
+            </button>
+          </div>
+
+          <div class="exercise-form-grid">
+            <!-- Add muscle selection -->
+            <div class="form-group">
+              <label [for]="'muscle-' + i" class="form-label"
+                >Target Muscle</label
+              >
+              <select
+                [id]="'muscle-' + i"
+                formControlName="muscleId"
+                class="form-control"
+                (change)="onMuscleSelect($event, i)"
+                [class.error]="getExerciseFieldError(i, 'muscleId')"
+              >
+                <option value="">Select muscle</option>
+                <option
+                  *ngFor="let muscle of muscles"
+                  [value]="muscle.id"
+                  [selected]="muscle.id === exercise.get('muscleId')?.value"
+                >
+                  {{ muscle.name }}
+                </option>
+              </select>
+              <div
+                class="error-message"
+                *ngIf="getExerciseFieldError(i, 'muscleId')"
+              >
+                Muscle is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label [for]="'exerciseId-' + i" class="form-label"
+                >Exercise</label
+              >
+              <select
+                [id]="'exerciseId-' + i"
+                formControlName="exerciseId"
+                class="form-control"
+                [class.error]="getExerciseFieldError(i, 'exerciseId')"
+              >
+                <option value="">Select exercise</option>
+                <option
+                  *ngFor="
+                    let ex of getExercisesForMuscle(
+                      exercisesFormArray.at(i).get('muscleId')?.value
+                    )
+                  "
+                  [value]="ex.id"
+                >
+                  {{ ex.name }}
+                </option>
+              </select>
+              <div
+                class="error-message"
+                *ngIf="getExerciseFieldError(i, 'exerciseId')"
+              >
+                Exercise is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label [for]="'day-' + i" class="form-label">Day</label>
+              <input
+                type="date"
+                [id]="'day-' + i"
+                formControlName="day"
+                class="form-control"
+                [class.error]="getExerciseFieldError(i, 'day')"
+              />
+              <div
+                class="error-message"
+                *ngIf="getExerciseFieldError(i, 'day')"
+              >
+                Day is required
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="add-exercise-btn" (click)="addExercise()">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      </svg>
+      Add Exercise
+    </button>
+    <!-- Form Actions -->
+    <div class="form-actions">
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">
+        Cancel
+      </button>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="isSubmitting || !exerciseForm.valid"
+      >
+        <div class="btn-content">
+          <div *ngIf="isSubmitting" class="spinner"></div>
+          <span>{{ isEditMode ? "Update Schedule" : "Create Schedule" }}</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

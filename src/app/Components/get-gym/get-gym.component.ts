@@ -31,7 +31,9 @@ export class GetGymComponent implements OnInit ,  AfterViewInit {
        gymImagesUrl:[],
        name:"",
        phone:"",
-       description:""
+       description:"",
+       gymTypeValue:"",
+       gymFeatures:[]
   }
   GymId!:number
   formAddGym!:FormGroup

@@ -1,0 +1,292 @@
+<div class="trainee-details-container">
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p class="loading-text">Loading trainee details...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error && !loading" class="error-container">
+    <div class="error-icon">⚠️</div>
+    <p class="error-text">{{ error }}</p>
+    <button class="retry-btn" (click)="loadTraineeDetails()">Try Again</button>
+  </div>
+
+  <!-- Trainee Details -->
+  <ng-container *ngIf="trainee && !loading && !error">
+    <!-- Left Section - Trainee Data (1/3 width) -->
+    <div class="trainee-info-section">
+      <div class="trainee-card">
+        <div class="trainee-image-container">
+          <img
+            [src]="trainee.imageUrl"
+            [alt]="trainee.firstName + ' ' + trainee.lastName"
+            class="trainee-image"
+            (error)="onImageError($event)"
+          />
+        </div>
+
+        <div class="trainee-details">
+          <h2 class="trainee-name">
+            {{ trainee.firstName }} {{ trainee.lastName }}
+          </h2>
+
+          <div class="detail-item">
+            <span class="detail-label">Age:</span>
+            <span class="detail-value"
+              >{{ calculateAge(trainee.dateOfBirth) }} years</span
+            >
+          </div>
+
+          <div class="detail-item">
+            <span class="detail-label">Weight:</span>
+            <span class="detail-value">{{ trainee.weight }} kg</span>
+          </div>
+
+          <div class="detail-item">
+            <span class="detail-label">Reason for Joining:</span>
+            <span class="detail-value reason">{{
+              trainee.reasonForJoining
+            }}</span>
+          </div>
+
+          <div class="detail-item">
+            <span class="detail-label">Gym:</span>
+            <span class="detail-value">{{ trainee.gymName }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Section - Action Buttons or Diet Info -->
+    <div class="actions-section">
+      <div class="actions-container">
+        <!-- Diet Form -->
+        <div *ngIf="showDietForm">
+          <app-diet-form
+            [traineeId]="trainee.id"
+            [dietId]="currentDiet?.id"
+            [isEditMode]="!!currentDiet"
+            (formSubmitted)="onDietSubmitted($event)"
+            (formCancelled)="onDietCancelled()"
+          >
+          </app-diet-form>
+        </div>
+
+        <!-- Diet Display -->
+        <div *ngIf="!showDietForm && currentDiet" class="diet-display">
+          <h3 class="actions-title">Current Diet Plan</h3>
+
+          <div class="diet-summary">
+            <div class="detail-item">
+              <span class="detail-label">Duration:</span>
+              <span class="detail-value">
+                {{ currentDiet.startDate | date }} to
+                {{ currentDiet.endDate | date }}
+              </span>
+            </div>
+
+            <div class="meals-list">
+              <h4>Meals:</h4>
+              <div *ngFor="let meal of currentDiet.meals" class="meal-item">
+                <strong
+                  >{{ getMealTypeName(meal.mealType) }} ({{
+                    meal.day | date
+                  }}):</strong
+                >
+                <p>{{ meal.description }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="diet-actions">
+            <button class="action-btn diet-btn" (click)="onEditDiet()">
+              <svg
+                class="btn-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                />
+                <path
+                  d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                />
+              </svg>
+              <span>Edit Diet</span>
+            </button>
+
+            <button class="action-btn exercise-btn" (click)="onDeleteDiet()">
+              <svg
+                class="btn-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="3,6 5,6 21,6"></polyline>
+                <path
+                  d="m19,6v14a2,2 0 0,1-2,2H7a2,2 0 0,1-2-2V6m3,0V4a2,2 0 0,1,2-2h4a2,2 0 0,1,2,2v2"
+                ></path>
+              </svg>
+              <span>Delete Diet</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Add this to your template where you want to show the exercise form/schedule -->
+        <div *ngIf="showExerciseForm">
+          <app-exercise-form
+            [traineeId]="trainee.id"
+            [scheduleId]="currentExerciseSchedule?.id"
+            [isEditMode]="!!currentExerciseSchedule"
+            (formSubmitted)="onExerciseScheduleSubmitted($event)"
+            (formCancelled)="onExerciseScheduleCancelled()"
+          >
+          </app-exercise-form>
+        </div>
+
+        <!-- Exercise Schedule Display -->
+        <div
+          *ngIf="!showExerciseForm && currentExerciseSchedule"
+          class="exercise-schedule-display"
+        >
+          <h3 class="actions-title">Current Exercise Schedule</h3>
+
+          <div class="schedule-summary">
+            <div class="detail-item">
+              <span class="detail-label">Duration:</span>
+              <span class="detail-value">
+                {{ currentExerciseSchedule.startDate | date }} to
+                {{ currentExerciseSchedule.endDate | date }}
+              </span>
+            </div>
+
+            <div class="exercises-list">
+              <h4>Exercises:</h4>
+              <div
+                *ngFor="
+                  let exercise of currentExerciseSchedule.scheduledExercises
+                "
+                class="exercise-item"
+              >
+                <strong
+                  >{{ exercise.exerciseName }} ({{
+                    exercise.day | date
+                  }}):</strong
+                >
+                <div class="exercise-content">
+                  <div
+                    class="exercise-image-container"
+                    *ngIf="exercise.exerciseImage"
+                  >
+                    <img
+                      [src]="exercise.exerciseImage"
+                      [alt]="exercise.exerciseName"
+                      class="exercise-image"
+                    />
+                  </div>
+                  <div class="exercise-details">
+                    <p class="exercise-description">
+                      {{ exercise.exerciseDescription }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="schedule-actions">
+            <button
+              class="action-btn diet-btn"
+              (click)="onEditExerciseSchedule()"
+            >
+              <svg
+                class="btn-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                />
+                <path
+                  d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                />
+              </svg>
+              <span>Edit Schedule</span>
+            </button>
+
+            <button
+              class="action-btn exercise-btn"
+              (click)="onDeleteExerciseSchedule()"
+            >
+              <svg
+                class="btn-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="3,6 5,6 21,6"></polyline>
+                <path
+                  d="m19,6v14a2,2 0 0,1-2,2H7a2,2 0 0,1-2-2V6m3,0V4a2,2 0 0,1,2-2h4a2,2 0 0,1,2,2v2"
+                ></path>
+              </svg>
+              <span>Delete Schedule</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div *ngIf="!showDietForm && !showExerciseForm" class="quick-actions">
+          <h3 class="actions-title">Quick Actions</h3>
+
+          <div class="buttons-wrapper">
+            <!-- Show Assign Diet only when no diet exists -->
+            <button
+              *ngIf="!currentDiet"
+              class="action-btn diet-btn"
+              (click)="onAssignDiet()"
+            >
+              <svg
+                class="btn-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M3 12h18m-9-9v18" />
+              </svg>
+              <span>Assign Diet</span>
+            </button>
+
+            <!-- Show Assign Exercises only when no exercise schedule exists -->
+            <button
+              *ngIf="!currentExerciseSchedule"
+              class="action-btn exercise-btn"
+              (click)="onAssignExercises()"
+            >
+              <svg
+                class="btn-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M6 9h6 2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V11a2 2 0 0 1 2-2z"
+                />
+                <path d="M12 1v6m0 6v6" />
+              </svg>
+              <span>Assign Exercises</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

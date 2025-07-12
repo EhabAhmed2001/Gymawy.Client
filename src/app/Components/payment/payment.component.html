@@ -1,0 +1,165 @@
+<!-- payment.component.html -->
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white py-3">
+          <h3 class="mb-0">
+            <i class="bi bi-credit-card me-2"></i> Payment Information
+          </h3>
+        </div>
+
+        <div class="card-body p-4">
+          <!-- Payment Card Visual -->
+          <div class="payment-card mb-4" [class.flipped]="showBack">
+            <div
+              class="payment-card-front bg-gradient-primary text-white p-4 rounded-3"
+            >
+              <div
+                class="d-flex justify-content-between align-items-start mb-4"
+              >
+                <img
+                  src="images/chip.png"
+                  alt="Card Chip"
+                  style="width: 40px"
+                />
+                <img
+                  src="images/visa.png"
+                  alt="Card Type"
+                  style="height: 30px"
+                />
+              </div>
+
+              <div class="mb-4">
+                <div class="card-number-display mb-2">
+                  {{ cardNumber || "•••• •••• •••• ••••" }}
+                </div>
+                <div class="d-flex justify-content-between">
+                  <div class="cardholder-display">
+                    {{ cardholderName || "YOUR NAME" }}
+                  </div>
+                  <div class="expiry-display">
+                    {{ expiryDate || "MM/YY" }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="payment-card-back bg-gradient-secondary text-white p-4 rounded-3"
+            >
+              <div class="magnetic-strip mb-3"></div>
+              <div class="cvv-display text-end pe-3">
+                {{ cvv || "•••" }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Form -->
+          <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+            <div
+              id="stripe-card-element"
+              style="height: 0; overflow: hidden"
+            ></div>
+
+            <div class="mb-3">
+              <label class="form-label">Card Number</label>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="cardNumber"
+                  placeholder="1234 5678 9012 3456"
+                  (input)="formatCardNumber($event)"
+                  maxlength="19"
+                />
+                <span class="input-group-text">
+                  <i class="bi bi-credit-card"></i>
+                </span>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Cardholder Name</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="cardholderName"
+                placeholder="John Doe"
+              />
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Expiration Date</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="expiryDate"
+                  placeholder="MM/YY"
+                  (input)="formatExpiryDate($event)"
+                  maxlength="5"
+                />
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label">CVV</label>
+                <div class="input-group">
+                  <input
+                    type="password"
+                    class="form-control"
+                    formControlName="cvv"
+                    placeholder="•••"
+                    maxlength="3"
+                    (focus)="showBack = true"
+                    (blur)="showBack = false"
+                  />
+                  <span
+                    class="input-group-text"
+                    (click)="toggleCVVVisibility()"
+                  >
+                    <i
+                      class="bi"
+                      [class.bi-eye]="!showCVV"
+                      [class.bi-eye-slash]="showCVV"
+                    ></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="d-grid mt-4">
+              <button class="btn btn-primary btn-lg" type="submit" [disabled]="paymentForm.invalid">
+                <i class="bi bi-lock-fill me-2"></i> Pay ${{totalAmount}}
+              </button>
+            </div> -->
+
+            <div class="d-grid mt-4">
+              <button
+                class="btn btn-primary btn-lg d-flex align-items-center justify-content-center"
+                type="submit"
+                [disabled]="paymentForm.invalid || isProcessing">
+                
+                <ng-container *ngIf="!isProcessing">
+                  <i class="bi bi-lock-fill me-2"></i> Pay ${{ totalAmount }}
+                </ng-container>
+                <ng-container *ngIf="isProcessing">
+                  <span
+                    class="spinner-border spinner-border-sm me-2"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                  Processing...
+                </ng-container>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="text-center mt-3">
+        <p class="text-muted small mt-2">Your payment is securely encrypted</p>
+      </div>
+    </div>
+  </div>
+</div>

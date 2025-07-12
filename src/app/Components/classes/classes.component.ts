@@ -67,7 +67,7 @@ export class ClassesComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.gymId = +params['gymId']; 
+      this.gymId = +params['gymId'];
       this.loadClasses();
       this.loadCoaches();
     });

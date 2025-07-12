@@ -3,7 +3,10 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { GymClasses, GymFeatures, GymMembership, GymDetails, TraineeCoachDetails, TraineeSubscription } from '../Interface/TraineeGym';
 import { Observable } from 'rxjs/internal/Observable';
+import { PaymentReturn } from '../Interfaces/Payment/PaymentReturn';
+import { Trainee,AssignCoachTrainee} from '../Interface/Trainee';
 import { ITraineeInfo } from '../Interfaces/ITraineeInfo';
+
 
 @Injectable({
   providedIn: 'root'
@@ -43,11 +46,36 @@ export class TraineeService {
     return this.httpClient.get<TraineeSubscription>(`${this.apiUrl}/subscriptions`);
   }
 
+  JoinIntoMembership(membershipId: number): Observable<PaymentReturn> {
+    return this.httpClient.post<PaymentReturn>(`${this.apiUrl}/assign-membership/${membershipId}`, {});
+  }
 
+  JoinToClass(classId: number): Observable<PaymentReturn> {
+    return this.httpClient.post<PaymentReturn>(`${this.apiUrl}/join-class/${classId}`, {});
+  }
+
+  AddFeature(featureId: number, count: number): Observable<PaymentReturn> {
+    const params = { count: count.toString() };
+
+    return this.httpClient.post<PaymentReturn>(
+      `${this.apiUrl}/add-feature/${featureId}`,
+      {},              // Empty body
+      { params }        // Query parameters
+    );
+  }
+  getTraineeByGymId(gymid:number):Observable<Trainee[]>
+{
+  return this.httpClient.get<Trainee[]>(`${this.apiUrl}/Trainees/${gymid}`);
+}
+
+AssignCoachtoTrainee(data:AssignCoachTrainee)
+{
+  return this.httpClient.post<{ message: string }>(
+    `${this.apiUrl}/AssignCoachToTrainee`,
+    data
+  );
+}
 getTraineeByUserName(username:string): Observable<ITraineeInfo> {
   return this.httpClient.get<ITraineeInfo>(`${this.baseUrl}/trainee/${username}`);
 }
-
-
-
 }

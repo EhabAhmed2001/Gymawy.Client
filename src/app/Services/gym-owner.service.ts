@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { GymBasicInfo } from '../Interface/GymBasicInfo';
 import { environment } from '../../environments/environment';
 import { IOwnerInfo } from '../Interfaces/IOwnerInfo';
+import { GymOwnerInfo } from '../Interface/GymOwnerInfo';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,13 @@ export class GymOwnerService {
     return this.httpClient.get<GymBasicInfo[]>(`${this.apiUrl}/GymOwner/${id}/Gyms`);
   }
 
+  getOwnerInfo(id:number):Observable<GymOwnerInfo>
+  {
+    return this.httpClient.get<GymOwnerInfo>(`${this.apiUrl}/GymOwner/${id}/Info`);
+  }
+
 getOwnerByUserName(username:string): Observable<IOwnerInfo> {
-  return this.httpClient.get<IOwnerInfo>(`${this.baseUrl}/gym/${username}`);
+  return this.httpClient.get<IOwnerInfo>(`${this.baseUrl}/gymowner/${username}`);
 }
 
 

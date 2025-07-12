@@ -1,0 +1,34 @@
+<!-- admin-layout.component.html -->
+<div class="admin-layout">
+  <!-- Top Navigation Bar -->
+  <nav class="admin-navbar">
+    <div class="navbar-brand">
+      <h1>GYM ADMIN</h1>
+    </div>
+    
+    <div class="navbar-links">
+      <a routerLink="/admin" 
+         routerLinkActive="active" 
+         [routerLinkActiveOptions]="{exact: true}">
+        <i class="fas fa-fire"></i>
+        Dashboard
+      </a>
+      <a routerLink="/admin/PendingGyms" 
+         routerLinkActive="active">
+        <i class="fas fa-hourglass-half"></i>
+        Pending Gyms
+      </a>
+      <a href="#" 
+         class="sign-out-link" 
+         (click)="signOut($event)">
+        <i class="fas fa-sign-out-alt"></i>
+        Sign Out
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Content Area -->
+  <main class="admin-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

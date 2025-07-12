@@ -1,0 +1,170 @@
+<div class="diet-form-container">
+  <div class="form-header">
+    <h2 class="form-title">{{ isEditMode ? 'Edit Diet Plan' : 'Create New Diet Plan' }}</h2>
+    <button type="button" class="close-btn" (click)="onCancel()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+
+  <form [formGroup]="dietForm" (ngSubmit)="onSubmit()" class="diet-form">
+   
+    <!-- Display individual validation errors -->
+    <div *ngIf="validationErrors.length > 0" class="validation-errors" style="margin-bottom: 1rem; padding: 0.75rem; background-color: #f8d7da; border: 1px solid #f5c6cb; border-radius: 4px;">
+      <h4 style="margin: 0 0 0.5rem 0; color: #721c24;">Please fix the following errors:</h4>
+      <ul style="margin: 0; padding-left: 1.5rem; color: #721c24;">
+        <li *ngFor="let error of validationErrors">{{ error }}</li>
+      </ul>
+    </div>
+
+    <!-- Date Range Section -->
+    <div class="form-section">
+      <h3 class="section-title">Diet Duration</h3>
+      <div class="date-range-container">
+        <div class="form-group">
+          <label for="startDate" class="form-label">Start Date</label>
+          <input
+            type="date"
+            id="startDate"
+            formControlName="startDate"
+            class="form-control"
+            [class.error]="getFieldError('startDate')"
+            (blur)="onFormChange()"
+          >
+          <div class="error-message" *ngIf="getFieldError('startDate')">
+            Start date is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="endDate" class="form-label">End Date</label>
+          <input
+            type="date"
+            id="endDate"
+            formControlName="endDate"
+            class="form-control"
+            [class.error]="getFieldError('endDate')"
+            (blur)="onFormChange()"
+          >
+          <div class="error-message" *ngIf="getFieldError('endDate')">
+            End date is required
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Meals Section -->
+    <div class="form-section">
+      <div class="meals-header">
+        <h3 class="section-title">Meals</h3>
+      </div>
+
+      <div class="meals-container" formArrayName="meals">
+        <div
+          *ngFor="let meal of mealsFormArray.controls; let i = index"
+          [formGroupName]="i"
+          class="meal-card"
+        >
+          <div class="meal-header">
+            <h4 class="meal-title">Meal {{ i + 1 }}</h4>
+            <button
+              type="button"
+              class="remove-meal-btn"
+              (click)="removeMeal(i)"
+              [disabled]="mealsFormArray.length === 3"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3,6 5,6 21,6"></polyline>
+                <path d="m19,6v14a2,2 0 0,1-2,2H7a2,2 0 0,1-2-2V6m3,0V4a2,2 0 0,1,2-2h4a2,2 0 0,1,2,2v2"></path>
+              </svg>
+            </button>
+          </div>
+
+          <div class="meal-form-grid">
+            <div class="form-group">
+              <label [for]="'day-' + i" class="form-label">Day</label>
+              <input
+                type="date"
+                [id]="'day-' + i"
+                formControlName="day"
+                class="form-control"
+                [class.error]="getMealFieldError(i, 'day')"
+                (blur)="onFormChange()"
+              >
+              <div class="error-message" *ngIf="getMealFieldError(i, 'day')">
+                Day is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label [for]="'mealType-' + i" class="form-label">Meal Type</label>
+              <select
+                [id]="'mealType-' + i"
+                formControlName="mealType"
+                class="form-control"
+                [class.error]="getMealFieldError(i, 'mealType')"
+                (blur)="onFormChange()"
+              >
+                <option value="">Select meal type</option>
+                <option [value]="0">Breakfast</option>
+                <option [value]="1">Lunch</option>
+                <option [value]="2">Dinner</option>
+                <option [value]="3">Snack</option>
+              </select>
+              <div class="error-message" *ngIf="getMealFieldError(i, 'mealType')">
+                Meal type is required
+              </div>
+            </div>
+
+            <div class="form-group full-width">
+              <label [for]="'description-' + i" class="form-label">Description</label>
+              <textarea
+                [id]="'description-' + i"
+                formControlName="description"
+                class="form-control textarea"
+                rows="3"
+                placeholder="Enter meal description..."
+                [class.error]="getMealFieldError(i, 'description')"
+                (blur)="onFormChange()"
+              ></textarea>
+              <div class="error-message" *ngIf="getMealFieldError(i, 'description')">
+                Description is required
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="add-meal-btn" (click)="addMeal()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      </svg>
+      Add Meal
+    </button>
+
+    <div class="meals-error" *ngIf="mealsError">
+      {{ mealsError }}
+    </div>
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">
+        Cancel
+      </button>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="isSubmitting || validationErrors.length > 0"
+      >
+        <div class="btn-content">
+          <div *ngIf="isSubmitting" class="spinner"></div>
+          <span>{{ isEditMode ? 'Update Diet' : 'Create Diet' }}</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>

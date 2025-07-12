@@ -42,7 +42,9 @@ export interface GymGet {
   gymImagesUrl:string[],
   name:string,
   phone:string,
-  description:string
+  description:string,
+  gymTypeValue:string|any,
+  gymFeatures:GymFeature[]|null
 }
 export interface GymUpdate {
   name :string,
@@ -51,7 +53,7 @@ export interface GymUpdate {
   gymType :number,
   address:Address 
 }
-
+/*
 export interface GymFeature {
     id :number,
     image:string,
@@ -59,7 +61,7 @@ export interface GymFeature {
     cost:number,
     name:string,
     isExtra:boolean
-}
+}*/
 
 export interface GymFeature {
     id :number,
@@ -70,8 +72,17 @@ export interface GymFeature {
     featureId:number,
     isExtra:boolean
 }
+/*
 export interface GymFeature {
       cost:number,
       image:string,
       description:string
+}
+*/
+export interface PendingGym {
+  gymId: number;
+  name: string;
+  phone: string;
+  description: string;
+  gymType: string;
 }
