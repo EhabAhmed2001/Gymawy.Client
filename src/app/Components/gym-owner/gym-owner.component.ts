@@ -4,6 +4,7 @@ import { GymOwnerService } from '../../Services/gym-owner.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { GymBasicInfo } from '../../Interface/GymBasicInfo';
 import { CommonModule } from '@angular/common';
+import { GymOwnerInfo } from '../../Interface/GymOwnerInfo';
 
 @Component({
   selector: 'app-gym-owner',
@@ -15,6 +16,12 @@ export class GymOwnerComponent implements OnInit {
   public ownerId: string = '';
   public gyms: GymBasicInfo[] = [];
   public selectedGymId: number | null = null;
+  public ownerInfo: GymOwnerInfo = {
+    email:'',
+    userName: '',
+    phoneNumber:''
+  }
+  showProfileDropdown = false;
 
   constructor(
     private gymOwnerService: GymOwnerService,
@@ -33,6 +40,17 @@ export class GymOwnerComponent implements OnInit {
         }
       }
     });
+
+    this.loadOwnerInfo();
+  }
+
+  loadOwnerInfo(): void {
+    this.gymOwnerService.getOwnerInfo(+this.ownerId).subscribe({
+      next:(data:any) => {
+        this.ownerInfo = data;
+      }
+    }
+    );
   }
 
   selectGym(gymId: number): void {
@@ -47,15 +65,11 @@ export class GymOwnerComponent implements OnInit {
     this.router.navigate([`/gym-owner/1/gym/${gymId}/${feature}`]);
   }
 
-  openEditGymModal(): void {
-    // Implement edit modal opening logic
-    console.log('Opening edit gym modal for gym:', this.selectedGymId);
+  toggleProfileDropdown(): void {
+    this.showProfileDropdown = !this.showProfileDropdown;
   }
 
-  confirmDeleteGym(): void {
-    if (confirm('Are you sure you want to delete this gym?')) {
-      // Implement delete logic
-      console.log('Deleting gym:', this.selectedGymId);
-    }
+  logout(): void {
+    console.log('Logging out...');
   }
 }

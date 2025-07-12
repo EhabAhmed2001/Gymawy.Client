@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Management - Assign Coaches</title>
+   
+</head>
+<body>
+    <div class="management-container">
+        <header class="management-header">
+            <h1>Gym Management System</h1>
+            <p>Assign coaches to trainees</p>
+        </header>
+
+        <div class="content-wrapper">
+            <!-- Coaches Section -->
+            <section class="coaches-section">
+                <h2>Available Coaches</h2>
+                <div class="cards-container">
+                  
+                     <div *ngFor="let coach of Coaches">
+                    <div class="coach-card">
+                        <div class="card-avatar">DJ</div>
+                        <div class="card-details">
+                            <h3>{{coach.firstName+" "+coach.firstName}}</h3>
+                            <p class="specialization">{{coach.specializations}}</p>
+                            <p class="trainee-count">Trainees: {{coach.currentCapcity}}</p>
+                        </div>
+                    </div>
+                   </div>
+                  
+                </div>
+            </section>
+
+           
+            <section class="trainees-section">
+                <h2>Trainees List</h2>
+                <div class="trainee-table-container">
+                    <table class="trainee-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Current Coach</th>
+                                <th>Assign Coach</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let trainee of Trainees" >
+                                <td>{{trainee.name}}</td>
+                               <td>
+                          <ng-container *ngIf="trainee.coachName; else notAssigned">
+                         <span class="current-coach">{{ trainee.coachName }}</span>
+                          </ng-container>
+                           <ng-template #notAssigned>
+                           <span class="no-coach">Not assigned</span>
+                           </ng-template>
+                            </td>
+                              <td>
+                                <select class="coach-select" [(ngModel)]="trainee.coachId" (click)="takeoldvalue(trainee.coachId)"  >
+                                 
+                                <option value="" >Select coach</option>
+                                <option *ngFor="let coach of Coaches" [value]="coach.id">
+                                 {{ coach.firstName+" "+coach.lastName }} ({{ coach.specializations }})
+                                 </option>
+                               </select>
+                              </td>
+                                <td>
+                                    <button class="assign-btn" (click)="AssignCoach(trainee.id,trainee.coachId)"  >Assign</button>
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <!-- Status Messages (hidden by default) -->
+        <div class="status-message loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Processing your request...</p>
+        </div>
+        
+        <div class="status-message error" style="display: none;">
+            <p>Error message would appear here</p>
+            <button class="retry-btn">Try Again</button>
+        </div>
+
+        <div class="status-message success" style="display: none;">
+            <p>Success message would appear here</p>
+        </div>
+    </div>
+</body>
+</html>

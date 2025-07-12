@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import * as L from 'leaflet';
 
@@ -13,6 +13,15 @@ export class MapComponent implements OnInit, AfterViewInit {
   private map!: L.Map;
   private marker!: L.Marker | null;
   addressSearch: string = '';
+
+
+
+  @Input() set coordinates(coords: { lat: number; lng: number } | null) {
+    if (coords && this.map) {
+      this.setMarker(coords.lat, coords.lng);
+      //this.map.setView([coords.lat, coords.lng], 13);
+    }
+  }
 
   // Emit only street, city, and country (add zip or state if needed)
   @Output() addressChange = new EventEmitter<{
@@ -65,13 +74,22 @@ export class MapComponent implements OnInit, AfterViewInit {
     });
   }
 
-  setMarker(lat: number, lng: number): void {
+
+  public setMarker(lat: number, lng: number): void {
+
+
+    // Remove existing marker
     if (this.marker) {
       this.map.removeLayer(this.marker);
     }
+
+    // Add new marker
     this.marker = L.marker([lat, lng]).addTo(this.map);
-   // this.coordinatesChange.emit({ lat, lng });
+    this.map.setView([lat, lng],8); // Center map on the marker
+    this.coordinatesChange.emit({ lat, lng });
+    this.reverseGeocode(lat, lng); // Optional: Fetch address
   }
+
 
   private reverseGeocode(lat: number, lng: number): void {
     fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`, {

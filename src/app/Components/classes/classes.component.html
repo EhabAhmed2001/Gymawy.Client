@@ -206,13 +206,6 @@
                 }
               </div>
 
-              <!-- Current Capacity -->
-              <div class="form-section">
-                <label for="currentCapacity" class="form-label">Current Capacity</label>
-                <input type="number" class="form-control" id="currentCapacity"
-                    [(ngModel)]="newClass.currentCapacity" name="currentCapacity" min="0" readonly>
-              </div>
-
               <!-- Total Capacity -->
               <div class="form-section">
                 <label for="totalCapacity" class="form-label required-field">Total Capacity</label>
@@ -345,20 +338,6 @@
                 </select>
                 @if (editCoachId.invalid && (editCoachId.dirty || editCoachId.touched)) {
                   <div class="text-danger">Please select a coach</div>
-                }
-              </div>
-
-              <!-- Current Capacity -->
-              <div class="form-section">
-                <label class="form-label required-field">Current Capacity</label>
-                <input  readonly type="number" class="form-control" [(ngModel)]="updatedClass.currentCapacity" name="currentCapacity" min="0" required
-                      #editCurrentCapacity="ngModel"
-                      [class.invalid-field]="editCurrentCapacity.invalid && (editCurrentCapacity.dirty || editCurrentCapacity.touched)">
-                @if (editCurrentCapacity.invalid && (editCurrentCapacity.dirty || editCurrentCapacity.touched)) {
-                  <div class="text-danger">
-                    @if (editCurrentCapacity.errors?.['required']) { Current capacity is required }
-                    @if (editCurrentCapacity.errors?.['min']) { Current capacity cannot be negative }
-                  </div>
                 }
               </div>
 

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Gym Membership Plan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+</head>
+<body>
+    <div class="container">
+        <div *ngIf="membervalid" style="color: red; text-align: center;">Please fill the required fields.</div>
+
+        <form class="membership-form" [formGroup]="Membershipdata" >
+            <h1>update Membership Plan</h1>
+            <p>Update membership plan with features and pricing</p>
+            
+            <div class="divider"></div>
+            
+            <h2>Basic Information</h2>
+            
+            <div class="form-group" >
+                <label for="plan-name" class="required">Plan Name</label>
+                <input type="text" id="plan-name"   placeholder="e.g., Premium Plan" formControlName="memberName">
+            </div>
+            
+            <div class="form-group">
+                <label for="cost" class="required"> Cost ($)</label>
+                <div class="price-input">
+                    <input type="number" id="monthly-cost" step="1" value="1" formControlName="cost" >
+                </div>
+            </div>
+                <div class="form-group">
+                <label for="Duration" class="required">Duration By Month</label>
+                <div class="Duration">
+                    <input type="number" id="Duration" step="1" value="1" formControlName="duration" >
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="description" class="required">Description</label>
+                <textarea id="description"  formControlName="description" placeholder="Describe what this membership plan includes and its benefits..."></textarea>
+            </div>
+           <h2>Plan Features</h2>
+<div class="feature-list">
+  <div *ngIf="GymFeatures.length > 0; else noFeatures" class="feature-list">
+  <div *ngFor="let feature of GymFeatures" class="feature-item ">
+    <input 
+      type="checkbox"
+      [id]="'feature-' + feature.id"
+      name="features"
+      [value]="feature.featureName"
+      class="feature-item input"
+      [checked]="isFeatureSelected(feature.id)"
+      (change)="onFeatureToggle(feature.id, $event)"
+    />
+    <label [for]="'feature-' + feature.id" class="feature-item label ">
+      {{ feature.featureName }} - {{ feature.cost }} EGP
+    </label>
+  </div>
+</div>
+
+<ng-template #noFeatures>
+  <p>NO Features</p>
+</ng-template>
+
+</div>
+
+            
+            <input type="submit" class="submit-btn" value="Update Membership Plan" (click)="SendMembership()">
+        </form>
+    </div>
+</body>
+</html>

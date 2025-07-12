@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { GymClasses, GymFeatures, GymMembership, GymDetails, TraineeCoachDetails, TraineeSubscription } from '../Interface/TraineeGym';
 import { Observable } from 'rxjs/internal/Observable';
 import { PaymentReturn } from '../Interfaces/Payment/PaymentReturn';
+import { Trainee,AssignCoachTrainee} from '../Interface/Trainee';
 
 @Injectable({
   providedIn: 'root'
@@ -58,5 +59,17 @@ export class TraineeService {
       { params }        // Query parameters
     );
   }
+  getTraineeByGymId(gymid:number):Observable<Trainee[]>
+{
+  return this.httpClient.get<Trainee[]>(`${this.apiUrl}/Trainees/${gymid}`);
+}
+
+AssignCoachtoTrainee(data:AssignCoachTrainee)
+{
+  return this.httpClient.post<{ message: string }>(
+    `${this.apiUrl}/AssignCoachToTrainee`,
+    data
+  );
+}
 
 }
