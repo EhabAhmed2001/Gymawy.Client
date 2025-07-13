@@ -42,11 +42,7 @@ export class CoachService {
   }
 
   requestToJoinGym(requestData: JoinGymRequest): Observable<any> {
-    return this.httpClient.post(`${this.apiUrl}/request-gym`, requestData, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+    return this.httpClient.post(`${this.apiUrl}/request-coach-gym`, requestData);
   }
 
 getCoachByUserName(username:string): Observable<ICoachInfo> {

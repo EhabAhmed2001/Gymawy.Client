@@ -7,5 +7,5 @@ export interface WorkDayDto {
 
 export interface JoinGymRequest {
   gymId: number;
-  workDayDtos: WorkDayDto[];
+  workDays: WorkDayDto[];
 }

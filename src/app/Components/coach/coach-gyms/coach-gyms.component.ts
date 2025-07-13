@@ -12,6 +12,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { JoinGymRequest } from '../../../Interface/Coach/JoinGymReques';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-coach-gyms',
@@ -24,11 +25,13 @@ export class CoachGymsComponent {
   requestForm: FormGroup;
   showRequestModal = false;
   selectedGymId: number | null = null;
+  requestStatus: boolean = false;
 
   constructor(
     private _traineeService: TraineeService,
     public _dataShared: DataSharedService,
     private _coachService: CoachService,
+    private _toastrService : ToastrService,
     private fb: FormBuilder
   ) {
     this.requestForm = this.fb.group({
@@ -99,7 +102,7 @@ export class CoachGymsComponent {
       // Create the request object matching the exact backend structure
       const requestData = {
         gymId: this.selectedGymId,
-        workDayDtos: this.workDayDtos.controls.map((control) => ({
+        workDays: this.workDayDtos.controls.map((control) => ({
           day: this.convertDayToNumber(control.get('day')?.value),
           start: this.formatTime(control.get('start')?.value),
           end: this.formatTime(control.get('end')?.value),
@@ -110,7 +113,8 @@ export class CoachGymsComponent {
 
       this._coachService.requestToJoinGym(requestData).subscribe({
         next: (response) => {
-          alert('Request sent successfully!');
+          this.requestStatus = true;
+          this._toastrService.success('Request sent successfully!');
           this.closeRequestModal();
         },
         error: (error) => {
@@ -122,7 +126,8 @@ export class CoachGymsComponent {
           if (error.error && error.error.title) {
             console.error('Error title:', error.error.title);
           }
-          alert(
+
+          this._toastrService.error(
             'Failed to send request. Please check all fields are properly filled.'
           );
         },

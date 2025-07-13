@@ -32,8 +32,11 @@
             <a class="btn btn-outline-primary w-100 mb-2" routerLink="/gym/{{gym.id}}">
               View Details <i class="bi bi-arrow-right btn-icon"></i>
             </a>
-            <button class="btn btn-primary w-100" (click)="openRequestModal(gym.id)">
+            <button *ngIf="requestStatus == false" class="btn btn-primary w-100" (click)="openRequestModal(gym.id)">
               Request to Join <i class="bi bi-send btn-icon"></i>
+            </button>
+            <button *ngIf="requestStatus" class="btn btn-warning w-100" (click)="openRequestModal(gym.id)" disabled>
+              Pending <i class="bi bi-send btn-icon"></i>
             </button>
           </div>
         </div>
