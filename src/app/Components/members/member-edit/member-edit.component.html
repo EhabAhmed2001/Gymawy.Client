@@ -83,19 +83,9 @@
 
 <div class="row" *ngIf="member && coach">
 
-  <div class="col-4">
     <div>
       <h1>Your Profile</h1>
     </div>
-  </div>
-
-  <div class="col-8">
-    <div>
-      <div class="alert alert-info pb-0" *ngIf="editForm.dirty">
-        <p><strong>Information: </strong>You have made changes. Any unsave changes will be lost</p>
-      </div>
-    </div>
-  </div>
 
   <div class="col-4">
     <div class="card">
@@ -113,19 +103,10 @@
           <strong>Last active :</strong>
           <p>{{member.lastActive | timeago}}</p>
         </div>
-        <!-- <div>
-          <strong>Member since :</strong>
-         <p>{{member.created | date : 'dd MMM yyyy'}}</p>
-        </div> -->
       </div>
 
 
-      <div class="card-footer">
-        <button type="submit" [disabled]="!editForm.dirty" form="editForm" class="btn btn-primary me-3 col-12">
-          Save Changes
-        </button>
 
-      </div>
     </div>
   </div>
 
@@ -136,17 +117,30 @@
       <tabset class="member-tabset">
         <tab heading="About {{coach.userName}}">
           <form #editForm="ngForm" id="editForm" (ngSubmit)="UpdateMember()">
+
+            <h4 class="mt-2">First Name:</h4>
+            <p class="form-control">{{ coach.firstName }}</p>
+
+            <h4 class="mt-2">Last Name:</h4>
+            <p class="form-control">{{ coach.lastName }}</p>
+
+
+
+            <h4 class="mt-2">Known As:</h4>
+            <p class="form-control">{{ coach.userName }}</p>
+
+
             <h4 class="mt-2">Specializations</h4>
-            <textarea class="form-control" [(ngModel)]="coach.specializations" name="specializations"
-              rows="6"></textarea>
+
+            <p class="form-control">{{ coach.specializations }}</p>
             <h4 class="mt-2">Location Details: </h4>
             <div class="d-flex flex-row align-items-center">
-              
+
               <label for="city">City: </label>
-              <input type="text" [(ngModel)]="coach.address.city" name="city" class="form-control mx-2">
-              
+              <input disabled type="text" [(ngModel)]="coach.address.city" name="city" class="form-control mx-2">
+
               <label for="country">Country: </label>
-              <input type="text" [(ngModel)]="coach.address.country" name="country" class="form-control mx-2" />
+              <input disabled type="text" [(ngModel)]="coach.address.country" name="country" class="form-control mx-2" />
             </div>
           </form>
         </tab>
@@ -234,7 +228,7 @@
 
               <label for="city">First Name: </label>
               <input type="text" [(ngModel)]="trainee.firstName" name="firstName" class="form-control mx-2">
-              
+
 
               <label for="city">City: </label>
               <input type="text" [(ngModel)]="trainee.address!.city" name="city" class="form-control mx-2">

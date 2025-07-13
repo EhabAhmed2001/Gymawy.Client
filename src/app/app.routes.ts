@@ -67,7 +67,7 @@ export const routes: Routes = [
       { path: 'gym/:id', component: GymDetailsComponent, title: "Gym" },
       { path: 'coach', component: TraineeCoachComponent, title: "Coach" },
       //{ path: 'coach/:coachId', component: CoachDashboardComponent, title: "Dashboard" },
-      { path: 'exercises', component: TraineeExercisesComponent, title: "Exercises" },
+      { path: 'exe rcises', component: TraineeExercisesComponent, title: "Exercises" },
       { path: 'diet', component: TraineeDietComponent, title: "Diet" },
      // { path: 'coach/traineeDetails/:traineeId', component: TraineeDetailsComponent, title: "Trainee Details" },
       { path: 'subscriptions', component: TraineeSubscriptionsComponent, title: "Subscriptions" },
@@ -100,6 +100,7 @@ export const routes: Routes = [
       {path:'EditMembership/:id', component:EditMembershipComponent , title: "Edit MemberShip"},
       {path:'profile', component:GymOwnerProfileComponent , title: "Owner Profile"},
       {path:'dashboard/:id', component:GymOwnerDashboardComponent , title: "GymOwner Dashboard"},
+      {path:'GymDetails/:id', component: GymDetailsAdminComponent, title: "Gym Detail"},
       {path:'trainess/:id', component:GymTraineesComponent , title: "Trainees"},
     ]},
     {

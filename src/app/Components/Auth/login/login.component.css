@@ -1,65 +1,80 @@
+.login-section {
+  background-color: #000;
+  color: #fff;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #1a1a1a 0%, #111 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
- body {
-      color: #fff;
-      height: 100vh;
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-    }
-    .login-section {
-      display: flex;
-      height: 100%;
-    }
+.login-section .row {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    .login-box {
-      background-color: #111;
-      flex: 1;
-      padding: 60px 40px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
+.login-section .col-12 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    .login-box h2 {
-      color: #e50914;
-      font-weight: bold;
-      margin-bottom: 30px;
-      text-align: center;
-    }
+.login-box {
+  background-color: #111;
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+}
 
-    .login-box .form-control {
-      background-color: #1f1f1f;
-      border: none;
-      color: #fff;
-      border-radius: 8px;
-    }
+.login-box h2 {
+  color: #e50914;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-align: center;
+}
 
-    .login-box .form-control::placeholder {
-      color: #aaa;
-    }
+.login-box .form-control {
+  background-color: #1f1f1f;
+  border: none;
+  color: #fff;
+  border-radius: 8px;
+}
 
-    .login-box .form-control.is-invalid {
-      border: 1px solid #dc3545;
-    }
+.login-box .form-control::placeholder {
+  color: #aaa;
+}
 
-    .invalid-feedback {
-      font-size: 0.85rem;
-      margin-top: -10px;
-      margin-bottom: 10px;
-    }
+.login-box .form-control.is-invalid {
+  border: 1px solid #dc3545;
+}
 
-    .login-box button {
-      background-color: #e50914;
-      border: none;
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      color: white;
-      font-weight: bold;
-      transition: 0.3s;
-    }
+.invalid-feedback {
+  font-size: 0.85rem;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
 
-    .login-box button:hover {
-      background-color: #bf0811;
-    }
+.login-box button {
+  background-color: #e50914;
+  border: none;
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  transition: 0.3s;
+}
 
+.login-box button:hover {
+  background-color: #bf0811;
+}

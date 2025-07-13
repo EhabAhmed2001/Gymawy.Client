@@ -7,6 +7,9 @@ import { GymService } from '../../Services/gym.service';
 import { Item } from '../../Interfaces/Shared/Shared';
 import { UploadImagesComponent } from "../upload-images/upload-images.component";
 import { ImageSliderComponent } from "../image-slider/image-slider.component";
+import { Router } from '@angular/router';
+import { GymOwnerInfo } from '../../Interface/GymOwnerInfo';
+import { GymOwnerService } from '../../Services/gym-owner.service';
 
 @Component({
   selector: 'app-add-gym',
@@ -59,6 +62,21 @@ export class AddGymComponent implements OnInit {
       logo:new FormControl([Validators.required]),
     })
 
+    public ownerInfo: GymOwnerInfo = {
+      firstName:'',
+      lastName:'',
+      email:'',
+      userName: '',
+      phoneNumber:''
+    }
+
+  loadOwnerInfo(): void {
+    this.gymOwnerService.getOwnerInfo().subscribe({
+
+    }
+    );
+  }
+
   get uploadImageControl(): FormControl {
     return this.formAddGym.get('uploadImage') as FormControl;
   }
@@ -74,7 +92,7 @@ export class AddGymComponent implements OnInit {
       cost:new FormControl("",[Validators.required,Validators.pattern(/^\d+(\.\d{1,2})?$/),Validators.min(0.01)]),
     })
   }
-  constructor(private gymService:GymService) {
+  constructor(private gymService:GymService , private route:Router,private gymOwnerService:GymOwnerService) {
 
   }
   ngOnInit(): void {
@@ -186,8 +204,12 @@ export class AddGymComponent implements OnInit {
     console.log(formData)
     this.gymService.AddGym(formData).subscribe({
       next:(res)=>{
+        console.log(res)
+        this.route.navigate(['/gym-owner/GymDetails',res]);
+        this.loadOwnerInfo()
       }
     });
+    
 
   }
 }

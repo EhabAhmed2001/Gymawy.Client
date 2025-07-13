@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ImageSliderComponent } from '../image-slider/image-slider.component';
 import { MapComponent } from '../map/map.component';
 import { CommonModule } from '@angular/common';
+import { GymOwnerService } from '../../Services/gym-owner.service';
+import { GymOwnerInfo } from '../../Interface/GymOwnerInfo';
 
 @Component({
   selector: 'app-gym-details-admin',
@@ -34,6 +36,7 @@ export class GymDetailsAdminComponent implements OnInit , AfterViewInit{
        gymTypeValue:'' ,
        gymFeatures:[]
   }
+
   GymId!:number
   //@ViewChild(MapComponent, { static: true }) map!: MapComponent;
 
@@ -52,6 +55,7 @@ export class GymDetailsAdminComponent implements OnInit , AfterViewInit{
       }
     })
   }
+ 
   openImagePreview(imageUrl: string): void {
     this.previewImageUrl = imageUrl;
     this.showImagePreview = true;
