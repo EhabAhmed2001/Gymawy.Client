@@ -52,6 +52,7 @@ import { GymOwnerProfileComponent } from './Components/gym-owner-profile/gym-own
 import { CoachLayoutComponent } from './Layout/coach-layout/coach-layout.component';
 import { GymOwnerDashboardComponent } from './gym-owner-dashboard/gym-owner-dashboard.component';
 
+import { ChatbotComponent } from './Components/chat/chatbot/chatbot.component';
 
 
 export const routes: Routes = [
@@ -74,6 +75,9 @@ export const routes: Routes = [
       { path: 'member/edit', canDeactivate: [preventUnsavedChangesGuard], component: MemberEditComponent, title: "Edit Member" },
       { path: 'notFound', component: NotFoundComponent, title: "nofound" },
       { path: 'home', component: HomeComponent, title: "home" },
+        {path:'room/:roomId', component:RoomComponent, title:'room'},
+        {path:'inbody', component:InbodyComponent, title:'Inbody Analyzer'},
+        {path:'chat-bot', component:ChatbotComponent, title:'chat-bot'},
       ]
     },
 

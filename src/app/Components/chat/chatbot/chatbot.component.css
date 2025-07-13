@@ -1,0 +1,42 @@
+::selection {
+    background: grey;
+}
+
+.response {
+    background-color: #02121a;
+    width: fit-content;
+    border-bottom-left-radius: 0 !important;
+    overflow-wrap: break-word;
+}
+
+.request {
+    background-color: #303030;
+    width: fit-content;
+    max-width: 75%;
+    text-align: right;
+    border-bottom-right-radius: 0 !important;
+}
+
+.parent {
+    height: 65vh;
+}
+
+.child {
+    height: 70%;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+.male-btn:hover {
+    color: white;
+    background-color: #0E6EFD;
+}
+
+.female-btn:hover {
+    color: white;
+    background-color: #188754;
+}
+
+textarea {
+    resize: none;
+}
