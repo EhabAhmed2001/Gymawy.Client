@@ -5,6 +5,8 @@ import { GymBasicInfo } from '../Interface/GymBasicInfo';
 import { environment } from '../../environments/environment';
 import { IOwnerInfo } from '../Interfaces/IOwnerInfo';
 import { GymOwnerInfo } from '../Interface/GymOwnerInfo';
+import {GymownerData,GymOwnerMembership  } from '../Interfaces/GymOwnerData';
+
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +35,18 @@ getOwnerByUserName(username:string): Observable<IOwnerInfo> {
   return this.httpClient.get<IOwnerInfo>(`${this.baseUrl}/gymowner/${username}`);
 }
 
+
+
+getGymownerData(id:number):Observable<GymownerData[]>
+{
+      return this.httpClient.get<GymownerData[]>(`${this.apiUrl}/GymOwner/GymOwnerData/${id}`);
+
+}
+
+getGymownerMembership(id:number):Observable<GymOwnerMembership[]>
+{
+      return this.httpClient.get<GymOwnerMembership[]>(`${this.apiUrl}/GymOwner/GymMemberships/${id}`);
+
+}
 
 }

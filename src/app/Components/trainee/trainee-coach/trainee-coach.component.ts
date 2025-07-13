@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TraineeService } from '../../../Services/trainee.service';
 import { TraineeCoachDetails } from '../../../Interface/TraineeGym';
-import { RouterLink } from '@angular/router';
+import { RouterLink ,RouterModule} from '@angular/router';
 import { AuthService } from '../../../Services/auth.service';
 import { CommonModule } from '@angular/common';
 import { take } from 'rxjs';
@@ -9,7 +9,7 @@ import { IUser } from '../../../Interfaces/IUser';
 
 @Component({
   selector: 'app-trainee-coach',
-  imports: [RouterLink,CommonModule],
+  imports: [RouterLink, RouterModule,CommonModule],
   templateUrl: './trainee-coach.component.html',
   styleUrl: './trainee-coach.component.css'
 })

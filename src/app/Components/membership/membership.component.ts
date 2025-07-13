@@ -124,7 +124,7 @@ export class MembershipComponent implements OnInit {
   }
 
   getFeatures() {
-    this.gymserv.getFeaturesByGymID(this.gymId).subscribe({
+    this.gymserv.getGym2FeaturesByGymID(this.gymId).subscribe({
       next: (data: Features[]) => {
         this.GymFeatures = data;
         console.log('Features loaded:', this.GymFeatures);

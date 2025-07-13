@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { GymClasses, GymFeatures, GymMembership, GymDetails, TraineeCoachDetails, TraineeSubscription } from '../Interface/TraineeGym';
+import { GymClasses, GymFeatures, GymMembership, GymDetails, TraineeCoachDetails, TraineeSubscription, TraineeDiet, TraineeExerciseSchedule } from '../Interface/TraineeGym';
 import { Observable } from 'rxjs/internal/Observable';
 import { PaymentReturn } from '../Interfaces/Payment/PaymentReturn';
 import { Trainee,AssignCoachTrainee} from '../Interface/Trainee';
@@ -13,7 +13,7 @@ import { ITraineeInfo } from '../Interfaces/ITraineeInfo';
 })
 export class TraineeService {
 
-  private apiUrl = `${environment.apiUrl}/trainee`;
+  private apiUrl = `${environment.apiUrl}/Trainee`;
   private readonly baseUrl:string = environment.apiUrl;
 
   constructor(private httpClient: HttpClient) { }
@@ -46,6 +46,16 @@ export class TraineeService {
     return this.httpClient.get<TraineeSubscription>(`${this.apiUrl}/subscriptions`);
   }
 
+  // Trainee Diet
+  GetDiet(): Observable<TraineeDiet[]> {
+    return this.httpClient.get<TraineeDiet[]>(`${this.apiUrl}/diet`);
+  }
+
+  GetExercises(): Observable<TraineeExerciseSchedule[]>
+  {
+    return this.httpClient.get<TraineeExerciseSchedule[]>(`${this.apiUrl}/exercise-schedule`);
+  }
+
   JoinIntoMembership(membershipId: number): Observable<PaymentReturn> {
     return this.httpClient.post<PaymentReturn>(`${this.apiUrl}/assign-membership/${membershipId}`, {});
   }
@@ -63,10 +73,9 @@ export class TraineeService {
       { params }        // Query parameters
     );
   }
-  getTraineeByGymId(gymid:number):Observable<Trainee[]>
-{
-  return this.httpClient.get<Trainee[]>(`${this.apiUrl}/Trainees/${gymid}`);
-}
+  getTraineeByGymId(gymid: number): Observable<Trainee[]> {
+    return this.httpClient.get<Trainee[]>(`${this.apiUrl}/Trainees/${gymid}`);
+  }
 
 AssignCoachtoTrainee(data:AssignCoachTrainee)
 {

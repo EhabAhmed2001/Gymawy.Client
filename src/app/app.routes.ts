@@ -78,11 +78,7 @@ export const routes: Routes = [
       {path:'addGym', component: AddGymComponent, title: "Add Gym"},
       {path:'gymDetail/:id', component: GetGymComponent, title: "Edit Gym Info"},
       {path:'features/:id', component: FeaturesComponent, title: "Gym Features"},
-      {path:'GymPendingCoach/:gymId', component: GymPendingCoachComponent, title: "Pending Coach"},
-      {path:'createmembership/:id', component:MembershipComponent , title: "Createmembership"},
-      {path:'memberships/:id', component:GymMemberShipsComponent , title: "GetMemberShips"},
-      {path:'EditMembership/:id', component:EditMembershipComponent , title: "Edit MemberShip"},
-      {path:'profile', component:GymOwnerProfileComponent , title: "Owner Profile"}
+      {path:'GymPendingCoach/:gymId', component: GymPendingCoachComponent, title: "Pending Coach"}
     ]},
     {
       path:'admin',component:AdminLayoutComponent,

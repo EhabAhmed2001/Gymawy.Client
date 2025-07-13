@@ -1,0 +1,111 @@
+<!-- gym-owner-dashboard.component.html -->
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>Gym Owner Dashboard</h1>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div class="dashboard-content" *ngIf="allGymsData.length > 0">
+    <!-- Gym Info Section -->
+    <div *ngFor="let data of allGymsData" class="gym-info">
+      <span class="gym-name">{{ data.name }}</span>
+      <span class="gym-type">{{ data.gymType }}</span>
+    </div>
+
+    <!-- Quick Stats Cards -->
+    <div class="stats-cards" *ngFor="let data of allGymsData">
+      <div class="stat-card">
+        <h3>Total Trainees</h3>
+        <h4>{{data.name}}</h4>
+        <p class="stat-number">{{ data.traineesCount }}</p>
+      </div>
+      
+      <div class="stat-card">
+        <h3>Coaches</h3>
+        <h4>{{data.name}}</h4>
+        <p class="stat-number">{{ data.coachesCount }}</p>
+      </div>
+      
+      <div class="stat-card">
+        <h3>Classes</h3>
+        <h4>{{data.name}}</h4>
+        <p class="stat-number">{{ data.classesCount }}</p>
+      </div>
+      
+      <div class="stat-card">
+        <h3>Memberships</h3>
+        <h4>{{data.name}}</h4>
+        <p class="stat-number">{{ data.membershipsCount }}</p>
+      </div>
+      
+      <div class="stat-card" *ngIf="data.featuresCount">
+        <h3>Features</h3>
+        <h4>{{data.name}}</h4>
+        <p class="stat-number">{{ data.featuresCount }}</p>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="charts-section">
+      <!-- Overview Chart -->
+      <div class="chart-container">
+        <canvas 
+          id="overviewChart" 
+          width="400" 
+          height="300"
+          style="max-width: 100%; height: auto;">
+        </canvas>
+      </div>
+
+      <!-- Membership Distribution Chart -->
+      <div class="chart-container">
+        <canvas 
+          id="membershipChart" 
+          width="400" 
+          height="300"
+          style="max-width: 100%; height: auto;">
+        </canvas>
+      </div>
+
+      <!-- Comparison Chart -->
+      <div class="chart-container">
+        <canvas 
+          id="comparisonChart" 
+          width="400" 
+          height="300"
+          style="max-width: 100%; height: auto;">
+        </canvas>
+      </div>
+    </div>
+
+    <!-- Membership Details Table -->
+    <div class="membership-table" *ngIf="allGymsMemberships.length > 0">
+      <h3>Membership Details</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Gym Name</th>
+            <th>Membership Name</th>
+            <th>Trainees Count</th>
+            <th>Percentage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let membership of allGymsMemberships">
+            <td>{{ membership.gymName }}</td>
+            <td>{{ membership.membershipName }}</td>
+            <td>{{ membership.traineesCount }}</td>
+            <td>{{ ((membership.traineesCount / allGymsData[0].traineesCount) * 100).toFixed(1) }}%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="allGymsMemberships.length === 0 && !errorMessage" class="loading">
+    Loading dashboard data...
+  </div>
+</div>
