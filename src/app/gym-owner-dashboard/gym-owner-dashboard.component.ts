@@ -86,7 +86,7 @@ export class GymOwnerDashboardComponent implements OnInit, OnDestroy, AfterViewI
 
   private loadAllGymsData(id:number): void {
     this.getAllGymsData(id);
-    this.getAllGymsMemberships(id);
+   this.getAllGymsMemberships(id);
   }
 
   private createChartsIfDataExists(): void {

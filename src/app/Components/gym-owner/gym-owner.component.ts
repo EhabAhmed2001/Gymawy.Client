@@ -74,8 +74,8 @@ export class GymOwnerComponent implements OnInit {
     // Extract the feature part from the URL (e.g., 'class' from '/gym-owner/1/gym/1/class')
     const urlParts = currentUrl.split('/');
     const feature = urlParts[urlParts.length - 1]; // gets the last part
-
-    this.router.navigate([`/gym-owner/1/gym/${gymId}/${feature}`]);
+   // if(feature=="")
+    this.router.navigate([`/gym-owner/gym/${gymId}/${feature}`]);
   }
 
   toggleProfileDropdown(): void {

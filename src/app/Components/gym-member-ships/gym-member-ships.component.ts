@@ -77,7 +77,7 @@ constructor(private gymserv:GymService,private router:ActivatedRoute,private rou
 }
 
 editMembership(memberId: number) {
-  this.routerNav.navigate(['/EditMembership', memberId]);
+  this.routerNav.navigate(['/gym-owner/EditMembership', memberId]);
 }
   showDeleteModal = false;
   memberToDelete: number | null = null;

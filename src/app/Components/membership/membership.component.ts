@@ -87,7 +87,7 @@ export class MembershipComponent implements OnInit {
         console.log('Membership created:', response.message);
         alert(response.message);
         this.resetForm();
-         this.routerNav.navigate(['/memberships',this.gymId]); 
+         this.routerNav.navigate(['/gym-owner/memberships',this.gymId]); 
       },
       error: (err) => {
         console.error('Error creating membership:', err);

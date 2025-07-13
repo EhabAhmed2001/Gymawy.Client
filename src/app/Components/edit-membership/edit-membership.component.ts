@@ -92,9 +92,9 @@ Mid:number=0;
     this.gymserv.updateMembership(this.Mid,Data).subscribe({
       next: (response) => {
         console.log('Membership created:', response.message);
-        alert(response.message);
+        
                   this.resetForm();
-                  this.routerNav.navigate(['/memberships',this.gymId]);
+                  this.routerNav.navigate(['/gym-owner/memberships',this.gymId]);
 
       },
       error: (err) => {

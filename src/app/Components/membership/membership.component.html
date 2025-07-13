@@ -47,7 +47,7 @@
   <div *ngFor="let feature of GymFeatures" class="feature-item ">
     <input
       type="checkbox"
-      [id]="'feature-' + feature.id"
+      [id]="feature.id"
       name="features"
       [value]="feature.featureName"
       class="feature-item input"

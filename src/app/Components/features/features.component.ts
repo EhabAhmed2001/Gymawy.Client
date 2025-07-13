@@ -35,9 +35,8 @@ export class FeaturesComponent implements OnInit {
       isExtra:new FormControl(false)
     })
   }
-
-  ngOnInit(): void {
-    this.gymService.GetFeaturesByGymId(this.gymId).subscribe({
+  reload(){
+       this.gymService.GetFeaturesByGymId(this.gymId).subscribe({
       next:(responce)=>{
         this.gymFeatures = responce
         console.log(responce)
@@ -53,7 +52,14 @@ export class FeaturesComponent implements OnInit {
       error:(e)=>{
         console.log(e)
       }
-    })
+    }) 
+  }
+  ngOnInit(): void {
+  this.route.params.subscribe(params => {
+      this.gymId = +params['id'];
+      this.reload()
+    });
+    this.reload();
   }
   uploadLogo(event:any){
      const input = event.target as HTMLInputElement
@@ -153,12 +159,15 @@ export class FeaturesComponent implements OnInit {
             next:(responce)=>{
               this.gymFeatures.push(responce)
               console.log(responce)
+
             },
             error:(erro)=>{
               console.log(erro)
             }
           })
-          this.closeDialog();              
+          this.closeDialog();
+           this.reload()              
+
 
       }
       else {
@@ -171,6 +180,8 @@ export class FeaturesComponent implements OnInit {
               }
             })
             this.closeDialog();
+                          this.reload()              
+
 
       }     
     }
@@ -193,6 +204,8 @@ export class FeaturesComponent implements OnInit {
         }
         })
         this.closeDialog();
+        this.reload()              
+
 
     }
   }

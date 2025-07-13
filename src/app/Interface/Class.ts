@@ -25,9 +25,7 @@ export interface ClassToSend {
 export interface Coach {
   firstName: string,
   lastName: string,
-  id: number,
-  currentCapcity:number,
-  specializations:string
+  id: number
 }
 
 export interface Trainee {
