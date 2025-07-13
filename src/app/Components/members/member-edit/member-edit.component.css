@@ -1,0 +1,442 @@
+/* Coach Profile - Dark Theme Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+    line-height: 1.6;
+}
+
+/* Main Container */
+.row {
+    background-color: #1a1a1a;
+    padding: 24px;
+    min-height: 100vh;
+    color: #e0e0e0;
+}
+
+/* Header */
+.row h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 32px;
+    position: relative;
+}
+
+.row h1::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #dc2626 0%, #ef4444 100%);
+    border-radius: 2px;
+}
+
+/* Profile Card Styles */
+.card {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+    border: 1px solid #333333;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+    animation: fadeIn 0.6s ease-out;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #dc2626 0%, #ef4444 100%);
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    border-color: #dc2626;
+}
+
+/* Card Image */
+.card-img-top {
+    border-radius: 16px;
+    margin: 16px;
+    width: calc(100% - 32px);
+    height: 200px;
+    object-fit: cover;
+    border: 2px solid #333333;
+    transition: all 0.3s ease;
+}
+
+.card-img-top:hover {
+    border-color: #dc2626;
+    transform: scale(1.02);
+}
+
+/* Card Body */
+.card-body {
+    padding: 24px;
+    background: transparent;
+}
+
+.card-body > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid #333333;
+    transition: all 0.2s ease;
+}
+
+.card-body > div:last-child {
+    border-bottom: none;
+}
+
+.card-body > div:hover {
+    background-color: rgba(220, 38, 38, 0.05);
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 8px;
+    border-bottom-color: #dc2626;
+}
+
+.card-body strong {
+    font-weight: 600;
+    color: #b0b0b0;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    min-width: 120px;
+    display: flex;
+    align-items: center;
+}
+
+.card-body strong::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background-color: #dc2626;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.card-body p {
+    font-size: 16px;
+    font-weight: 500;
+    color: #ffffff;
+    margin: 0;
+    flex: 1;
+    margin-left: 16px;
+    word-break: break-word;
+}
+
+/* Different colors for different fields */
+.card-body > div:nth-child(1) strong::before {
+    background-color: #10b981; /* Location - Green */
+}
+
+.card-body > div:nth-child(2) strong::before {
+    background-color: #3b82f6; /* Age - Blue */
+}
+
+.card-body > div:nth-child(3) strong::before {
+    background-color: #f59e0b; /* Last active - Orange */
+}
+
+/* Tabset Styles */
+.member-tabset {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+    border-radius: 20px;
+    border: 1px solid #333333;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    position: relative;
+    animation: fadeIn 0.6s ease-out;
+}
+
+.member-tabset::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #dc2626 0%, #ef4444 100%);
+}
+
+/* Tab Content */
+.member-tabset .tab-content {
+    padding: 32px;
+    background: transparent;
+}
+
+/* Form Styles */
+form {
+    background: transparent;
+}
+
+form h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #b0b0b0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 24px;
+    margin-bottom: 8px;
+    position: relative;
+}
+
+form h4::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background-color: #dc2626;
+    border-radius: 50%;
+    margin-right: 8px;
+    display: inline-block;
+}
+
+form p.form-control {
+    background: linear-gradient(135deg, #333333 0%, #2a2a2a 100%);
+    border: 1px solid #404040;
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: #ffffff;
+    font-size: 16px;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+}
+
+form p.form-control:hover {
+    border-color: #dc2626;
+    background: linear-gradient(135deg, #404040 0%, #333333 100%);
+}
+
+/* Input Fields */
+input.form-control {
+    background: linear-gradient(135deg, #333333 0%, #2a2a2a 100%);
+    border: 1px solid #404040;
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: #ffffff;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+input.form-control:focus {
+    outline: none;
+    border-color: #dc2626;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+}
+
+input.form-control:disabled {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+    border-color: #333333;
+    color: #888888;
+}
+
+/* Labels */
+label {
+    color: #b0b0b0;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    display: inline-block;
+}
+
+/* Location Details Section */
+.d-flex.flex-row.align-items-center {
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.d-flex.flex-row.align-items-center label {
+    margin-bottom: 0;
+    white-space: nowrap;
+}
+
+/* Different colors for form fields */
+form > div:nth-child(1) h4::before {
+    background-color: #10b981; /* First Name - Green */
+}
+
+form > div:nth-child(2) h4::before {
+    background-color: #3b82f6; /* Last Name - Blue */
+}
+
+form > div:nth-child(3) h4::before {
+    background-color: #f59e0b; /* Known As - Orange */
+}
+
+form > div:nth-child(4) h4::before {
+    background-color: #ef4444; /* Specializations - Red */
+}
+
+form > div:nth-child(5) h4::before {
+    background-color: #8b5cf6; /* Location Details - Purple */
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .row {
+        padding: 16px;
+    }
+
+    .card-body {
+        padding: 16px;
+    }
+
+    .member-tabset .tab-content {
+        padding: 20px;
+    }
+
+    .card-body > div {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 12px 0;
+    }
+
+    .card-body strong {
+        min-width: auto;
+    }
+
+    .card-body p {
+        margin-left: 0;
+        font-size: 15px;
+    }
+
+    .d-flex.flex-row.align-items-center {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .d-flex.flex-row.align-items-center .form-control {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .row {
+        padding: 12px;
+    }
+
+    .row h1 {
+        font-size: 24px;
+    }
+
+    .card-body {
+        padding: 16px;
+    }
+
+    .member-tabset .tab-content {
+        padding: 16px;
+    }
+
+    form h4 {
+        font-size: 16px;
+    }
+
+    .card-body strong {
+        font-size: 13px;
+    }
+
+    .card-body p {
+        font-size: 14px;
+    }
+}
+
+/* Dark Theme Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1f1f1f;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #404040;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #4b5563;
+}
+
+/* Additional Visual Enhancements */
+.card, .member-tabset {
+    background-image:
+        radial-gradient(circle at 20% 20%, rgba(220, 38, 38, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(220, 38, 38, 0.05) 0%, transparent 50%);
+}
+
+/* Hover Effects */
+.card-body p:hover, form p.form-control:hover {
+    color: #dc2626;
+    transition: color 0.2s ease;
+}
+
+/* Focus States for Accessibility */
+.card:focus-within, .member-tabset:focus-within {
+    outline: 2px solid #dc2626;
+    outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background-color: white;
+        color: black;
+    }
+
+    .card, .member-tabset {
+        background: white;
+        border: 1px solid #ccc;
+        box-shadow: none;
+    }
+
+    .card::before, .member-tabset::before {
+        display: none;
+    }
+
+    .card-body strong, .card-body p, form h4, form p.form-control, label {
+        color: black;
+    }
+}
+
+.member-tabset > .tab-content {
+    margin-top: -3px;
+    background-color: #201a1a;
+    border: 0;
+    border-top: 1px solid #eee;
+    padding: 15px 0;
+}
