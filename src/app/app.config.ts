@@ -8,7 +8,7 @@ import { errorInterceptor } from './interceptors/error.interceptor';
 import { jwtInterceptor } from './interceptors/jwt.interceptor';
 import { loadingInterceptor } from './interceptors/loading.interceptor';
 // import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
+import { provideMarkdown } from 'ngx-markdown';
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }),
      provideRouter(routes),
@@ -17,5 +17,6 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([errorInterceptor,jwtInterceptor,loadingInterceptor]),),
       provideAnimationsAsync(),
       importProvidersFrom(BrowserAnimationsModule),
+      provideMarkdown(),
     ]
 };
