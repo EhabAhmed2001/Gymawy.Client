@@ -94,6 +94,14 @@ export class GetGymComponent implements OnInit ,  AfterViewInit {
     })
   }
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.GymId = +params['id'];
+      this.load();
+    });
+  }
+
+  load()
+  {
     this.gymService.GetGymById(this.GymId).subscribe({
       next:(response) =>{
         this.gym=response
@@ -116,7 +124,30 @@ export class GetGymComponent implements OnInit ,  AfterViewInit {
         console.log(this.gymTypes)
       }
     })
+  }
+  loadData(){
+      this.gymService.GetGymById(this.GymId).subscribe({
+      next:(response) =>{
+        this.gym=response
+        console.log(this.gym)
+        this.logoUrl = this.gym.mediaUrl
+        this.formAddGym.patchValue(this.gym)
+        this.gymImagesUrl = [...this.gym.gymImagesUrl]
+        
+        console.log("D");
+      },
+      error:(e)=>{
+        console.log(e)
+      }
+      
+    })
 
+    this.gymService.GetGymTypes().subscribe({
+      next:(res)=>{
+        this.gymTypes = res
+        console.log(this.gymTypes)
+      }
+    })  
   }
 
   get uploadImageControl(): FormControl {
@@ -204,6 +235,9 @@ export class GetGymComponent implements OnInit ,  AfterViewInit {
     console.log(formData)
     this.gymService.UpdateGym(this.GymId,formData).subscribe({
       next:(res)=>{
+        this.loadData();
+        this.CancelUpdate();
+        console.log("updated")
       }
     });
 

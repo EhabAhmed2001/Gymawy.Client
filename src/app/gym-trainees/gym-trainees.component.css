@@ -1,224 +1,450 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        .management-container {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            color: #333;
-        }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+    color: #ffffff;
+    min-height: 100vh;
+    line-height: 1.6;
+}
 
-   
-        .management-header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #e0e0e0;
-        }
+.management-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+}
 
-        .management-header h1 {
-            color: #2c3e50;
-            margin-bottom: 5px;
-        }
+.management-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 30px 0;
+    background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
 
-        .management-header p {
-            color: #7f8c8d;
-            font-size: 1.1em;
-        }
+.management-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #dc2626, #ef4444, #dc2626);
+}
 
-        /* Content Layout */
-        .content-wrapper {
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 30px;
-        }
+.management-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #ffffff, #e5e5e5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
 
-        /* Coaches Section */
-        .coaches-section {
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+.management-header p {
+    color: #a0a0a0;
+    font-size: 1.1rem;
+}
 
-        .coaches-section h2 {
-            color: #2c3e50;
-            margin-top: 0;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #e0e0e0;
-        }
+.content-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 30px;
+    margin-bottom: 40px;
+}
 
-        .cards-container {
-            display: grid;
-            gap: 15px;
-        }
+/* Coaches Section */
+.coaches-section {
+    background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-        .coach-card {
-            display: flex;
-            align-items: center;
-            background: white;
-            padding: 15px;
-            border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
-        }
+.coaches-section h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: #ffffff;
+    position: relative;
+    padding-left: 20px;
+}
 
-        .coach-card:hover {
-            transform: translateY(-2px);
-        }
+.coaches-section h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 20px;
+    background: #dc2626;
+    border-radius: 2px;
+}
 
-        .card-avatar {
-            width: 50px;
-            height: 50px;
-            background: #3498db;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            margin-right: 15px;
-            flex-shrink: 0;
-        }
+.cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
 
-        .card-details h3 {
-            margin: 0 0 5px 0;
-            font-size: 1.1em;
-        }
+.coach-card {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
 
-        .specialization {
-            color: #7f8c8d;
-            font-size: 0.9em;
-            margin: 0 0 5px 0;
-        }
+.coach-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(220, 38, 38, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(220, 38, 38, 0.1);
+}
 
-        .trainee-count {
-            color: #2c3e50;
-            font-size: 0.8em;
-            margin: 0;
-        }
+.card-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-right: 15px;
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+}
 
-        /* Trainees Section */
-        .trainees-section {
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+.card-details h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 5px;
+}
 
-        .trainees-section h2 {
-            color: #2c3e50;
-            margin-top: 0;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #e0e0e0;
-        }
+.specialization {
+    color: #a0a0a0;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
 
-        .trainee-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+.trainee-count {
+    color: #dc2626;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
 
-        .trainee-table th, .trainee-table td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #e0e0e0;
-        }
+/* Trainees Section */
+.trainees-section {
+    background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-        .trainee-table th {
-            background-color: #2c3e50;
-            color: white;
-        }
+.trainees-section h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: #ffffff;
+    position: relative;
+    padding-left: 20px;
+}
 
-        .trainee-table tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
+.trainees-section h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 20px;
+    background: #dc2626;
+    border-radius: 2px;
+}
 
-        .trainee-table tr:hover {
-            background-color: #e6f7ff;
-        }
+.trainee-table-container {
+    overflow-x: auto;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-        .current-coach {
-            color: #27ae60;
-            font-weight: 500;
-        }
+.trainee-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: transparent;
+}
 
-        .no-coach {
-            color: #e74c3c;
-            font-style: italic;
-        }
+.trainee-table thead {
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+}
 
-        .coach-select {
-            padding: 8px 12px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            width: 100%;
-        }
+.trainee-table th {
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    color: white;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
 
-        .assign-btn {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
+.trainee-table tbody tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
 
-        .assign-btn:hover {
-            background-color: #2980b9;
-        }
+.trainee-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
 
-        .assign-btn:disabled {
-            background-color: #95a5a6;
-            cursor: not-allowed;
-        }
+.trainee-table td {
+    padding: 15px;
+    vertical-align: middle;
+    color: #e5e5e5;
+}
 
-        /* Status Messages */
-        .status-message {
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+.current-coach {
+    color: #10b981;
+    font-weight: 500;
+    padding: 5px 10px;
+    background: rgba(16, 185, 129, 0.1);
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
 
-        .loading {
-            background-color: #fff8e1;
-            color: #ff8f00;
-        }
+.no-coach {
+    color: #ef4444;
+    font-style: italic;
+    padding: 5px 10px;
+    background: rgba(239, 68, 68, 0.1);
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
 
-        .error {
-            background-color: #ffebee;
-            color: #c62828;
-        }
+.coach-select {
+    width: 100%;
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
 
-        .success {
-            background-color: #e8f5e9;
-            color: #2e7d32;
-        }
+.coach-select:focus {
+    outline: none;
+    border-color: #dc2626;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
 
-        .spinner {
-            border: 3px solid rgba(0, 0, 0, 0.1);
-            border-radius: 50%;
-            border-top: 3px solid #ff8f00;
-            width: 20px;
-            height: 20px;
-            animation: spin 1s linear infinite;
-            margin-right: 10px;
-        }
+.coach-select option {
+    background: #2a2a2a;
+    color: #ffffff;
+    padding: 10px;
+}
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+.assign-btn {
+    padding: 8px 20px;
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
 
-        .retry-btn {
-            background-color: #c62828;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 3px;
-            margin-left: 15px;
-            cursor: pointer;
-        }
- 
+.assign-btn:hover {
+    background: linear-gradient(135deg, #b91c1c, #dc2626);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+}
+
+.assign-btn:active {
+    transform: translateY(0);
+}
+
+/* Status Messages */
+.status-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    min-width: 300px;
+    backdrop-filter: blur(10px);
+}
+
+.status-message.loading {
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    color: #3b82f6;
+}
+
+.status-message.error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+}
+
+.status-message.success {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #10b981;
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid transparent;
+    border-top: 2px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.retry-btn {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+.retry-btn:hover {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .content-wrapper {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .management-container {
+        padding: 15px;
+    }
+    
+    .coaches-section,
+    .trainees-section {
+        padding: 20px;
+    }
+    
+    .management-header h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .management-header {
+        padding: 20px;
+    }
+    
+    .management-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .coach-card {
+        padding: 15px;
+    }
+    
+    .card-avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .trainee-table th,
+    .trainee-table td {
+        padding: 10px;
+        font-size: 0.85rem;
+    }
+    
+    .status-message {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin: 20px 0;
+        min-width: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .trainee-table-container {
+        font-size: 0.8rem;
+    }
+    
+    .coach-select {
+        font-size: 0.8rem;
+        padding: 8px 12px;
+    }
+    
+    .assign-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Animation for page load */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.management-header,
+.coaches-section,
+.trainees-section {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.coaches-section {
+    animation-delay: 0.1s;
+}
+
+.trainees-section {
+    animation-delay: 0.2s;
+}
