@@ -43,7 +43,9 @@ import { RoomComponent } from './Components/coach/room/room.component';
 import { InbodyComponent } from './Components/trainee/inbody/inbody.component';
 import { GymOwnerProfileComponent } from './Components/gym-owner-profile/gym-owner-profile.component';
 
-
+import { TraineeExercisesComponent } from './Components/trainee/trainee-exercises/trainee-exercises.component';
+import { TraineeDietComponent } from './Components/trainee/trainee-diet/trainee-diet.component';
+import { GymOwnerDashboardComponent } from './gym-owner-dashboard/gym-owner-dashboard.component';
 export const routes: Routes = [
     {
       path: '',
@@ -54,16 +56,16 @@ export const routes: Routes = [
         { path: 'trainee-gym', component: TraineeLandingPageComponent, title: "Trainee Gym" },
         { path: 'gym/:id', component: GymDetailsComponent, title: "Gym" },
         { path: 'coach', component: TraineeCoachComponent, title: "Coach" },
-        {path: 'coach/:coachId', component: CoachDashboardComponent, title: "Dashboard"},
-        {path: 'coach/traineeDetails/:traineeId', component: TraineeDetailsComponent, title: "Trainee Details"},
+        { path: 'coach/:coachId', component: CoachDashboardComponent, title: "Dashboard" },
+        { path: 'exercises', component: TraineeExercisesComponent, title: "Exercises" },
+        { path: 'diet', component: TraineeDietComponent, title: "Diet" },
+        { path: 'coach/traineeDetails/:traineeId', component: TraineeDetailsComponent, title: "Trainee Details" },
         { path: 'subscriptions', component: TraineeSubscriptionsComponent, title: "Subscriptions" },
         { path: 'payment/:id', component: PaymentComponent, title: "Payment" },
-        { path: 'members/:username',component: MemberDetailsComponent, resolve: { member: memberDetailsResolver } },
-        { path: 'member/edit',canDeactivate:[preventUnsavedChangesGuard],component: MemberEditComponent, title: "Edit Member" },
+        { path: 'members/:username', component: MemberDetailsComponent, resolve: { member: memberDetailsResolver } },
+        { path: 'member/edit', canDeactivate: [preventUnsavedChangesGuard], component: MemberEditComponent, title: "Edit Member" },
         { path: 'notFound', component: NotFoundComponent, title: "nofound" },
         { path: 'home', component: HomeComponent, title: "home" },
-      {path:'room/:roomId', component:RoomComponent, title:'room'},
-      {path:'inbody', component:InbodyComponent, title:'Inbody Analyzer'},
       ]
     },
 
@@ -78,13 +80,19 @@ export const routes: Routes = [
       {path:'addGym', component: AddGymComponent, title: "Add Gym"},
       {path:'gymDetail/:id', component: GetGymComponent, title: "Edit Gym Info"},
       {path:'features/:id', component: FeaturesComponent, title: "Gym Features"},
-      {path:'GymPendingCoach/:gymId', component: GymPendingCoachComponent, title: "Pending Coach"}
+      {path:'GymPendingCoach/:gymId', component: GymPendingCoachComponent, title: "Pending Coach"},
+      {path:'createmembership/:id', component:MembershipComponent , title: "Createmembership"},
+      {path:'memberships/:id', component:GymMemberShipsComponent , title: "GetMemberShips"},
+      {path:'EditMembership/:id', component:EditMembershipComponent , title: "Edit MemberShip"},
+      {path:'profile', component:GymOwnerProfileComponent , title: "Owner Profile"},
+      {path:'gymownerdashboard/:id', component:GymOwnerDashboardComponent , title: "GymOwner Dashboard"}
     ]},
     {
       path:'admin',component:AdminLayoutComponent,
       children:[
         {path:"" , component:AdminDashboardComponent, title:'Admin Dashboard' },
-        {path:'PendingGyms', component: GetPendingGymsComponent, title: "Pending Gyms"}
+        {path:'PendingGyms', component: GetPendingGymsComponent, title: "Pending Gyms"},
+        {path:'admin/dashboard', component:AdminDashboardComponent, title: "Admin Dashboard"},
       ]
     },
       { path: '', component: AuthLayoutComponent, children: [
