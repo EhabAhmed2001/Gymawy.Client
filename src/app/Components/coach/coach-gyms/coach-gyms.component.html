@@ -1,0 +1,110 @@
+<div class="coach-dashboard">
+  <div class="container py-4">
+    <!-- Centered Header -->
+    <div class="header-container">
+      <h1 class="header-title">Available Gyms</h1>
+      <p class="header-subtitle">Browse and request to join gyms</p>
+    </div>
+
+    <!-- Gym Cards Grid -->
+    <div *ngIf="_dataShared.gyms.length > 0; else noGyms" class="row g-4">
+      <div *ngFor="let gym of _dataShared.gyms" class="col-md-6 col-lg-4">
+        <div class="gym-card">
+          <div class="card-img-top">
+            <img [src]="gym.logo" alt="{{gym.name}} logo" class="gym-logo">
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">{{gym.name}} - {{gym.gymType}} Gym</h3>
+            <p class="card-text">
+              <i class="bi bi-geo-alt me-2"></i>
+              {{gym.address.street}}, {{gym.address.city}}, {{gym.address.country}}
+            </p>
+            <p class="card-text">
+              <i class="bi bi-info-circle me-2"></i>
+              {{gym.description}}
+            </p>
+            <p class="card-text">
+              <i class="bi bi-telephone me-2"></i>
+              {{gym.phone}}
+            </p>
+          </div>
+          <div class="card-footer">
+            <a class="btn btn-outline-primary w-100 mb-2" routerLink="/gym/{{gym.id}}">
+              View Details <i class="bi bi-arrow-right btn-icon"></i>
+            </a>
+            <button *ngIf="requestStatus == false" class="btn btn-primary w-100" (click)="openRequestModal(gym.id)">
+              Request to Join <i class="bi bi-send btn-icon"></i>
+            </button>
+            <button *ngIf="requestStatus" class="btn btn-warning w-100" (click)="openRequestModal(gym.id)" disabled>
+              Pending <i class="bi bi-send btn-icon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noGyms>
+      <div class="empty-state">
+        <div class="empty-state-icon">
+          <i class="bi bi-building"></i>
+        </div>
+        <h3 class="empty-state-title">No Gyms Available</h3>
+        <p class="empty-state-text">Please check back later for available gyms</p>
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+<!-- Request Modal -->
+<div *ngIf="showRequestModal" class="modal-overlay">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h5 class="modal-title">Request to Join Gym</h5>
+      <button type="button" class="btn-close" (click)="closeRequestModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="requestForm">
+        <h6 class="mb-3">Please provide your available working days:</h6>
+
+        <div formArrayName="workDayDtos" class="mb-4">
+          <div *ngFor="let day of workDayDtos.controls; let i = index" [formGroupName]="i" class="work-day-card">
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label class="form-label">Day</label>
+                <select formControlName="day" class="form-select">
+                  <option value="">Select day</option>
+                  <option value="Monday">Monday</option>
+                  <option value="Tuesday">Tuesday</option>
+                  <option value="Wednesday">Wednesday</option>
+                  <option value="Thursday">Thursday</option>
+                  <option value="Friday">Friday</option>
+                  <option value="Saturday">Saturday</option>
+                  <option value="Sunday">Sunday</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Start Time</label>
+                <input type="time" formControlName="start" class="form-control">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">End Time</label>
+                <input type="time" formControlName="end" class="form-control">
+              </div>
+            </div>
+            <button type="button" class="btn btn-sm btn-danger mt-2" (click)="removeWorkDay(i)" *ngIf="workDayDtos.length > 1">
+              Remove
+            </button>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-secondary mb-3" (click)="addWorkDay()">
+          Add Another Day
+        </button>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary" (click)="closeRequestModal()">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="submitRequest()" [disabled]="!requestForm.valid">Submit Request</button>
+    </div>
+  </div>
+</div>

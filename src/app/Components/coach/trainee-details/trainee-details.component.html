@@ -284,6 +284,37 @@
               </svg>
               <span>Assign Exercises</span>
             </button>
+
+            <button
+              [routerLink]="['/members', trainee.userName]"
+              [queryParams]="{ tab: 'Messages' }"
+              class="btn btn-danger rounded-circle position-fixed"
+              style="
+                bottom: 30px;
+                right: 30px;
+                width: 60px;
+                height: 60px;
+                box-shadow: 0 4px 15px #dc2626;
+              "
+              title="Start chat "
+            >
+              <i class="bi bi-chat-dots fs-4"></i>
+            </button>
+
+            <button
+              [routerLink]="['/video-call']"
+              class="btn btn-danger rounded-circle position-fixed"
+              style="
+                bottom: 100px;
+                right: 30px;
+                width: 60px;
+                height: 60px;
+                box-shadow: 0 4px 15px #dc2626;
+              "
+              title="Start Video Call"
+            >
+              <i class="bi bi-camera-video-fill fs-4"></i>
+            </button>
           </div>
         </div>
       </div>

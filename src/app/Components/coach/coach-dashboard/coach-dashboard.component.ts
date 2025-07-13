@@ -3,6 +3,9 @@ import { CoachData } from '../../../Interface/Coach/CoachDashboard';
 import { CoachService } from '../../../Services/coach.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../Services/auth.service';
+import { take } from 'rxjs';
+import { IUser } from '../../../Interfaces/IUser';
 
 @Component({
   selector: 'app-coach-dashboard',
@@ -20,10 +23,20 @@ export class CoachDashboardComponent implements OnInit {
   isLoading = signal(false);
   error = signal<string | null>(null);
 
-  constructor(private _coachService: CoachService, private route: ActivatedRoute){}
-  ngOnInit() {
-    this.coachId = Number(this.route.snapshot.paramMap.get('coachId'));
+  user!:IUser;
 
+  constructor(private _coachService: CoachService, private route: ActivatedRoute, private _authService: AuthService){}
+  ngOnInit() {
+    // this.coachId = Number(this.route.snapshot.paramMap.get('coachId'));
+    this._authService.currentUser$.pipe(take(1)).subscribe({
+      next:user => {
+        if(user)
+        {
+          this.user = user;
+          this.coachId = user.id;
+        }
+      }
+    })
     if (this.initialData()) {
       this.coachData.set(this.initialData()!);
     } else if (this.coachId) {
