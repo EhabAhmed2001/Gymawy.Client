@@ -46,6 +46,7 @@ import { RegisterAsGymOwnerComponent } from './Components/Auth/register-as-gym-o
 import { RoomComponent } from './Components/coach/room/room.component';
 import { InbodyComponent } from './Components/trainee/inbody/inbody.component';
 import { GymOwnerProfileComponent } from './Components/gym-owner-profile/gym-owner-profile.component';
+import { EditProfileComponent } from './Components/trainee/edit-profile/edit-profile.component';
 
 
 
@@ -67,7 +68,8 @@ export const routes: Routes = [
       { path: 'subscriptions', component: TraineeSubscriptionsComponent, title: "Subscriptions" },
       { path: 'payment/:id', component: PaymentComponent, title: "Payment" },
       { path: 'members/:username', component: MemberDetailsComponent, resolve: { member: memberDetailsResolver } },
-      { path: 'member/edit', canDeactivate: [preventUnsavedChangesGuard], component: MemberEditComponent, title: "Edit Member" },
+      // { path: 'member/edit', canDeactivate: [preventUnsavedChangesGuard], component: MemberEditComponent, title: "Edit Member" },
+      { path: 'trainee-profile', component: EditProfileComponent, title: "Edit Member" },
       { path: 'notFound', component: NotFoundComponent, title: "nofound" },
       { path: 'home', component: HomeComponent, title: "home" },
       { path: 'room/:roomId', component: RoomComponent, title: 'room' },
@@ -77,8 +79,12 @@ export const routes: Routes = [
 
   {
     path: '', component: AuthLayoutComponent, children: [
+     { path: '', redirectTo: 'register', pathMatch: 'full' },
+      { path: 'register', component: WelcomeAsComponent, title: "register" },
       { path: 'login', component: LoginComponent, title: "login" },
       { path: 'register/trainee', component: RegisterComponent, title: "register" },
+      { path: 'register/coach', component: RegisterAsCoachComponent, title: "register" },
+      { path: 'register/admin', component: RegisterAsGymOwnerComponent, title: "register" },
     ]
   },
 

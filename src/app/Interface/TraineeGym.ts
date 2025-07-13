@@ -141,3 +141,51 @@ export interface TargetMuscle {
   name: string;
   imageUrl: string;
 }
+
+
+export interface TraineeData
+{
+  id:number,
+  firstName:string,
+  lastName:string,
+  address: {
+    street: string;
+    city: string;
+    country: string;
+  };
+  imageUrl: string;
+  dateOfBirth?: Date;
+  weight?: number;
+}
+
+
+
+
+export interface Address {
+  street: string;
+  city: string;
+  country: string;
+}
+
+export interface TraineeInfo{
+  firstName: string
+  lastName: string
+  address: Address
+  imageUrl: string
+  dateOfBirth: Date
+  phoneNumber?: string
+  reasonForJoining: string
+  weight: string
+  userName?: string
+}
+
+export interface EditTraineeProfileDto {
+  firstName: string;
+  lastName: string;
+  address: Address;
+  image?: File;
+  dateOfBirth: Date;
+  phoneNumber: string;
+  reasonForJoining: string;
+  weight?: number;
+}

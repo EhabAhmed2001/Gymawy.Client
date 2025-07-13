@@ -1,4 +1,3 @@
-<p>member-edit works!</p>
 
 <!--
 <div class="row" *ngIf="member">
@@ -142,8 +141,10 @@
               rows="6"></textarea>
             <h4 class="mt-2">Location Details: </h4>
             <div class="d-flex flex-row align-items-center">
+              
               <label for="city">City: </label>
               <input type="text" [(ngModel)]="coach.address.city" name="city" class="form-control mx-2">
+              
               <label for="country">Country: </label>
               <input type="text" [(ngModel)]="coach.address.country" name="country" class="form-control mx-2" />
             </div>
@@ -182,7 +183,7 @@
       <div class="card-body">
         <div>
           <strong>Location :</strong>
-          <p>{{trainee.address.street}}, {{trainee.address.city}}, {{trainee.address.country}}</p>
+          <p>{{trainee.address?.street}}, {{trainee.address?.city}}, {{trainee.address?.country}}</p>
         </div>
         <div>
           <strong>Age :</strong>
@@ -230,10 +231,15 @@
             <textarea class="form-control" [(ngModel)]="trainee.weight" name="weight" rows="6"></textarea>
             <h4 class="mt-2">Location Details: </h4>
             <div class="d-flex flex-row align-items-center">
+
+              <label for="city">First Name: </label>
+              <input type="text" [(ngModel)]="trainee.firstName" name="firstName" class="form-control mx-2">
+              
+
               <label for="city">City: </label>
-              <input type="text" [(ngModel)]="trainee.address.city" name="city" class="form-control mx-2">
+              <input type="text" [(ngModel)]="trainee.address!.city" name="city" class="form-control mx-2">
               <label for="country">Country: </label>
-              <input type="text" [(ngModel)]="trainee.address.country" name="country" class="form-control mx-2" />
+              <input type="text" [(ngModel)]="trainee.address!.country" name="country" class="form-control mx-2" />
             </div>
           </form>
         </tab>

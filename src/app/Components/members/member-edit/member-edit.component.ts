@@ -123,10 +123,11 @@ loadOwnerInfo():void {
 
 UpdateMember():void {
 
+  console.log(this.editForm?.value);
   this._membersService.UpdateMember(this.editForm?.value).subscribe({
     next: _ =>{
       this._toastrService.success('Member updated successfully');
-      this.editForm?.reset(this.member);
+      this.editForm?.reset(this.trainee);
 
     },
   })
