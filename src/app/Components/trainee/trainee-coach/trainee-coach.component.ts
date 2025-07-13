@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { take } from 'rxjs';
 import { IUser } from '../../../Interfaces/IUser';
 
+
 @Component({
   selector: 'app-trainee-coach',
   imports: [RouterLink, RouterModule,CommonModule],

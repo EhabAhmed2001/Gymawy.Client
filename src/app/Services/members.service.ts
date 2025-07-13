@@ -8,6 +8,7 @@ import { IMember } from '../Interfaces/IMember';
 import { UserParams } from '../Interfaces/UserParams';
 import { IUser } from '../Interfaces/IUser';
 import { HttpClient } from '@angular/common/http';
+import { ITraineeInfo } from '../Interfaces/ITraineeInfo';
 
 @Injectable({
   providedIn: 'root'
@@ -97,9 +98,12 @@ GetMemberById(id:number):Observable<IMember>{
   return this._httpClient.get<IMember>(`${this.baseUrl}/users/${id}`);
 }
 
-UpdateMember(member:IMember):Observable<IMember>{
-  return this._httpClient.put<IMember>(`${this.baseUrl}/users`, member);
+UpdateMember(member:ITraineeInfo):Observable<ITraineeInfo>{
+  return this._httpClient.put<ITraineeInfo>(`${this.baseUrl}/users`, member);
 }
+// UpdateMember(member:IMember):Observable<IMember>{
+//   return this._httpClient.put<IMember>(`${this.baseUrl}/users`, member);
+// }
 
 SetMainPhoto(photoId:number):Observable<any>{
   return this._httpClient.put(`${this.baseUrl}/users/set-main-photo/${photoId}`,{});

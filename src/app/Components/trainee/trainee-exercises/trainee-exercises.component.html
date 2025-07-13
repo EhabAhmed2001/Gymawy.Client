@@ -18,11 +18,11 @@
 
   <!-- Plans -->
   @if (exercisePlans().length && !isLoading() && !error()) {
-    @for (plan of exercisePlans(); track plan.id) {
+    @for (plan of exercisePlans(); let i = $index; track plan.id) {
       <div class="mb-5">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <div>
-            <h3 class="fw-bold">Exercise Plan #{{ plan.id }}</h3>
+            <h3 class="fw-bold">Exercise Plan #{{ i + 1 }}</h3>
             <p class="text-muted mb-0">
               <i class="bi bi-calendar-range me-1"></i>
               {{ plan.startDate | date:'mediumDate' }} - {{ plan.endDate | date:'mediumDate' }}
@@ -69,5 +69,11 @@
         }
       </div>
     }
+  }
+  @else{
+    <div class="alert alert-info text-center">
+      <i class="bi bi-info-circle me-2"></i>
+      No exercise plans found. Please check back later or contact your coach.
+    </div>
   }
 </div>

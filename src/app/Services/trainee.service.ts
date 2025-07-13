@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { GymClasses, GymFeatures, GymMembership, GymDetails, TraineeCoachDetails, TraineeSubscription, TraineeDiet, TraineeExerciseSchedule } from '../Interface/TraineeGym';
+import { GymClasses, GymFeatures, GymMembership, GymDetails, TraineeCoachDetails, TraineeSubscription, TraineeDiet, TraineeExerciseSchedule, TraineeInfo, EditTraineeProfileDto } from '../Interface/TraineeGym';
 import { Observable } from 'rxjs/internal/Observable';
 import { PaymentReturn } from '../Interfaces/Payment/PaymentReturn';
 import { Trainee,AssignCoachTrainee} from '../Interface/Trainee';
 import { ITraineeInfo } from '../Interfaces/ITraineeInfo';
+import { map } from 'rxjs';
 
 
 @Injectable({
@@ -87,4 +88,79 @@ AssignCoachtoTrainee(data:AssignCoachTrainee)
 getTraineeByUserName(username:string): Observable<ITraineeInfo> {
   return this.httpClient.get<ITraineeInfo>(`${this.baseUrl}/trainee/${username}`);
 }
+
+// TraineeData
+
+GetTraineeData(): Observable<TraineeInfo> {
+  return this.httpClient.get<TraineeInfo>(`${this.apiUrl}/profile`);
+}
+
+// updateProfile(profileData: EditTraineeProfileDto): Observable<TraineeInfo> {
+//     // Create FormData for file upload support
+//     const formData = new FormData();
+
+//     // Append all properties from the DTO
+//     Object.keys(profileData).forEach(key => {
+//       const value = profileData[key as keyof EditTraineeProfileDto];
+//       if (value !== null && value !== undefined) {
+//         // Handle nested address object
+//         if (key === 'address' && typeof value === 'object') {
+//           Object.keys(value).forEach(addressKey => {
+//             const addressValue = value[addressKey as keyof typeof value];
+//             if (addressValue !== null && addressValue !== undefined) {
+//               formData.append(`address.${addressKey}`, addressValue);
+//             }
+//           });
+//         } 
+//         // Handle file upload
+//         else if (key === 'image' && value instanceof File) {
+//           formData.append(key, value, value.name);
+//         }
+//         // Handle regular fields
+//         else {
+//           formData.append(key, value.toString());
+//         }
+//       }
+//     });
+
+ 
+//     return this.httpClient.put<TraineeInfo>(`${this.apiUrl}/update-profile`, formData, {
+//       reportProgress: true, // For tracking file upload progress
+//       observe: 'response' // To get full HTTP response
+//     }).pipe(
+//       map(response => response.body as TraineeInfo)
+//     );
+//   }
+
+updateProfile(profileData: EditTraineeProfileDto): Observable<TraineeInfo> {
+  const formData = new FormData();
+
+  // Append simple properties
+  if (profileData.firstName) formData.append('FirstName', profileData.firstName);
+  if (profileData.lastName) formData.append('LastName', profileData.lastName);
+  if (profileData.dateOfBirth) formData.append('DateOfBirth', profileData.dateOfBirth.toString());
+  if (profileData.phoneNumber) formData.append('PhoneNumber', profileData.phoneNumber);
+  if (profileData.reasonForJoining) formData.append('ReasonForJoining', profileData.reasonForJoining);
+  if (profileData.weight) formData.append('Weight', profileData.weight.toString());
+
+  // Only append image if it's a new File object
+  if (profileData.image instanceof File) {
+    formData.append('Image', profileData.image, profileData.image.name);
+  } else {
+    // Explicitly send null when no image is selected
+    formData.append('Image', 'null'); // Or omit this line if your backend handles missing field as null
+  }
+
+  // Append address object if exists
+  if (profileData.address) {
+    formData.append('Address.Street', profileData.address.street || '');
+    formData.append('Address.City', profileData.address.city || '');
+    formData.append('Address.Country', profileData.address.country || '');
+  }
+
+  return this.httpClient.put<TraineeInfo>(`${this.apiUrl}/update-profile`, formData, {
+    reportProgress: true
+  });
+}
+
 }
