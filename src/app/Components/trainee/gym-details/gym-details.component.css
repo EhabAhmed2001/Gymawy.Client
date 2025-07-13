@@ -11,7 +11,7 @@
       --transition: all 0.3s ease;
     }
 .body {
-  background-color: #f5f7fa;
+  background-color: #212529;
   color: var(--dark);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
@@ -24,7 +24,7 @@
 }
 
 .gym-header {
-  background: linear-gradient(135deg, #4361ee 0%, #3f37c9 100%);
+  background: linear-gradient(135deg, #000000 40%, #891313 100%);
   color: white;
   border-radius: var(--border-radius);
   overflow: hidden;
@@ -87,7 +87,9 @@
   padding-bottom: 0.75rem;
   margin-bottom: 1.5rem;
   font-weight: 700;
-  color: var(--primary);
+  /* color: var(--primary); */
+  color: #ff0000 !important;
+  
 }
 
 .section-title::after {
@@ -102,7 +104,7 @@
 }
 
 .section-card {
-  background: white;
+  background: #121212;
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
   padding: 1.5rem;
@@ -116,7 +118,7 @@
 }
 
 .membership-card {
-  border: 1px solid var(--light-gray);
+  border: 1px solid red;
   border-radius: var(--border-radius);
   padding: 1.5rem;
   margin-bottom: 1.5rem;
@@ -124,21 +126,28 @@
 }
 
 .membership-card:hover {
-  border-color: var(--primary);
+  border-color: rgb(116, 26, 26);
   transform: translateX(5px);
 }
 
 .membership-name {
   font-weight: 700;
-  color: var(--primary);
+  /* color: var(--primary); */
+  color: white !important;
   margin-bottom: 0.5rem;
 }
 
 .membership-price {
   font-size: 1.75rem;
   font-weight: 800;
-  color: var(--dark);
+  /* color: var(--dark); */
+  color: white !important;
+
   margin-bottom: 1rem;
+}
+.membership-desc{
+  color: white !important;
+
 }
 
 .membership-price span {
@@ -183,7 +192,7 @@
 
 .feature-card:hover {
   border-color: var(--primary);
-  background-color: rgba(67, 97, 238, 0.03);
+  /* background-color: rgba(67, 97, 238, 0.03); */
 }
 
 .feature-icon {
@@ -229,13 +238,15 @@
 
 .class-name {
   font-weight: 700;
-  color: var(--primary);
+  /* color: var(--primary); */
+  color: white !important;
   margin: 0;
 }
 
 .class-price {
   font-weight: 700;
-  color: var(--dark);
+  /* color: var(--dark); */
+  color: white !important;
   font-size: 1.25rem;
 }
 
@@ -243,6 +254,8 @@
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
+  color: white !important;
+
 }
 
 .coach-avatar {
@@ -250,12 +263,13 @@
   height: 40px;
   border-radius: 50%;
   background-color: var(--light);
+  color: white !important;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: 0.75rem;
   font-weight: 700;
-  color: var(--primary);
+  /* color: var(--primary); */
 }
 
 .capacity-meter {
@@ -276,7 +290,9 @@
   display: flex;
   justify-content: space-between;
   font-size: 0.9rem;
-  color: var(--gray);
+  /* color: var(--gray); */
+  color: white !important;
+
 }
 
 

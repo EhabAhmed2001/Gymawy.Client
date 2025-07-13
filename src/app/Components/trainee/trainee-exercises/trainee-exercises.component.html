@@ -1,79 +1,81 @@
-<div class="container py-4">
+<div class="trainee-dashboard">
+  <div class="container py-4">
 
-  <!-- Loading -->
-  @if (isLoading()) {
-    <div class="text-center my-5">
-      <div class="spinner-border text-primary" role="status"></div>
-      <p class="mt-2">Loading exercise schedule...</p>
-    </div>
-  }
+    <!-- Loading -->
+    @if (isLoading()) {
+      <div class="text-center my-5">
+        <div class="spinner-border text-red-light" role="status"></div>
+        <p class="mt-2 text-white">Loading exercise schedule...</p>
+      </div>
+    }
 
-  <!-- Error -->
-  @if (error()) {
-    <div class="alert alert-danger d-flex justify-content-between">
-      <span><i class="bi bi-exclamation-triangle me-2"></i> {{ error() }}</span>
-      <button class="btn btn-outline-danger btn-sm" (click)="loadSchedules()">Retry</button>
-    </div>
-  }
+    <!-- Error -->
+    @if (error()) {
+      <div class="alert gym-card d-flex justify-content-between border-red">
+        <span class="text-white"><i class="bi bi-exclamation-triangle me-2 text-red-light"></i> {{ error() }}</span>
+        <button class="btn btn-outline-red btn-sm" (click)="loadSchedules()">Retry</button>
+      </div>
+    }
 
-  <!-- Plans -->
-  @if (exercisePlans().length && !isLoading() && !error()) {
-    @for (plan of exercisePlans(); let i = $index; track plan.id) {
-      <div class="mb-5">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <div>
-            <h3 class="fw-bold">Exercise Plan #{{ i + 1 }}</h3>
-            <p class="text-muted mb-0">
-              <i class="bi bi-calendar-range me-1"></i>
-              {{ plan.startDate | date:'mediumDate' }} - {{ plan.endDate | date:'mediumDate' }}
-            </p>
+    <!-- Plans -->
+    @if (exercisePlans().length && !isLoading() && !error()) {
+      @for (plan of exercisePlans(); let i = $index; track plan.id) {
+        <div class="mb-5">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+              <h3 class="fw-bold text-white">Exercise Plan #{{ i + 1 }}</h3>
+              <p class="text-white mb-0">
+                <i class="bi bi-calendar-range me-1 text-red-light"></i>
+                {{ plan.startDate | date:'mediumDate' }} - {{ plan.endDate | date:'mediumDate' }}
+              </p>
+            </div>
+            <div class="badge bg-dark bg-opacity-50 text-white px-3 py-2 border-red">
+              <i class="bi bi-person-video2 me-1 text-red-light"></i>
+              Coach ID: {{ plan.coachId }}
+            </div>
           </div>
-          <div class="badge bg-primary bg-opacity-10 text-primary px-3 py-2">
-            <i class="bi bi-person-video2 me-1"></i>
-            Coach ID: {{ plan.coachId }}
-          </div>
-        </div>
 
-        <!-- Scheduled Exercises -->
-        @for (exercise of plan.scheduledExercises; track exercise.id) {
-          <div class="card mb-4 shadow-sm">
-            <div class="row g-0">
-              <div class="col-md-4">
-                <img [src]="exercise.exercise.imageUrl" class="img-fluid rounded-start" alt="Exercise Image">
-              </div>
-              <div class="col-md-8">
-                <div class="card-body">
-                  <h5 class="card-title text-primary">{{ exercise.exercise.name }}</h5>
-                  <p class="mb-1">
-                    <strong>Day:</strong> {{ exercise.day | date: 'fullDate' }}
-                  </p>
-                  <p class="mb-1">
-                    <strong>Target Muscle:</strong> {{ exercise.exercise.targetMuscle.name }}
-                    <img [src]="exercise.exercise.targetMuscle.imageUrl" alt="Muscle" class="ms-2" style="width: 40px;">
-                  </p>
+          <!-- Scheduled Exercises -->
+          @for (exercise of plan.scheduledExercises; track exercise.id) {
+            <div class="card mb-4 gym-card">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img [src]="exercise.exercise.imageUrl" class="img-fluid rounded-start h-100" alt="Exercise Image" style="object-fit: cover;">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body text-danger">
+                    <h5 class="card-title">{{ exercise.exercise.name }}</h5>
+                    <p class="mb-1">
+                      <strong class="text-red-light">Day:</strong> {{ exercise.day | date: 'fullDate' }}
+                    </p>
+                    <p class="mb-1">
+                      <strong class="text-red-light">Target Muscle:</strong> {{ exercise.exercise.targetMuscle.name }}
+                      <img [src]="exercise.exercise.targetMuscle.imageUrl" alt="Muscle" class="ms-2" style="width: 40px;">
+                    </p>
 
-                  <p class="card-text mt-3"><strong>Description:</strong> {{ exercise.exercise.description }}</p>
+                    <p class="card-text mt-3"><strong class="text-red-light">Description:</strong> {{ exercise.exercise.description }}</p>
 
-                  <details class="mt-2">
-                    <summary class="text-muted cursor-pointer">Instructions</summary>
-                    <pre class="mt-2 bg-light p-2 rounded small">{{ exercise.exercise.instructions }}</pre>
-                  </details>
+                    <details class="mt-2">
+                      <summary class="text-red-light cursor-pointer"><i class="bi bi-info-circle text-red-light me-1"></i>Instructions</summary>
+                      <pre class="mt-2 bg-dark p-2 rounded small text-white border-red">{{ exercise.exercise.instructions }}</pre>
+                    </details>
 
-                  <a [href]="exercise.exercise.videoUrl" target="_blank" class="btn btn-outline-secondary btn-sm mt-3">
-                    <i class="bi bi-play-circle me-1"></i> Watch Video
-                  </a>
+                    <a [href]="exercise.exercise.videoUrl" target="_blank" class="btn btn-outline-red btn-sm mt-3">
+                      <i class="bi bi-play-circle me-1"></i> Watch Video
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        }
+          }
+        </div>
+      }
+    }
+    @else if (!isLoading() && !error()) {
+      <div class="alert gym-card text-center border-red">
+        <i class="bi bi-info-circle text-red-light me-2"></i>
+        <span class="text-white">No exercise plans found. Please check back later or contact your coach.</span>
       </div>
     }
-  }
-  @else{
-    <div class="alert alert-info text-center">
-      <i class="bi bi-info-circle me-2"></i>
-      No exercise plans found. Please check back later or contact your coach.
-    </div>
-  }
+  </div>
 </div>

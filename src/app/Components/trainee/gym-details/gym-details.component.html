@@ -29,7 +29,7 @@
     <!-- Gym Description -->
     <div class="section-card">
       <h2 class="section-title">About Our Gym</h2>
-      <p>
+      <p class="membership-desc">
         {{ gymDetails?.description }}
       </p>
     </div>
@@ -48,7 +48,7 @@
             <div class="membership-price">
               ${{ item.cost }} <span>/{{ item.duration }} Days</span>
             </div>
-            <p class="text-muted small">
+            <p class="text-muted small membership-desc">
               {{ item.description }}
             </p>
             <hr />
@@ -138,7 +138,7 @@
             <div class="class-price">${{item.cost}}/Month</div>
             </div>
 
-            <p class="text-muted">
+            <p class="text-muted membership-desc">
             {{item.description}}
             </p>
 
