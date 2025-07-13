@@ -1,25 +1,29 @@
 :host {
-  --primary: #4361ee;
-  --secondary: #3f37c9;
-  --accent: #4895ef;
-  --light: #f8f9fa;
-  --dark: #212529;
-  --gray: #6c757d;
-  --light-gray: #e9ecef;
-  --error: #dc3545;
-  --success: #28a745;
+  --primary: #dc2626;        /* Red accent color */
+  --secondary: #404040;      /* Dark gray for borders */
+  --accent: #dc2626;         /* Consistent red accent */
+  --light: #1a1a1a;          /* Dark background */
+  --dark: #ffffff;           /* White text */
+  --gray: #888;              /* Light gray text */
+  --light-gray: #2d2d2d;     /* Card backgrounds */
+  --error: #dc2626;          /* Red for errors */
+  --success: #28a745;        /* Green for success */
   --border-radius: 12px;
-  --shadow: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Darker shadow */
   --transition: all 0.3s ease;
+  display: block;
+  background-color: var(--light);
+  min-height: 100vh;
 }
 
 .exercise-form-container {
   max-width: 800px;
-  margin: 0 auto;
-  background: white;
+  margin: 2rem auto;
+  background: var(--light-gray); /* Dark card background */
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
   overflow: hidden;
+  border: 1px solid var(--secondary);
 }
 
 .form-header {
@@ -27,20 +31,21 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 2rem;
-  background: linear-gradient(45deg, var(--primary), var(--secondary));
-  color: white;
+  background: var(--primary); /* Dark header */
+  color: var(--dark); /* Red text */
+  border-bottom: 1px solid var(--secondary);
 }
 
 .form-title {
   font-size: 1.5rem;
-  font-weight: 500;
+  font-weight: 600;
   margin: 0;
 }
 
 .close-btn {
   background: none;
   border: none;
-  color: white;
+  color: var(--primary); /* Red close button */
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 50%;
@@ -48,12 +53,13 @@
 }
 
 .close-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(220, 38, 38, 0.1); /* Light red hover */
 }
 
 .close-btn svg {
   width: 20px;
   height: 20px;
+  filter: brightness(0) invert(1); /* White icon */
 }
 
 .exercise-form {
@@ -67,10 +73,10 @@
 .section-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--dark);
+  color: var(--primary); /* Red title */
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--light-gray);
+  border-bottom: 2px solid var(--secondary);
 }
 
 .date-range-container {
@@ -91,7 +97,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  background: var(--accent);
+  background: var(--primary); /* Red button */
   color: white;
   border: none;
   border-radius: 8px;
@@ -102,13 +108,14 @@
 }
 
 .add-exercise-btn:hover {
-  background: var(--primary);
+  background: #b91c1c; /* Darker red */
   transform: translateY(-2px);
 }
 
 .add-exercise-btn svg {
   width: 16px;
   height: 16px;
+  filter: brightness(0) invert(1); /* White icon */
 }
 
 .exercises-container {
@@ -118,15 +125,16 @@
 }
 
 .exercise-card {
-  border: 2px solid var(--light-gray);
+  border: 2px solid var(--secondary);
   border-radius: 8px;
   padding: 1.5rem;
-  background: var(--light);
+  background: var(--light); /* Dark card */
   transition: var(--transition);
 }
 
 .exercise-card:hover {
-  border-color: var(--accent);
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2); /* Red glow */
 }
 
 .exercise-header {
@@ -139,7 +147,7 @@
 .exercise-title {
   font-size: 1.125rem;
   font-weight: 600;
-  color: var(--dark);
+  color: var(--dark); /* White text */
   margin: 0;
 }
 
@@ -158,7 +166,7 @@
 }
 
 .remove-exercise-btn:hover:not(:disabled) {
-  background: #c82333;
+  background: #b91c1c; /* Darker red */
   transform: scale(1.1);
 }
 
@@ -170,6 +178,7 @@
 .remove-exercise-btn svg {
   width: 16px;
   height: 16px;
+  filter: brightness(0) invert(1); /* White icon */
 }
 
 .exercise-form-grid {
@@ -179,7 +188,7 @@
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .form-group.full-width {
@@ -189,23 +198,25 @@
 .form-label {
   display: block;
   font-weight: 500;
-  color: var(--dark);
+  color: var(--dark); /* White text */
   margin-bottom: 0.5rem;
 }
 
 .form-control {
   width: 100%;
   padding: 0.75rem;
-  border: 2px solid var(--light-gray);
+  background: var(--light); /* Dark input background */
+  border: 2px solid var(--secondary);
   border-radius: 8px;
   font-size: 1rem;
   transition: var(--transition);
+  color: var(--dark); /* White text */
 }
 
 .form-control:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2); /* Red glow */
 }
 
 .form-control.error {
@@ -224,7 +235,7 @@
   gap: 1rem;
   margin-top: 2rem;
   padding-top: 2rem;
-  border-top: 2px solid var(--light-gray);
+  border-top: 2px solid var(--secondary);
 }
 
 .btn {
@@ -239,22 +250,22 @@
 }
 
 .btn-secondary {
-  background: var(--gray);
+  background: var(--secondary);
   color: white;
 }
 
 .btn-secondary:hover {
-  background: #545b62;
+  background: #333333;
 }
 
 .btn-primary {
-  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  background: linear-gradient(45deg, var(--primary), #b91c1c); /* Red gradient */
   color: white;
 }
 
 .btn-primary:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(67, 97, 238, 0.3);
+  box-shadow: 0 8px 24px rgba(220, 38, 38, 0.3); /* Red glow */
 }
 
 .btn:disabled {
@@ -284,11 +295,21 @@
   100% { transform: rotate(360deg); }
 }
 
+select.form-control {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); /* White arrow */
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1em;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .exercise-form-container {
     margin: 0;
     border-radius: 0;
+    border-left: none;
+    border-right: none;
   }
 
   .form-header {
@@ -320,16 +341,9 @@
   }
 }
 
-select.form-control {
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 0.75rem center;
-  background-size: 1em;
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* Makes the icon white */
+  opacity: 0.8;
+  cursor: pointer;
+  padding: 0.2rem;
 }
-
-/* Add some spacing between form groups */
-.form-group {
-  margin-bottom: 1.5rem;
-}
-

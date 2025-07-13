@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { CoachService } from '../../../Services/coach.service';
 import { DietService } from '../../../Services/diet.service';
@@ -14,7 +14,7 @@ import { ExerciseFormComponent } from '../exercise-form/exercise-form.component'
 @Component({
   selector: 'app-trainee-details',
   standalone: true,
-  imports: [CommonModule, DietFormComponent, ExerciseFormComponent],
+  imports: [CommonModule, DietFormComponent, ExerciseFormComponent, RouterLink],
   templateUrl: './trainee-details.component.html',
   styleUrls: ['./trainee-details.component.css']
 })

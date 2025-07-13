@@ -50,7 +50,7 @@ Login(loginFormValues:FormGroup):void{
   this.loginsubscribe =  this._authService.setLogin(loginFormValues.value).subscribe({
       next:(user:IUser) =>{
     if(user?.role === 'Coach')
-          this._router.navigate(['/trainee-gym']);
+          this._router.navigate(['/coach/dashboard']);
 
   if(user?.role === 'Owner')
           this._router.navigate(['/gym-owner']);

@@ -4,4 +4,5 @@ export interface IUser{
   photoUrl:string;
   knownAs:string;
   role:string;
+  id: number;
 }

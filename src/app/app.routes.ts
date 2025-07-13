@@ -43,6 +43,7 @@ import { RegisterAsGymOwnerComponent } from './Components/Auth/register-as-gym-o
 import { RoomComponent } from './Components/coach/room/room.component';
 import { InbodyComponent } from './Components/trainee/inbody/inbody.component';
 import { GymOwnerProfileComponent } from './Components/gym-owner-profile/gym-owner-profile.component';
+import { CoachLayoutComponent } from './Layout/coach-layout/coach-layout.component';
 
 
 export const routes: Routes = [
@@ -56,9 +57,7 @@ export const routes: Routes = [
         { path: 'gym/:id', component: GymDetailsComponent, title: "Gym" },
 
         { path: 'coach', component: TraineeCoachComponent, title: "Coach" },
-        { path: 'coach/gyms', component: CoachGymsComponent, title: "Gyms" },
-        {path: 'coach/:coachId', component: CoachDashboardComponent, title: "Dashboard"},
-        {path: 'coach/traineeDetails/:traineeId', component: TraineeDetailsComponent, title: "Trainee Details"},
+
         { path: 'subscriptions', component: TraineeSubscriptionsComponent, title: "Subscriptions" },
         { path: 'payment/:id', component: PaymentComponent, title: "Payment" },
         { path: 'members/:username',component: MemberDetailsComponent, resolve: { member: memberDetailsResolver } },
@@ -94,6 +93,15 @@ export const routes: Routes = [
         {path:'PendingGyms', component: GetPendingGymsComponent, title: "Pending Gyms"}
       ]
     },
+
+    { path: '', component: CoachLayoutComponent, canActivate:[authGuard], children: [
+    { path: '', redirectTo: 'coach/dashboard', pathMatch: 'full' },
+    { path: 'coach/gyms', component: CoachGymsComponent, title: "Gyms" },
+    {path: 'coach/dashboard', component: CoachDashboardComponent, title: "Dashboard"},
+    {path: 'coach/traineeDetails/:traineeId', component: TraineeDetailsComponent, title: "Trainee Details"},
+    { path: 'members/:username',component: MemberDetailsComponent, resolve: { member: memberDetailsResolver } },
+    ]},
+
       { path: '', component: AuthLayoutComponent, children: [
       { path: '', redirectTo: 'register', pathMatch: 'full' },
       { path: 'register', component: WelcomeAsComponent, title: "register" },

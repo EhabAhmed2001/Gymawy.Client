@@ -3,7 +3,7 @@
 <div class="filter-container">
   <div class="btn-group" role="group" aria-label="Filter options">
     <!-- All Option -->
-    <input type="radio" class="btn-check" name="filterOption" id="all" 
+    <input type="radio" class="btn-check" name="filterOption" id="all"
            autocomplete="off" [checked]="selectedOption === 'all'"
            (change)="onFilterChange('all')">
     <label class="btn btn-outline-primary" for="all">
@@ -11,7 +11,7 @@
     </label>
 
     <!-- Gyms Option -->
-    <input type="radio" class="btn-check" name="filterOption" id="gyms" 
+    <input type="radio" class="btn-check" name="filterOption" id="gyms"
            autocomplete="off" [checked]="selectedOption === 'gyms'"
            (change)="onFilterChange('gyms')">
     <label class="btn btn-outline-primary" for="gyms">
@@ -19,7 +19,7 @@
     </label>
 
     <!-- Classes Option -->
-    <input type="radio" class="btn-check" name="filterOption" id="classes" 
+    <input type="radio" class="btn-check" name="filterOption" id="classes"
            autocomplete="off" [checked]="selectedOption === 'classes'"
            (change)="onFilterChange('classes')">
     <label class="btn btn-outline-primary" for="classes">

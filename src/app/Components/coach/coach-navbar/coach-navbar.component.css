@@ -127,23 +127,20 @@
 .dropdown-menu {
   background: rgba(26, 26, 26, 0.95) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  border-radius: 12px !important;
+  border-radius: 15px !important;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
   backdrop-filter: blur(10px);
-  margin-top: 8px !important;
-  padding: 8px !important;
-  min-width: 200px !important;
-  width: 200px !important;
+  margin-top: 10px !important;
+  padding: 10px !important;
 }
 
 .dropdown-item {
   color: #ffffff !important;
-  padding: 8px 15px !important;
-  border-radius: 8px !important;
+  padding: 12px 20px !important;
+  border-radius: 10px !important;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  font-size: 0.9rem;
 }
 
 .dropdown-item::before {
@@ -178,8 +175,8 @@
 /* Logout item special styling */
 .dropdown-item:last-child {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: 8px;
-  padding-top: 10px !important;
+  margin-top: 10px;
+  padding-top: 15px !important;
 }
 
 .dropdown-item:last-child i {
@@ -192,29 +189,26 @@
 
 /* Profile info in dropdown */
 .dropdown-menu .text-center {
-  padding: 15px !important;
+  padding: 20px !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .dropdown-menu .text-center h6 {
   color: #ffffff !important;
   font-weight: 600;
-  margin-bottom: 3px !important;
-  font-size: 0.95rem;
+  margin-bottom: 5px !important;
 }
 
 .dropdown-menu .text-center small {
   color: #a0a0a0 !important;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
 }
 
 /* Profile image in dropdown */
 .dropdown-menu .rounded-circle img {
   border: 2px solid rgba(220, 38, 38, 0.3);
   transition: all 0.3s ease;
-  width: 50px !important;
-  height: 50px !important;
 }
 
 .dropdown-menu .rounded-circle img:hover {
@@ -225,7 +219,7 @@
 /* Divider styling */
 .dropdown-divider {
   border-color: rgba(255, 255, 255, 0.1) !important;
-  margin: 8px 0 !important;
+  margin: 10px 0 !important;
 }
 
 /* Container spacing fix */

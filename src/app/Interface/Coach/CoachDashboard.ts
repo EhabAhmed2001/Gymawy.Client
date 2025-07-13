@@ -19,6 +19,7 @@ export interface Trainee {
 }
 export interface TraineeDetails {
   id: number;
+  userName: string;
   firstName: string;
   lastName: string;
   imageUrl: string;

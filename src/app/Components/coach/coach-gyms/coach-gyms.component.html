@@ -1,39 +1,39 @@
-<div class="coach-dashboard mt-5 pt-5">
+<div class="coach-dashboard">
   <div class="container py-4">
-    <!-- Header -->
-    <header class="mb-5">
-      <h1 class="display-5 fw-bold mb-0 text-primary">Available Gyms</h1>
-      <p class="text-muted">Browse and request to join gyms</p>
-    </header>
+    <!-- Centered Header -->
+    <div class="header-container">
+      <h1 class="header-title">Available Gyms</h1>
+      <p class="header-subtitle">Browse and request to join gyms</p>
+    </div>
 
     <!-- Gym Cards Grid -->
     <div *ngIf="_dataShared.gyms.length > 0; else noGyms" class="row g-4">
       <div *ngFor="let gym of _dataShared.gyms" class="col-md-6 col-lg-4">
-        <div class="gym-card card h-100 shadow-sm">
+        <div class="gym-card">
           <div class="card-img-top">
             <img [src]="gym.logo" alt="{{gym.name}} logo" class="gym-logo">
           </div>
           <div class="card-body">
-            <h3 class="card-title fw-bold text-dark">{{gym.name}} - {{gym.gymType}} Gym</h3>
-            <div class="d-flex align-items-center text-secondary mb-2">
+            <h3 class="card-title">{{gym.name}} - {{gym.gymType}} Gym</h3>
+            <p class="card-text">
               <i class="bi bi-geo-alt me-2"></i>
-              <span class="gym-address">{{gym.address.street}}, {{gym.address.city}}, {{gym.address.country}}</span>
-            </div>
-            <div class="d-flex align-items-center text-secondary mb-2">
-              <i class="bi bi-geo-alt me-2"></i>
-              <span class="gym-address">{{gym.description}}</span>
-            </div>
-            <div class="d-flex align-items-center text-secondary mb-2">
-              <i class="bi bi-geo-alt me-2"></i>
-              <span class="gym-address">{{gym.phone}}</span>
-            </div>
+              {{gym.address.street}}, {{gym.address.city}}, {{gym.address.country}}
+            </p>
+            <p class="card-text">
+              <i class="bi bi-info-circle me-2"></i>
+              {{gym.description}}
+            </p>
+            <p class="card-text">
+              <i class="bi bi-telephone me-2"></i>
+              {{gym.phone}}
+            </p>
           </div>
-          <div class="card-footer bg-transparent border-top-0 d-flex flex-column gap-2">
-            <a class="btn btn-outline-primary w-100" routerLink="/gym/{{gym.id}}">
-              View Details <i class="bi bi-arrow-right ms-2"></i>
+          <div class="card-footer">
+            <a class="btn btn-outline-primary w-100 mb-2" routerLink="/gym/{{gym.id}}">
+              View Details <i class="bi bi-arrow-right btn-icon"></i>
             </a>
             <button class="btn btn-primary w-100" (click)="openRequestModal(gym.id)">
-              Request to Join <i class="bi bi-send ms-2"></i>
+              Request to Join <i class="bi bi-send btn-icon"></i>
             </button>
           </div>
         </div>
@@ -41,12 +41,12 @@
     </div>
 
     <ng-template #noGyms>
-      <div class="text-center py-5">
-        <div class="empty-state-icon mb-3">
-          <i class="bi bi-building text-muted"></i>
+      <div class="empty-state">
+        <div class="empty-state-icon">
+          <i class="bi bi-building"></i>
         </div>
-        <h3 class="text-dark">No Gyms Available</h3>
-        <p class="text-muted">Please check back later for available gyms</p>
+        <h3 class="empty-state-title">No Gyms Available</h3>
+        <p class="empty-state-text">Please check back later for available gyms</p>
       </div>
     </ng-template>
   </div>
@@ -64,7 +64,7 @@
         <h6 class="mb-3">Please provide your available working days:</h6>
 
         <div formArrayName="workDayDtos" class="mb-4">
-          <div *ngFor="let day of workDayDtos.controls; let i = index" [formGroupName]="i" class="work-day-card mb-3 p-3 border rounded">
+          <div *ngFor="let day of workDayDtos.controls; let i = index" [formGroupName]="i" class="work-day-card">
             <div class="row g-3">
               <div class="col-md-4">
                 <label class="form-label">Day</label>

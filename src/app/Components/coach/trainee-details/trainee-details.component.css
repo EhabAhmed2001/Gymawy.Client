@@ -1,14 +1,17 @@
 :host {
-  --primary: #4361ee;
-  --secondary: #3f37c9;
-  --accent: #4895ef;
-  --light: #f8f9fa;
-  --dark: #212529;
-  --gray: #6c757d;
-  --light-gray: #e9ecef;
+  --primary: #dc2626;        /* Red accent color */
+  --secondary: #404040;      /* Dark gray for borders */
+  --accent: #dc2626;         /* Consistent red accent */
+  --light: #1a1a1a;          /* Dark background */
+  --dark: #ffffff;           /* White text */
+  --gray: #888;              /* Light gray text */
+  --light-gray: #2d2d2d;     /* Card backgrounds */
   --border-radius: 12px;
-  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Darker shadow */
   --transition: all 0.3s ease;
+  display: block;
+  background-color: var(--light);
+  min-height: 100vh;
 }
 
 /* Loading States */
@@ -19,12 +22,13 @@
   justify-content: center;
   min-height: 400px;
   text-align: center;
+  background-color: var(--light);
 }
 
 .loading-spinner {
   width: 50px;
   height: 50px;
-  border: 4px solid var(--light-gray);
+  border: 4px solid var(--secondary);
   border-top: 4px solid var(--primary);
   border-radius: 50%;
   animation: spin 1s linear infinite;
@@ -32,12 +36,8 @@
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .loading-text {
@@ -55,11 +55,13 @@
   min-height: 400px;
   text-align: center;
   padding: 2rem;
+  background-color: var(--light);
 }
 
 .error-icon {
   font-size: 3rem;
   margin-bottom: 1rem;
+  color: var(--primary);
 }
 
 .error-text {
@@ -81,7 +83,7 @@
 }
 
 .retry-btn:hover {
-  background: var(--secondary);
+  background: #b91c1c; /* Darker red */
   transform: translateY(-2px);
 }
 
@@ -90,9 +92,10 @@
   gap: 2rem;
   padding: 2rem;
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--light) 0%, #ffffff 100%);
+  background-color: var(--light); /* Dark background */
   max-width: 1200px;
   margin: 0 auto;
+  color: var(--dark); /* White text */
 }
 
 /* Left Section - Trainee Info (1/3 width) */
@@ -103,17 +106,17 @@
 }
 
 .trainee-card {
-  background: white;
+  background: var(--light-gray); /* Dark card */
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
   padding: 2rem;
   height: fit-content;
-  border: 1px solid var(--light-gray);
+  border: 1px solid var(--secondary);
   transition: var(--transition);
 }
 
 .trainee-card:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 25px rgba(220, 38, 38, 0.2); /* Red glow */
   transform: translateY(-2px);
 }
 
@@ -129,7 +132,7 @@
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid var(--primary);
-  box-shadow: 0 4px 12px rgba(67, 97, 238, 0.2);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2); /* Red shadow */
   transition: var(--transition);
 }
 
@@ -140,13 +143,10 @@
 .trainee-name {
   font-size: 1.5rem;
   font-weight: 600;
-  color: var(--dark);
+  color: var(--primary); /* Red text */
   text-align: center;
   margin-bottom: 1.5rem;
-  background: linear-gradient(45deg, var(--primary), var(--secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  /* Removed gradient text for better readability */
 }
 
 .detail-item {
@@ -154,9 +154,9 @@
   flex-direction: column;
   margin-bottom: 1rem;
   padding: 0.75rem;
-  background: var(--light);
+  background: var(--light); /* Dark background */
   border-radius: 8px;
-  border-left: 4px solid var(--accent);
+  border-left: 4px solid var(--primary); /* Red accent */
 }
 
 .detail-label {
@@ -169,7 +169,7 @@
 .detail-value {
   font-size: 1rem;
   font-weight: 550;
-  color: var(--dark);
+  color: var(--dark); /* White text */
 }
 
 .detail-value.reason {
@@ -191,13 +191,9 @@
 .actions-title {
   font-size: 1.75rem;
   font-weight: 600;
-  color: var(--dark);
+  color: var(--primary); /* Red text */
   text-align: center;
   margin-bottom: 2rem;
-  background: linear-gradient(45deg, var(--primary), var(--secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .buttons-wrapper {
@@ -221,6 +217,7 @@
   box-shadow: var(--shadow);
   position: relative;
   overflow: hidden;
+  color: white; /* White text */
 }
 
 .action-btn:before {
@@ -244,23 +241,21 @@
 }
 
 .diet-btn {
-  background: linear-gradient(45deg, var(--primary), var(--accent));
-  color: white;
+  background: linear-gradient(45deg, var(--primary), #b91c1c); /* Darker red gradient */
 }
 
 .diet-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(67, 97, 238, 0.3);
+  box-shadow: 0 8px 24px rgba(220, 38, 38, 0.3); /* Red glow */
 }
 
 .exercise-btn {
-  background: linear-gradient(45deg, var(--secondary), var(--primary));
-  color: white;
+  background: linear-gradient(45deg, #b91c1c, var(--primary)); /* Darker red gradient */
 }
 
 .exercise-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(63, 55, 201, 0.3);
+  box-shadow: 0 8px 24px rgba(220, 38, 38, 0.3); /* Red glow */
 }
 
 .action-btn:disabled {
@@ -272,19 +267,22 @@
 .btn-icon {
   width: 24px;
   height: 24px;
+  filter: brightness(0) invert(1); /* Make icons white */
 }
 
 /* Diet Display Styles */
 .diet-display {
-  background: white;
+  background: var(--light-gray); /* Dark card */
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
   padding: 2rem;
   margin-bottom: 2rem;
+  border: 1px solid var(--secondary);
 }
 
 .diet-summary {
   margin-bottom: 2rem;
+  color: var(--dark); /* White text */
 }
 
 .meals-list {
@@ -294,15 +292,15 @@
 .meal-item {
   margin-bottom: 1.5rem;
   padding: 1rem;
-  background: var(--light);
+  background: var(--light); /* Dark background */
   border-radius: 8px;
-  border-left: 4px solid var(--accent);
+  border-left: 4px solid var(--primary); /* Red accent */
 }
 
 .meal-item strong {
   display: block;
   margin-bottom: 0.5rem;
-  color: var(--dark);
+  color: var(--dark); /* White text */
 }
 
 .meal-item p {
@@ -322,15 +320,17 @@
 
 /* Exercise Schedule Display Styles */
 .exercise-schedule-display {
-  background: white;
+  background: var(--light-gray); /* Dark card */
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
   padding: 2rem;
   margin-bottom: 2rem;
+  border: 1px solid var(--secondary);
 }
 
 .schedule-summary {
   margin-bottom: 2rem;
+  color: var(--dark); /* White text */
 }
 
 .exercises-list {
@@ -340,15 +340,15 @@
 .exercise-item {
   margin-bottom: 1.5rem;
   padding: 1rem;
-  background: var(--light);
+  background: var(--light); /* Dark background */
   border-radius: 8px;
-  border-left: 4px solid var(--accent);
+  border-left: 4px solid var(--primary); /* Red accent */
 }
 
 .exercise-item strong {
   display: block;
   margin-bottom: 0.5rem;
-  color: var(--dark);
+  color: var(--dark); /* White text */
 }
 
 .exercise-item p {
@@ -364,6 +364,35 @@
 
 .schedule-actions .action-btn {
   flex: 1;
+}
+
+/* Exercise Item Styles */
+.exercise-content {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.exercise-image-container {
+  flex: 0 0 120px;
+}
+
+.exercise-image {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  aspect-ratio: 1/1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Darker shadow */
+}
+
+.exercise-details {
+  flex: 1;
+}
+
+.exercise-description {
+  margin: 0;
+  color: var(--gray);
+  line-height: 1.5;
 }
 
 /* Responsive Design */
@@ -440,35 +469,6 @@
     padding: 0.875rem;
     font-size: 0.9rem;
   }
-}
-
-/* Exercise Item Styles */
-.exercise-content {
-  display: flex;
-  gap: 1rem;
-  margin-top: 0.5rem;
-}
-
-.exercise-image-container {
-  flex: 0 0 120px;
-}
-
-.exercise-image {
-  width: 100%;
-  border-radius: 8px;
-  object-fit: cover;
-  aspect-ratio: 1/1;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.exercise-details {
-  flex: 1;
-}
-
-.exercise-description {
-  margin: 0;
-  color: var(--gray);
-  line-height: 1.5;
 }
 
 /* Responsive adjustments */
