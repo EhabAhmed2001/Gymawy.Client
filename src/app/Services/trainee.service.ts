@@ -4,7 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { GymClasses, GymFeatures, GymMembership, GymDetails, TraineeCoachDetails, TraineeSubscription, TraineeDiet, TraineeExerciseSchedule } from '../Interface/TraineeGym';
 import { Observable } from 'rxjs/internal/Observable';
 import { PaymentReturn } from '../Interfaces/Payment/PaymentReturn';
-import { Trainee, AssignCoachTrainee } from '../Interface/Trainee';
+import { Trainee,AssignCoachTrainee} from '../Interface/Trainee';
+import { ITraineeInfo } from '../Interfaces/ITraineeInfo';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +14,8 @@ import { Trainee, AssignCoachTrainee } from '../Interface/Trainee';
 export class TraineeService {
 
   private apiUrl = `${environment.apiUrl}/trainee`;
+  private readonly baseUrl:string = environment.apiUrl;
+
   constructor(private httpClient: HttpClient) { }
 
   GetAllGyms(): Observable<GymDetails[]> {
@@ -80,6 +84,7 @@ export class TraineeService {
     );
   }
 
-
-
+getTraineeByUserName(username:string): Observable<ITraineeInfo> {
+  return this.httpClient.get<ITraineeInfo>(`${this.baseUrl}/trainee/${username}`);
+}
 }

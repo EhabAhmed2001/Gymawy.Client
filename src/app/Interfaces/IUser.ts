@@ -3,4 +3,5 @@ export interface IUser{
   token:string;
   photoUrl:string;
   knownAs:string;
+  role:string;
 }

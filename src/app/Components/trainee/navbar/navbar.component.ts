@@ -10,12 +10,11 @@ import { CommonModule } from '@angular/common';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
- constructor(private _Router:Router, public _authService:AuthService) {
+ constructor(public _authService:AuthService) {
 
 
   }
   logout(): void {
     this._authService.logout();
-    this._Router.navigate(['/home']);
   }
 }

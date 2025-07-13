@@ -4,14 +4,17 @@ import { CoachData, TraineeDetails } from '../Interface/Coach/CoachDashboard';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { PendingCoach } from '../Interfaces/Coach';
-import{Coach} from'../Interface/Coach';
-
+import { ISpecializationOption } from '../Interfaces/ISpecializationOption';
+import { ICoachInfo } from '../Interfaces/ICoach';
+import { Coach } from '../Interface/Coach';
 @Injectable({
   providedIn: 'root'
 })
 export class CoachService {
 
   private apiUrl = `${environment.apiUrl}/Coach`;
+  private readonly baseUrl:string = environment.apiUrl;
+
   constructor(private httpClient: HttpClient) {}
 
   GetCoachDashboard(coachId: number): Observable<CoachData> {
@@ -31,4 +34,23 @@ export class CoachService {
     {
       return this.httpClient.get<Coach[]>(`${this.apiUrl}/GetCoachesBygem/${gymid}`);
     }
+
+
+
+
+getCoachByUserName(username:string): Observable<ICoachInfo> {
+  return this.httpClient.get<ICoachInfo>(`${this.baseUrl}/coach/${username}`);
+}
+
+  getSpecializations(): Observable<ISpecializationOption[]> {
+    return this.httpClient.get<ISpecializationOption[]>(`${this.baseUrl}/account/specializations`);
+
+}
+
+
+
+
+
+
+
 }

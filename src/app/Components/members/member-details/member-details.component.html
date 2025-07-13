@@ -9,30 +9,30 @@
         <div class="mb-2" *ngIf="(_presenceService.onlineUsers$ | async)?.includes(member.userName)">
           <i class="class fa fa-user-circle text-success">Online now</i>
         </div>
-        <div>
+        <!-- <div>
           <strong>Location :</strong>
           <p>{{member.city}}, {{member.country}}</p>
-        </div>
-        <div>
+        </div> -->
+        <!-- <div>
           <strong>Age :</strong>
           <p>{{member.age}}</p>
-        </div>
+        </div> -->
         <div>
           <strong>Last active :</strong>
           <p>{{member.lastActive | timeago}}</p>
         </div>
-        <div>
+        <!-- <div>
           <strong>Member since :</strong>
           <p>{{member.created | date : 'dd MMM yyyy'}}</p>
-        </div>
+        </div> -->
       </div>
 
 
       <div class="card-footer">
         <div class="btn-group d-flex">
-          <button class="btn btn-primary me-3">
+          <!-- <button class="btn btn-primary me-3">
             Like
-          </button>
+          </button> -->
           <button (click)="selectTab('Messages')" class="btn btn-primary">
             Messages
           </button>

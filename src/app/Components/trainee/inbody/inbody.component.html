@@ -1,0 +1,15 @@
+<p>inbody works!</p>
+<form (ngSubmit)="submitForm()">
+      <input [(ngModel)]="form.name" name="name" placeholder="Name" />
+      <input [(ngModel)]="form.age" name="age" type="number" placeholder="Age" />
+      <select [(ngModel)]="form.sex" name="sex">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+      <input [(ngModel)]="form.height" name="height" placeholder="Height" />
+      <input [(ngModel)]="form.weight" name="weight" placeholder="Weight" />
+      <textarea [(ngModel)]="form.report" name="report" placeholder="InBody Report"></textarea>
+    </form>
+
+    <button (click)="GOTO()" type="submit">got to inbody </button>
+    <div [innerHTML]="result"></div>

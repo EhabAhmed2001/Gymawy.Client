@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule,
+   ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { IUser } from '../../Interfaces/IUser';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../../Services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../../Services/auth.service';
+import { IUser } from '../../../Interfaces/IUser';
 
 @Component({
   selector: 'app-login',
@@ -47,8 +48,16 @@ Login(loginFormValues:FormGroup):void{
 
     this.isLoading = true;
   this.loginsubscribe =  this._authService.setLogin(loginFormValues.value).subscribe({
-      next:(response:IUser) =>{
+      next:(user:IUser) =>{
+    if(user?.role === 'Coach')
           this._router.navigate(['/trainee-gym']);
+
+  if(user?.role === 'Owner')
+          this._router.navigate(['/gym-owner']);
+
+  if(user?.role === 'Trainee') {
+          this._router.navigate(['/trainee-gym']);
+  }
       },
       error:(error:any)=>{
         console.log(error);

@@ -83,8 +83,7 @@
   <!-- [routerLink]="['/members',coach.userName]" [queryParams]="{tab:'Messages'}" -->
   <!-- [routerLink]="['/members','bob']" [queryParams]="{tab:'Messages'}" -->
   <button
-    [routerLink]="['/members', 'bob']"
-    [queryParams]="{ tab: 'Messages' }"
+    [routerLink]="['/members',coach.userName]" [queryParams]="{tab:'Messages'}"
     class="btn btn-primary rounded-circle position-fixed"
     style="
       bottom: 30px;
@@ -93,8 +92,27 @@
       height: 60px;
       box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
     "
+    title="Start chat "
   >
     <i class="bi bi-chat-dots fs-4"></i>
   </button>
-  }
+
+  <button
+  [routerLink]="['/video-call']"
+  class="btn btn-primary rounded-circle position-fixed"
+  style="
+    bottom: 100px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+  "
+  title="Start Video Call"
+  *ngIf="user.role === 'Coach'"
+>
+  <i class="bi bi-camera-video-fill fs-4"></i>
+</button>
+
+
+}
 </div>
