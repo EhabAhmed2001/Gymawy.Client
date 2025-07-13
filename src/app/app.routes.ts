@@ -99,7 +99,8 @@ export const routes: Routes = [
       {path:'memberships/:id', component:GymMemberShipsComponent , title: "GetMemberShips"},
       {path:'EditMembership/:id', component:EditMembershipComponent , title: "Edit MemberShip"},
       {path:'profile', component:GymOwnerProfileComponent , title: "Owner Profile"},
-      {path:'dashboard/:id', component:GymOwnerDashboardComponent , title: "GymOwner Dashboard"}
+      {path:'dashboard/:id', component:GymOwnerDashboardComponent , title: "GymOwner Dashboard"},
+      {path:'trainess/:id', component:GymTraineesComponent , title: "Trainees"},
     ]},
     {
       path:'admin',component:AdminLayoutComponent,
@@ -138,7 +139,6 @@ export const routes: Routes = [
     {path:'PendingGymDetails/:id', component: GymDetailsAdminComponent, title: "Gym Detail"},
     //{path:'PendingGyms', component: GetPendingGymsComponent, title: "Pending Gyms"}
     {path:'classes/:id', component: ClassesComponent, title: "Classes"},
-    {path:'trainess/:id', component:GymTraineesComponent , title: "Trainees"},
     { path: 'notFound', component: NotFoundComponent, title: "nofound" },
 
 ];

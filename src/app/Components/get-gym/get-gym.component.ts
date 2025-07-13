@@ -94,6 +94,14 @@ export class GetGymComponent implements OnInit ,  AfterViewInit {
     })
   }
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.GymId = +params['id'];
+      this.load();
+    });
+  }
+
+  load()
+  {
     this.gymService.GetGymById(this.GymId).subscribe({
       next:(response) =>{
         this.gym=response
@@ -116,7 +124,6 @@ export class GetGymComponent implements OnInit ,  AfterViewInit {
         console.log(this.gymTypes)
       }
     })
-
   }
 
   get uploadImageControl(): FormControl {
