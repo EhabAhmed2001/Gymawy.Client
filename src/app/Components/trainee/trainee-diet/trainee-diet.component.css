@@ -1,4 +1,6 @@
-/* meal-schedule.component.css */
+.gym-card{
+  border: solid 1px rgba(255, 0, 0, 0.2);
+}
 .timeline {
   position: relative;
   padding-left: 1rem;
@@ -11,7 +13,7 @@
   top: 0;
   bottom: 0;
   width: 2px;
-  background: rgba(67, 97, 238, 0.1);
+  background: rgba(255, 0, 0, 0.1);
 }
 
 .timeline-day {
@@ -35,9 +37,9 @@
   width: 1rem;
   height: 1rem;
   border-radius: 50%;
-  background: #4361ee;
-  border: 3px solid white;
-  box-shadow: 0 0 0 2px #4361ee;
+  background: #ff0000;
+  border: 3px solid #000;
+  box-shadow: 0 0 0 2px #ff0000;
 }
 
 .meal-card {
@@ -45,15 +47,13 @@
   gap: 1rem;
   padding: 1rem;
   margin-bottom: 1rem;
-  background: white;
   border-radius: 0.75rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .meal-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(255, 0, 0, 0.2);
 }
 
 .meal-icon {
@@ -62,9 +62,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(67, 97, 238, 0.1);
+  background: rgba(255, 0, 0, 0.1);
   border-radius: 50%;
-  color: #4361ee;
+  color: #ff6666;
   flex-shrink: 0;
 }
 
@@ -79,22 +79,10 @@
 .meal-type {
   font-size: 1rem;
   margin-bottom: 0.25rem;
-  color: #121826;
-}
-
-.meal-time {
-  font-size: 0.875rem;
-  color: #6c757d;
-}
-
-.meal-description {
-  font-size: 0.875rem;
-  color: #6c757d;
-  margin-bottom: 0;
 }
 
 /* Meal type specific colors */
 .meal-icon .bi-cup-hot { color: #ff9f1c; }
 .meal-icon .bi-egg-fried { color: #2ec4b6; }
-.meal-icon .bi-moon { color: #4361ee; }
+.meal-icon .bi-moon { color: #ff6666; }
 .meal-icon .bi-apple { color: #f72585; }
