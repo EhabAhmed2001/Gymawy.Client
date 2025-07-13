@@ -61,6 +61,9 @@ export class GymOwnerComponent implements OnInit {
     this.gymOwnerService.getOwnerInfo().subscribe({
       next:(data:any) => {
         this.ownerInfo = data;
+        console.log("gymowner")
+                console.log(data)
+
       }
     }
     );
