@@ -159,14 +159,14 @@ export class FeaturesComponent implements OnInit {
             next:(responce)=>{
               this.gymFeatures.push(responce)
               console.log(responce)
-
+           this.reload()              
+            window.location.reload();
             },
             error:(erro)=>{
               console.log(erro)
             }
           })
           this.closeDialog();
-           this.reload()              
 
 
       }
@@ -174,13 +174,15 @@ export class FeaturesComponent implements OnInit {
               formData.append('featureId', this.featureForm.get('name')?.value)
               this.gymService.AddNonExGymFeature(this.gymId,formData).subscribe({
               next:()=>{
+                  this.reload()  
+                  window.location.reload();            
+
               },
               error:(erro)=>{
                 console.log(erro)
               }
             })
             this.closeDialog();
-                          this.reload()              
 
 
       }     
@@ -198,13 +200,15 @@ export class FeaturesComponent implements OnInit {
            const idx= this.gymFeatures.findIndex(gf=>responce.id==gf.id)
            if(idx!=-1)
             this.gymFeatures[idx] = responce
+           this.reload()    
+           window.location.reload();          
+
         },
         error:(erro)=>{
           console.log(erro)
         }
         })
         this.closeDialog();
-        this.reload()              
 
 
     }

@@ -94,9 +94,10 @@ export class GymOwnerComponent implements OnInit {
         this.router.navigate([`gym-owner/createmembership/${gymId}`]);
     } else if (currentUrl.includes('/memberships/')) {
         this.router.navigate([`gym-owner/memberships/${gymId}`]);
-    } else if (currentUrl.includes('/dashboard/')) {
-        this.router.navigate([`gym-owner/dashboard/${gymId}`]);
-    } else if (currentUrl.includes('/trainess/')) {
+    }// else if (currentUrl.includes('/dashboard/')) {
+       // this.router.navigate([`gym-owner/dashboard/${gymId}`]);
+    //} 
+    else if (currentUrl.includes('/trainess/')) {
         this.router.navigate([`gym-owner/trainess/${gymId}`]);
     } else {
         // Default fallback

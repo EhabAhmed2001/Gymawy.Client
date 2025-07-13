@@ -74,10 +74,12 @@ export class GymOwnerDashboardComponent implements OnInit, OnDestroy, AfterViewI
   ) {}
 
   ngOnInit(): void {
-    this.router.params.subscribe(params => {
-      this.GymOwner = +params['id'];
+          this.GymOwner = +this.router.snapshot.params['id'];
       this.loadAllGymsData(this.GymOwner);
-    });
+    // this.router.params.subscribe(params => {
+    //   this.GymOwner = +params['id'];
+    //   this.loadAllGymsData(this.GymOwner);
+    // });
   }
 
   ngAfterViewInit(): void {
