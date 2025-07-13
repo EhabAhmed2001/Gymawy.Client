@@ -16,8 +16,9 @@ export class GymPendingCoachComponent implements OnInit {
   constructor(private coachService:CoachService , private route:ActivatedRoute,private httpclient:HttpClient){
     this.gymId = Number( route.snapshot.paramMap.get('gymId'))
   }
-  ngOnInit(): void {
-   
+
+   load()
+  {
     this.coachService.GetGymPendingCoachs(this.gymId).subscribe({
       next:(responce)=>{
         console.log(responce)
@@ -28,6 +29,14 @@ export class GymPendingCoachComponent implements OnInit {
       }
     })
   }
+  
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.gymId = +params['gymId'];
+      this.load();
+    });
+  }
+
   downloadPdf(){
     console.log("pdf")
       const pdfUrl = 'https://res.cloudinary.com/dkepejnr7/raw/upload/v1752330303/GymGym/moaxwmyzuwt2lo9ipwim.pdf';

@@ -5,6 +5,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { GymBasicInfo } from '../../Interface/GymBasicInfo';
 import { CommonModule } from '@angular/common';
 import { GymOwnerInfo } from '../../Interface/GymOwnerInfo';
+import { AuthService } from '../../Services/auth.service';
 
 @Component({
   selector: 'app-gym-owner',
@@ -28,10 +29,15 @@ export class GymOwnerComponent implements OnInit {
   constructor(
     private gymOwnerService: GymOwnerService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public _authService:AuthService
   ) {
     this.ownerId = route.snapshot.paramMap.get('id')!;
   }
+
+   logout(): void {
+        this._authService.logout();
+      }
 
   ngOnInit(): void {
     console.log("enter");
@@ -61,6 +67,9 @@ export class GymOwnerComponent implements OnInit {
     this.gymOwnerService.getOwnerInfo().subscribe({
       next:(data:any) => {
         this.ownerInfo = data;
+        console.log("gymowner")
+                console.log(data)
+
       }
     }
     );
@@ -68,21 +77,34 @@ export class GymOwnerComponent implements OnInit {
 
   selectGym(gymId: number): void {
     this.selectedGymId = gymId;
-
     const currentUrl = this.router.url;
 
-    // Extract the feature part from the URL (e.g., 'class' from '/gym-owner/1/gym/1/class')
-    const urlParts = currentUrl.split('/');
-    const feature = urlParts[urlParts.length - 1]; // gets the last part
-   // if(feature=="")
-    this.router.navigate([`/gym-owner/gym/${gymId}/${feature}`]);
-  }
+    // Handle different route patterns
+    if (currentUrl.includes('/gym/')) {
+        // For routes like /gym/:gymId/class or /gym/:gymId/class/:classId/trainees
+        const newUrl = currentUrl.replace(/\/gym\/\d+/, `/gym/${gymId}`);
+        this.router.navigateByUrl(newUrl);
+    } else if (currentUrl.includes('/gymDetail/')) {
+        this.router.navigate([`gym-owner/gymDetail/${gymId}`]);
+    } else if (currentUrl.includes('/features/')) {
+        this.router.navigate([`gym-owner/features/${gymId}`]);
+    } else if (currentUrl.includes('/GymPendingCoach/')) {
+        this.router.navigate([`gym-owner/GymPendingCoach/${gymId}`]);
+    } else if (currentUrl.includes('/createmembership/')) {
+        this.router.navigate([`gym-owner/createmembership/${gymId}`]);
+    } else if (currentUrl.includes('/memberships/')) {
+        this.router.navigate([`gym-owner/memberships/${gymId}`]);
+    } else if (currentUrl.includes('/dashboard/')) {
+        this.router.navigate([`gym-owner/dashboard/${gymId}`]);
+    } else if (currentUrl.includes('/trainess/')) {
+        this.router.navigate([`gym-owner/trainess/${gymId}`]);
+    } else {
+        // Default fallback
+        this.router.navigate([`/gym/${gymId}/class`]);
+    }
+}
 
   toggleProfileDropdown(): void {
     this.showProfileDropdown = !this.showProfileDropdown;
-  }
-
-  logout(): void {
-    console.log('Logging out...');
   }
 }

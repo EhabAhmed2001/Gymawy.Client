@@ -30,9 +30,10 @@ constructor(private gymserv:GymService,private router:ActivatedRoute,private rou
 )
 {}
  ngOnInit(): void {
-    this.gymId = +this.router.snapshot.paramMap.get('id')!;
-    this.displayMemberships(this.gymId);
-
+   this.router.params.subscribe(params => {
+      this.gymId = +params['id'];
+      this.displayMemberships(this.gymId);
+    });
   }
 
   getModifiedUrl(): string {

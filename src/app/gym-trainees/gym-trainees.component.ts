@@ -34,9 +34,11 @@ errorMessage:string=''
   constructor(private coachserv:CoachService,private traineeserv:TraineeService,private router:ActivatedRoute,private routerNav: Router){} 
 
  ngOnInit(): void {
-    this.gymId = +this.router.snapshot.paramMap.get('id')!;
-    this.getCoaches(this.gymId);
+   this.router.params.subscribe(params => {
+      this.gymId = +params['id'];
+       this.getCoaches(this.gymId);
     this.getTrainees(this.gymId);
+    });
     
   }
 

@@ -119,8 +119,10 @@ export class MembershipComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.gymId = +this.router.snapshot.paramMap.get('id')!;
-    this.getFeatures();
+    this.router.params.subscribe(params => {
+      this.gymId = +params['id'];
+      this.getFeatures();
+    });
   }
 
   getFeatures() {
