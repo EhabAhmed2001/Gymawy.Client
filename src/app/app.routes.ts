@@ -39,7 +39,6 @@ import { GymTraineesComponent } from './gym-trainees/gym-trainees.component';
 import { TraineeExercisesComponent } from './Components/trainee/trainee-exercises/trainee-exercises.component';
 import { TraineeDietComponent } from './Components/trainee/trainee-diet/trainee-diet.component';
 
-import { GymOwnerProfileComponent } from './Components/gym-owner-profile/gym-owner-profile.component';
 
 
 import { WelcomeAsComponent } from './Components/Auth/welcome-as/welcome-as.component';
@@ -49,6 +48,7 @@ import { RegisterAsGymOwnerComponent } from './Components/Auth/register-as-gym-o
 import { RoomComponent } from './Components/coach/room/room.component';
 import { InbodyComponent } from './Components/trainee/inbody/inbody.component';
 import { GymOwnerProfileComponent } from './Components/gym-owner-profile/gym-owner-profile.component';
+import { GymOwnerDashboardComponent } from './gym-owner-dashboard/gym-owner-dashboard.component';
 
 
 
@@ -70,8 +70,8 @@ export const routes: Routes = [
         { path: 'member/edit',canDeactivate:[preventUnsavedChangesGuard],component: MemberEditComponent, title: "Edit Member" },
         { path: 'notFound', component: NotFoundComponent, title: "nofound" },
         { path: 'home', component: HomeComponent, title: "home" },
-      {path:'room/:roomId', component:RoomComponent, title:'room'},
-      {path:'inbody', component:InbodyComponent, title:'Inbody Analyzer'},
+        {path:'room/:roomId', component:RoomComponent, title:'room'},
+        {path:'inbody', component:InbodyComponent, title:'Inbody Analyzer'},
       ]
     },
 
@@ -116,7 +116,7 @@ export const routes: Routes = [
     {path:'admin/dashboard', component:AdminDashboardComponent, title: "Admin Dashboard"},
     {path:'PendingGymDetails/:id', component: GymDetailsAdminComponent, title: "Gym Detail"},
     //{path:'PendingGyms', component: GetPendingGymsComponent, title: "Pending Gyms"}
-{path:'classes/:id', component: ClassesComponent, title: "Classes"},
+    {path:'classes/:id', component: ClassesComponent, title: "Classes"},
     {path:'trainess/:id', component:GymTraineesComponent , title: "Trainees"},
     { path: 'notFound', component: NotFoundComponent, title: "nofound" },
 
