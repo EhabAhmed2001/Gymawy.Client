@@ -1,129 +1,142 @@
-<div style="background-color: #1A252F;">
-    <div class="container py-4">
-        <h4 class="text-center mb-2">
-            <strong class="text-white">💪 InBody Fitness Analyzer</strong>
-        </h4>
+<div class="dashboard-container">
+    <!-- Header Section -->
+    <div class="header-section">
+        <div class="container">
+            <h4>
+                <strong>💪 InBody Fitness Analyzer</strong>
+            </h4>
+            <p>
+                Enter your InBody data to receive a personalized analysis, training plan, nutrition guide, and full fitness
+                regime.
+            </p>
+        </div>
+    </div>
 
-        <p class="text-center mb-4 text-white">
-            Enter your InBody data to receive a personalized analysis, training plan, nutrition guide, and full fitness
-            regime.
-        </p>
-
-
+    <!-- Main Content -->
+    <div class="container py-5">
         <div class="row g-4">
             <!-- LEFT: Input Form -->
             <div class="col-lg-5">
-                <div class="bg-white p-4 rounded shadow-sm">
+                <div class="form-container">
                     <form #form="ngForm" (ngSubmit)="submitForm()" novalidate>
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">Name</label>
+                            <label class="form-label">Name</label>
                             <input type="text" class="form-control" [(ngModel)]="fitnessForm.name" name="name" required
-                                #name="ngModel" />
-                            <small class="text-danger" *ngIf="submitted && name.invalid">Name is required.</small>
+                                #name="ngModel" placeholder="Enter your name" />
+                            <div class="text-danger" *ngIf="submitted && name.invalid">Name is required.</div>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">Age</label>
+                            <label class="form-label">Age</label>
                             <input type="number" class="form-control" [(ngModel)]="fitnessForm.age" name="age" required
-                                #age="ngModel" />
-                            <small class="text-danger" *ngIf="submitted && age.invalid">Age is required.</small>
+                                #age="ngModel" placeholder="Enter your age" />
+                            <div class="text-danger" *ngIf="submitted && age.invalid">Age is required.</div>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label fw-semibold d-block">Gender</label>
-                            <div class="btn-group" role="group">
+                            <label class="form-label d-block">Gender</label>
+                            <div class="btn-group w-100" role="group">
                                 <input type="radio" class="btn-check" name="gender" value="Male"
                                     [(ngModel)]="fitnessForm.gender" required id="male" #gender="ngModel" />
-                                <label class="btn btn-outline-primary male-btn" for="male">Male</label>
+                                <label class="btn male-btn" for="male">
+                                    <i class="fas fa-male me-2"></i>Male
+                                </label>
 
                                 <input type="radio" class="btn-check" name="gender" value="Female"
                                     [(ngModel)]="fitnessForm.gender" required id="female" />
-                                <label class="btn btn-outline-success female-btn" for="female">Female</label>
+                                <label class="btn female-btn" for="female">
+                                    <i class="fas fa-female me-2"></i>Female
+                                </label>
                             </div>
-                            <br />
-                            <small class="text-danger" *ngIf="submitted && gender.invalid">Gender is required.</small>
+                            <div class="text-danger mt-2" *ngIf="submitted && gender.invalid">Gender is required.</div>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">Height (e.g., 170 cm)</label>
+                            <label class="form-label">Height (cm)</label>
                             <input type="number" class="form-control" [(ngModel)]="fitnessForm.height" name="height"
-                                required #height="ngModel" />
-                            <small class="text-danger" *ngIf="submitted && height.invalid">Height is required.</small>
+                                required #height="ngModel" placeholder="e.g., 170" />
+                            <div class="text-danger" *ngIf="submitted && height.invalid">Height is required.</div>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label fw-semibold">Weight (e.g., 73 kg)</label>
+                            <label class="form-label">Weight (kg)</label>
                             <input type="number" class="form-control" [(ngModel)]="fitnessForm.weight" name="weight"
-                                required #weight="ngModel" />
-                            <small class="text-danger" *ngIf="submitted && weight.invalid">Weight is required.</small>
+                                required #weight="ngModel" placeholder="e.g., 73" />
+                            <div class="text-danger" *ngIf="submitted && weight.invalid">Weight is required.</div>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">InBody Report</label>
+                        <div class="mb-4">
+                            <label class="form-label">InBody Report</label>
                             <textarea rows="4" class="form-control" [(ngModel)]="fitnessForm.inbodyReport"
-                                name="inbodyReport" required #inbodyReport="ngModel"></textarea>
-                            <small class="text-danger" *ngIf="submitted && inbodyReport.invalid">InBody Report is
-                                required.</small>
+                                name="inbodyReport" required #inbodyReport="ngModel"
+                                placeholder="Enter your complete InBody report data..."></textarea>
+                            <div class="text-danger" *ngIf="submitted && inbodyReport.invalid">InBody Report is required.</div>
                         </div>
 
                         <div class="d-flex justify-content-between">
-                            <button class="btn btn-dark px-4" type="button" (click)="clear()">Clear All</button>
+                            <button class="btn btn-dark px-4" type="button" (click)="clear()">
+                                <i class="fas fa-eraser me-2"></i>Clear All
+                            </button>
 
                             <button class="btn btn-warning px-4" [disabled]="form.invalid" type="submit">
-                                Submit <i class="fa-solid fa-paper-plane ms-2"></i>
+                                <i class="fas fa-paper-plane me-2"></i>Submit
                             </button>
                         </div>
                     </form>
-
                 </div>
             </div>
 
-
             <!-- RIGHT: Analysis Result -->
             <div class="col-lg-7">
-                <div class="bg-secondary text-white rounded shadow-sm py-3 mb-3 parent">
-                    <h6 class="mb-3 fw-bold fs-4 px-3">Personal Informatoin</h6>
-                    <ul class="list-unstyled small px-3">
-                        <li><strong>Name:</strong> {{ fitnessForm.name }}</li>
-                        <li><strong>Age:</strong> {{ fitnessForm.age }}</li>
-                        <li><strong>Gender:</strong> {{ fitnessForm.gender }}</li>
-                        <li><strong>Height:</strong> {{ fitnessForm.height }} cm</li>
-                        <li><strong>Weight:</strong> {{ fitnessForm.weight }} kg</li>
+                <div class="info-panel py-4 mb-3 parent">
+                    <h6 class="mb-3 px-3">
+                        <i class="fas fa-user-circle me-2"></i>Personal Information
+                    </h6>
+                    <ul class="list-unstyled px-3">
+                        <li><strong>Name:</strong> {{ fitnessForm.name || 'Not provided' }}</li>
+                        <li><strong>Age:</strong> {{ fitnessForm.age || 'Not provided' }}</li>
+                        <li><strong>Gender:</strong> {{ fitnessForm.gender || 'Not provided' }}</li>
+                        <li><strong>Height:</strong> {{ fitnessForm.height ? fitnessForm.height + ' cm' : 'Not provided' }}</li>
+                        <li><strong>Weight:</strong> {{ fitnessForm.weight ? fitnessForm.weight + ' kg' : 'Not provided' }}</li>
                     </ul>
 
-                    <hr>
+                    <hr style="border-color: rgba(255, 255, 255, 0.1);">
 
                     <div class="child px-3" #chatContainer>
-
                         @for (msg of messages(); track msg) {
-                        @if (msg.role === 'user') {
-                        <div class="d-flex justify-content-end">
-                            <pre class="text-white py-2 px-4 my-2 rounded-4 request">{{ msg.content }}</pre>
-                        </div>
-                        } @else {
-                        <div class="d-flex justify-content-start">
-                            <markdown class="text-white py-2 px-4 my-1 rounded-4 response" [data]="msg.content">
-                            </markdown>
-                        </div>
-                        }
+                            @if (msg.role === 'user') {
+                                <div class="d-flex justify-content-end">
+                                    <pre class="py-2 px-4 my-2 rounded-4 request">{{ msg.content }}</pre>
+                                </div>
+                            } @else {
+                                <div class="d-flex justify-content-start">
+                                    <markdown class="py-2 px-4 my-1 rounded-4 response" [data]="msg.content">
+                                    </markdown>
+                                </div>
+                            }
                         }
 
                         @if (loading) {
-                        <p class="text-white py-2 px-4 mb-3 rounded-4 response">
-                            <i class="fa-solid fa-spinner fa-spin me-2"></i> Typing...
-                        </p>
+                            <div class="d-flex justify-content-start">
+                                <div class="py-2 px-4 mb-3 rounded-4 response loading-indicator">
+                                    <i class="fas fa-spinner fa-spin me-2"></i> Analyzing your data...
+                                </div>
+                            </div>
                         }
-
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-center align-items-center">
-                    <textarea name="msg" rows="2" class="w-75 form-control d-inline" placeholder="Ask me anything..."
-                        [(ngModel)]="userMsg" (keydown)="onKeyDown($event)"></textarea>
+                <!-- Chat Input -->
+                <div class="d-flex align-items-center">
+                    <div class="chat-input-container flex-grow-1 me-3">
+                        <textarea name="msg" rows="2" class="form-control"
+                            placeholder="Ask me anything about your fitness results..."
+                            [(ngModel)]="userMsg" (keydown)="onKeyDown($event)"></textarea>
+                    </div>
 
-                    <a class="btn btn-warning mx-3 px-3" (click)="sendMsg(userMsg)">
-                        <i class="fa-solid fa-paper-plane pe-2"></i>Send
-                    </a>
+                    <button class="btn btn-warning px-4" (click)="sendMsg(userMsg)" [disabled]="!userMsg.trim()">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
                 </div>
             </div>
         </div>

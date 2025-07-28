@@ -92,9 +92,6 @@ export class ClassesComponent implements OnInit {
       next: (data: Coach[]) => {
         this.gymCoaches = data;
         this.loading = false;
-      },
-      error: (err) => {
-        this.handleError(err, 'Failed to load coaches');
       }
     });
   }

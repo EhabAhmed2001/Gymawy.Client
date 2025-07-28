@@ -8,8 +8,10 @@ gym-owner.component.html
       <li class="nav-item"><a routerLink="memberships/{{selectedGymId}}" routerLinkActive="active">Memberships</a></li>
       <li class="nav-item"><a routerLink="features/{{selectedGymId}}" routerLinkActive="active">Features</a></li>
       <li class="nav-item"><a routerLink="gym/{{selectedGymId}}/class" routerLinkActive="active">Classes</a></li>
+      <li class="nav-item"><a routerLink="trainess/{{selectedGymId}}" routerLinkActive="active">Trainees</a></li>
       <li class="nav-item"><a routerLink="GymPendingCoach/{{selectedGymId}}" routerLinkActive="active">Pending Coaches</a></li>
       <li class="nav-item"><a routerLink="profile" routerLinkActive="active" (click)="loadOwnerInfo()">My Profile</a></li>
+      <li class="nav-item"><a routerLinkActive="active" (click)="logout()">Logout</a></li>
     </ul>
   </nav>
 
