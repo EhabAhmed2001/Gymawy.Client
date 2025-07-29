@@ -45,7 +45,7 @@
   <div class="col-8">
     <div>
       <tabset class="member-tabset" #memberTaps>
-        <tab heading="About {{member. knownAs}}" (selectTab)="onTabActivated($event)">
+        <!-- <tab heading="About {{member. knownAs}}" (selectTab)="onTabActivated($event)">
           <h4>Description</h4>
           <p>{{member.introduction}}</p>
           <h4>Looking for</h4>
@@ -54,7 +54,7 @@
         <tab heading="Interests" (selectTab)="onTabActivated($event)">
           <h4>Interests</h4>
           <p>{{member.interests}}</p>
-        </tab>
+        </tab> -->
         <tab heading="Photos" (selectTab)="onTabActivated($event)">
           <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
         </tab>

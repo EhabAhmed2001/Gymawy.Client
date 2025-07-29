@@ -1,12 +1,11 @@
-<app-navbar></app-navbar>
 
-<div class="filter-container">
+<div class="filter-container mt-0">
   <div class="btn-group" role="group" aria-label="Filter options">
     <!-- All Option -->
     <input type="radio" class="btn-check" name="filterOption" id="all"
            autocomplete="off" [checked]="selectedOption === 'all'"
            (change)="onFilterChange('all')">
-    <label class="btn btn-outline-primary" for="all">
+    <label class="btn btn-outline-red" for="all">
       <i class="bi bi-grid me-2"></i>All
     </label>
 
@@ -14,7 +13,7 @@
     <input type="radio" class="btn-check" name="filterOption" id="gyms"
            autocomplete="off" [checked]="selectedOption === 'gyms'"
            (change)="onFilterChange('gyms')">
-    <label class="btn btn-outline-primary" for="gyms">
+    <label class="btn btn-outline-red" for="gyms">
       <i class="bi bi-building me-2"></i>Gyms
     </label>
 
@@ -22,26 +21,26 @@
     <input type="radio" class="btn-check" name="filterOption" id="classes"
            autocomplete="off" [checked]="selectedOption === 'classes'"
            (change)="onFilterChange('classes')">
-    <label class="btn btn-outline-primary" for="classes">
+    <label class="btn btn-outline-red" for="classes">
       <i class="bi bi-people me-2"></i>Classes
     </label>
   </div>
 
   <div class="content-container">
     <!-- Show both when 'all' is selected -->
-     @if(selectedOption === 'all') {
-    <div >
-      <app-all-gyms></app-all-gyms>
-      <div class="mt-4"></div> <!-- Add spacing between components -->
-      <app-all-classes></app-all-classes>
-    </div>
-  }
+    @if(selectedOption === 'all') {
+      <div>
+        <app-all-gyms></app-all-gyms>
+        <div class="mt-4"></div> <!-- Add spacing between components -->
+        <app-all-classes></app-all-classes>
+      </div>
+    }
 
-     @if(selectedOption === 'gyms') {
-    <app-all-gyms ></app-all-gyms>
-     }
+    @if(selectedOption === 'gyms') {
+      <app-all-gyms></app-all-gyms>
+    }
     @if(selectedOption === 'classes') {
-    <app-all-classes></app-all-classes>
+      <app-all-classes></app-all-classes>
     }
   </div>
 </div>

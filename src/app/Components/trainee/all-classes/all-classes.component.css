@@ -1,31 +1,24 @@
 /* trainee-dashboard.component.css */
 .trainee-dashboard {
-  background-color: #f5f5f5;
+  background-color: #000000; /* Pure black background */
   min-height: 100vh;
 }
 
-.gym-card {
+.class-card {
   border-radius: 12px;
   overflow: hidden;
-  transition: transform 0.3s ease;
-  border: none;
-  background-color: #ffffff;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 0, 0, 0.3) !important;
+  background-color: rgba(20, 20, 20, 0.9) !important;
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-.gym-card:hover {
+.class-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08) !important;
-}
-
-.gym-logo {
-  height: 180px;
-  width: 100%;
-  object-fit: contain;
-  padding: 20px;
-  background-color: #f9f9f9;
+  box-shadow: 0 6px 12px rgba(255, 0, 0, 0.2) !important;
+  border-color: rgba(255, 0, 0, 0.5) !important;
 }
 
 .card-body {
@@ -35,10 +28,43 @@
 
 .empty-state-icon {
   font-size: 4rem;
-  color: #e0e0e0;
+  color: rgba(255, 0, 0, 0.3);
 }
 
-.btn-outline-primary {
-  border-width: 2px;
+/* Custom Text Colors */
+.text-white {
+  color: #ffffff !important;
+}
+
+.text-red-light {
+  color: #ff6666 !important;
+}
+
+/* Custom Button Style */
+.btn-outline-red {
+  border: 2px solid #ff0000 !important;
+  color: #ff0000 !important;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-red:hover {
+  background-color: #ff0000 !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+}
+
+/* Custom Border */
+.border-top-red {
+  border-top: 1px solid rgba(255, 0, 0, 0.3) !important;
+}
+
+/* Icon Colors */
+.bi {
+  color: #ff0000 !important;
+}
+
+/* Capacity Indicator */
+.class-capacity {
   font-weight: 500;
 }

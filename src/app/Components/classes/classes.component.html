@@ -9,7 +9,7 @@
 
 <!-- Create Class Button -->
 <div class="mb-3 mx-2">
-  <button class="btn btn-primary" (click)="openCreateModal()">
+  <button class="btn" style="background-color: #dc2626;" (click)="openCreateModal()">
     <i class="bi bi-plus"></i> Add New Class
   </button>
 </div>
@@ -40,17 +40,17 @@
           <td>{{ c.coachName }}</td>
           <td>
             <div class="action-buttons">
-              <button class="btn btn-info btn-sm" (click)="openViewModal(c)">
-                <i class="bi bi-eye"></i> View
+              <button class="btn btn-dark btn-sm" (click)="openViewModal(c)">
+                <i class="bi bi-eye"></i>
               </button>
-              <button class="btn btn-primary btn-sm" (click)="openEditModal(c)">
-                <i class="bi bi-pencil"></i> Edit
+              <button class="btn btn-outline-dark btn-sm" (click)="openEditModal(c)">
+                <i class="bi bi-pencil"></i>
               </button>
-              <button class="btn btn-danger btn-sm" (click)="openDeleteModal(c)">
-                <i class="bi bi-trash"></i> Delete
+              <button class="btn btn-outline-danger btn-sm" (click)="openDeleteModal(c)">
+                <i class="bi bi-trash"></i>
               </button>
               <a routerLink="{{c.id}}/trainees" class="btn btn-secondary btn-sm" style="text-decoration:none;">
-                Trainees
+                T
               </a>
             </div>
           </td>
@@ -66,30 +66,30 @@
   <div class="modal-wrapper">
     <div class="modal">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header bg-dark text-white">
           <h5 class="modal-title">Class Details: {{ selectedClass.name }}</h5>
-          <button type="button" class="btn-close" (click)="closeViewModal()"></button>
+          <button type="button" class="btn-close btn-close-white" (click)="closeViewModal()"></button>
         </div>
         <div class="modal-body">
           <div class="class-details-container">
             <div class="class-main-info">
               <div class="class-header">
                 <h3 class="class-name">{{ selectedClass.name }}</h3>
-                <div class="class-price-badge">
+                <div class="class-price-badge bg-danger">
                   {{ selectedClass.cost | currency }}
                 </div>
               </div>
-              <p class="class-coach">
+              <p class="class-coach text-muted">
                 Managed by {{ selectedClass.coachName }}
               </p>
               <div class="class-description">
-                <h5>Description</h5>
+                <h5 class="text-danger">Description</h5>
                 <p>{{ selectedClass.description || 'No description provided' }}</p>
               </div>
             </div>
             <div class="class-meta-info">
               <div class="class-schedule">
-                <h5><i class="bi bi-calendar-event"></i> Schedule</h5>
+                <h5 class="text-danger"><i class="bi bi-calendar-event"></i> Schedule</h5>
                 <p>
                   <i class="bi bi-clock"></i>
                   {{selectedClass.date | date: 'fullDate'}} at
@@ -97,7 +97,7 @@
                 </p>
               </div>
               <div class="class-capacity">
-                <h5><i class="bi bi-people"></i> Capacity</h5>
+                <h5 class="text-danger"><i class="bi bi-people"></i> Capacity</h5>
                 <div class="capacity-progress-container">
                   <div class="capacity-stats">
                     <span class="current-capacity">
@@ -113,9 +113,7 @@
                   <div class="progress">
                     <div class="progress-bar"
                         [style.width.%]="(selectedClass.currentCapacity / selectedClass.capacity) * 100"
-                        [class.bg-success]="(selectedClass.currentCapacity / selectedClass.capacity) < 0.7"
-                        [class.bg-warning]="(selectedClass.currentCapacity / selectedClass.capacity) >= 0.7 && (selectedClass.currentCapacity / selectedClass.capacity) < 0.9"
-                        [class.bg-danger]="(selectedClass.currentCapacity / selectedClass.capacity) >= 0.9">
+                        [class.bg-danger]="true">
                       {{ ((selectedClass.currentCapacity / selectedClass.capacity) * 100) | number:'1.0-0' }}%
                     </div>
                   </div>
@@ -124,8 +122,8 @@
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="closeViewModal()">
+        <div class="modal-footer bg-light">
+          <button type="button" class="btn btn-dark" (click)="closeViewModal()">
             <i class="bi bi-check-circle"></i> OK
           </button>
         </div>
@@ -140,9 +138,9 @@
   <div class="modal-wrapper">
     <div class="modal">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header bg-dark text-white">
           <h5 class="modal-title">Create New Class</h5>
-          <button type="button" class="btn-close" (click)="closeCreateModal()"></button>
+          <button type="button" class="btn-close btn-close-white" (click)="closeCreateModal()"></button>
         </div>
         <form (ngSubmit)="createClass(createForm)" #createForm="ngForm">
           <div class="modal-body">
@@ -174,7 +172,7 @@
               <div class="form-section">
               <label for="classCost" class="form-label required-field">Cost</label>
               <div class="input-group" style="display: flex; align-items: center;">
-                <span class="input-group-text">$</span>
+                <span class="input-group-text bg-dark text-white">$</span>
                 <input type="number" class="form-control" id="classCost"
                       [(ngModel)]="newClass.cost" name="cost" min="0" step="1" required
                       #cost="ngModel"
@@ -242,15 +240,15 @@
             <div class="alert alert-danger mx-3">{{ errorMessage }}</div>
           }
 
-          <div class="modal-footer">
-            <div class="required-fields-note">
+          <div class="modal-footer bg-light">
+            <div class="required-fields-note text-muted">
               <span class="required-asterisk">*</span> indicates required fields
             </div>
             <div class="modal-footer-buttons">
-              <button type="button" class="btn btn-outline-secondary" (click)="closeCreateModal()">
+              <button type="button" class="btn btn-outline-dark" (click)="closeCreateModal()">
                 <i class="bi bi-x-circle"></i> Cancel
               </button>
-              <button type="submit" class="btn btn-primary" [disabled]="creating || createForm.invalid">
+              <button type="submit" class="btn btn-danger" [disabled]="creating || createForm.invalid">
                 @if(creating) {
                   <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
                   <span role="status">Creating...</span>
@@ -272,9 +270,9 @@
   <div class="modal-wrapper">
     <div class="modal">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header bg-dark text-white">
           <h5 class="modal-title">Edit Class: {{ selectedClass.name }}</h5>
-          <button type="button" class="btn-close" (click)="closeEditModal()"></button>
+          <button type="button" class="btn-close btn-close-white" (click)="closeEditModal()"></button>
         </div>
         <form (ngSubmit)="updateClass(editForm)" #editForm="ngForm">
           <div class="modal-body">
@@ -309,7 +307,7 @@
               <label class="form-label required-field">Cost</label>
               <div class="d-flex align-items-start gap-3">
                 <div class="input-group" style="flex: 1;">
-                  <span class="input-group-text">$</span>
+                  <span class="input-group-text bg-dark text-white">$</span>
                   <input type="number" class="form-control" [(ngModel)]="updatedClass.cost" name="cost" min="0" step="0.01"
                         #editCost="ngModel"
                         [class.invalid-field]="editCost.invalid && (editCost.dirty || editCost.touched)">
@@ -370,15 +368,15 @@
               </div>
             </div>
           </div>
-          <div class="modal-footer">
-            <div class="required-fields-note">
+          <div class="modal-footer bg-light">
+            <div class="required-fields-note text-muted">
               <span class="required-asterisk">*</span> indicates required fields
             </div>
             <div class="modal-footer-buttons">
-              <button type="button" class="btn btn-outline-secondary" (click)="closeEditModal()">
+              <button type="button" class="btn btn-outline-dark" (click)="closeEditModal()">
                 <i class="bi bi-x-circle"></i> Cancel
               </button>
-              <button type="submit" class="btn btn-primary" [disabled]="saving || editForm.invalid">
+              <button type="submit" class="btn btn-danger" [disabled]="saving || editForm.invalid">
                 @if(saving) {
                   <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
                   <span role="status">Saving...</span>
@@ -400,9 +398,9 @@
   <div class="modal-wrapper">
     <div class="modal">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header bg-dark text-white">
           <h5 class="modal-title">Confirm Delete</h5>
-          <button type="button" class="btn-close" (click)="closeDeleteModal()"></button>
+          <button type="button" class="btn-close btn-close-white" (click)="closeDeleteModal()"></button>
         </div>
         <div class="modal-body">
           @if(errorMessage) {
@@ -412,7 +410,7 @@
             <p>Are you sure you want to delete the class <strong>"{{ selectedClass.name }}"</strong>?</p>
             <p class="text-danger">This action cannot be undone.</p>
             <div class="class-details-preview">
-              <small class="text-muted">
+              <small class="">
                 <strong>Coach:</strong> {{ selectedClass.coachName }}<br>
                 <strong>Current Trainees:</strong> {{ selectedClass.currentCapacity }}/{{ selectedClass.capacity }}<br>
                 <strong>Date:</strong> {{ selectedClass.date | date: 'yyyy-MM-dd hh:mm a' }}
@@ -420,8 +418,8 @@
             </div>
           }
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="closeDeleteModal()">Cancel</button>
+        <div class="modal-footer bg-light">
+          <button type="button" class="btn btn-outline-dark" (click)="closeDeleteModal()">Cancel</button>
           <button type="button" class="btn btn-danger" (click)="deleteClass()" [disabled]="deleting">
             @if(deleting) {
               <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>

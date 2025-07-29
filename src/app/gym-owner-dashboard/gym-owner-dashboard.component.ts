@@ -35,17 +35,17 @@ Chart.register(
 @Component({
   selector: 'app-gym-owner-dashboard',
   standalone: true,
-  imports: [CommonModule], 
+  imports: [CommonModule],
   templateUrl: './gym-owner-dashboard.component.html',
   styleUrls: ['./gym-owner-dashboard.component.css']
 })
 export class GymOwnerDashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   GymOwner: number = 1;
   errorMessage = '';
-  
+
   public allGymsData: GymownerData[] = [];
   public allGymsMemberships: GymOwnerMembership[] = [];
-  
+
   private overviewChart: Chart | null = null;
   private membershipChart: Chart | null = null;
   private comparisonChart: Chart | null = null;
@@ -74,10 +74,12 @@ export class GymOwnerDashboardComponent implements OnInit, OnDestroy, AfterViewI
   ) {}
 
   ngOnInit(): void {
-    this.router.params.subscribe(params => {
-      this.GymOwner = +params['id'];
+          this.GymOwner = +this.router.snapshot.params['id'];
       this.loadAllGymsData(this.GymOwner);
-    });
+    // this.router.params.subscribe(params => {
+    //   this.GymOwner = +params['id'];
+    //   this.loadAllGymsData(this.GymOwner);
+    // });
   }
 
   ngAfterViewInit(): void {
@@ -143,7 +145,7 @@ export class GymOwnerDashboardComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     const gymNames = this.allGymsData.map(gym => gym.name);
-    
+
     this.overviewChart = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -339,7 +341,7 @@ export class GymOwnerDashboardComponent implements OnInit, OnDestroy, AfterViewI
       acc.classes += gym.classesCount;
       return acc;
     }, { trainees: 0, coaches: 0, classes: 0 });
-    
+
     this.comparisonChart = new Chart(ctx, {
       type: 'pie',
       data: {

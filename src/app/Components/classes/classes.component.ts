@@ -190,6 +190,8 @@ export class ClassesComponent implements OnInit {
         if (index !== -1) this.GymClasses[index] = updatedClass;
         this.closeEditModal();
         this.saving = false;
+                window.location.reload();
+
       },
       error: (err) => {
         this.handleError(err, 'Failed to update class');

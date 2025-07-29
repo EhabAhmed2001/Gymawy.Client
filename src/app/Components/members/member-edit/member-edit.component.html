@@ -81,7 +81,7 @@
 
 
 
-<div class="row" *ngIf="member && coach">
+<div class="row gap-4" *ngIf="member && coach">
 
     <div>
       <h1>Your Profile</h1>
@@ -112,37 +112,32 @@
 
 
 
-  <div class="col-8">
-    <div>
-      <tabset class="member-tabset">
+  <div class="col-7">
+    <div class="card">
+      <tabset class="member-tabset ">
         <tab heading="About {{coach.userName}}">
-          <form #editForm="ngForm" id="editForm" (ngSubmit)="UpdateMember()">
+          <div class="card-body">
 
-            <h4 class="mt-2">First Name:</h4>
-            <p class="form-control">{{ coach.firstName }}</p>
-
-            <h4 class="mt-2">Last Name:</h4>
-            <p class="form-control">{{ coach.lastName }}</p>
-
-
-
-            <h4 class="mt-2">Known As:</h4>
-            <p class="form-control">{{ coach.userName }}</p>
-
-
-            <h4 class="mt-2">Specializations</h4>
-
-            <p class="form-control">{{ coach.specializations }}</p>
-            <h4 class="mt-2">Location Details: </h4>
-            <div class="d-flex flex-row align-items-center">
-
-              <label for="city">City: </label>
-              <input disabled type="text" [(ngModel)]="coach.address.city" name="city" class="form-control mx-2">
-
-              <label for="country">Country: </label>
-              <input disabled type="text" [(ngModel)]="coach.address.country" name="country" class="form-control mx-2" />
+            <div>
+            <strong class="mt-2">First Name:</strong>
+            <p class="">{{ coach.firstName }}</p>
             </div>
-          </form>
+
+            <div>
+            <strong class="">Last Name:</strong>
+            <p class="">{{ coach.lastName }}</p>
+            </div>
+
+            <div>
+            <strong class="">Known As:</strong>
+            <p class="">{{ coach.userName }}</p>
+            </div>
+
+            <div>
+            <strong class="">Specializations</strong>
+            <p class="">{{ coach.specializations }}</p>
+            </div>
+          </div>
         </tab>
         <tab heading="Edit Photos">
           <app-photo-editor [member]="member"></app-photo-editor>

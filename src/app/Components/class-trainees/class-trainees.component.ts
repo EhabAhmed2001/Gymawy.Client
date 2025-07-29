@@ -14,14 +14,14 @@ import { FormsModule, NgForm } from '@angular/forms';
 })
 export class ClassTraineesComponent implements OnInit {
   public selectedClass: Class = {
-      id: 0,
-      name: '',
-      description: '',
-      cost: 0,
-      currentCapacity: 0,
-      capacity: 0,
-      date: new Date(),
-      coachName: ''
+    id: 0,
+    name: '',
+    description: '',
+    cost: 0,
+    currentCapacity: 0,
+    capacity: 0,
+    date: new Date(),
+    coachName: ''
   };
   public Trainees: Trainee[] = [];
   public notJoinedTrainees: Trainee[] = [];
@@ -54,8 +54,7 @@ export class ClassTraineesComponent implements OnInit {
     this.loadNotJoinedTrainees();
   }
 
-  loadClass():void
-  {
+  loadClass(): void {
     this.loading = true;
     this.errorMessage = null;
     this.classService.getClassById(this.classId).subscribe({
@@ -64,7 +63,7 @@ export class ClassTraineesComponent implements OnInit {
         this.loading = false;
       },
       error: (err) => {
-        this.handleError(err, 'Failed to load class trainees');
+        this.handleError(err, 'Failed to load class details');
       }
     });
   }
@@ -136,6 +135,7 @@ export class ClassTraineesComponent implements OnInit {
       },
       error: (err) => {
         this.handleError(err, 'Failed to add trainee to class');
+        this.adding = false;
       }
     });
   }
@@ -155,6 +155,7 @@ export class ClassTraineesComponent implements OnInit {
       },
       error: (err) => {
         this.handleError(err, 'Failed to remove trainee from class');
+        this.removing = false;
       }
     });
   }
